@@ -5,6 +5,9 @@
     "front",
     "back"
   ],
+  "overrides": {
+    "tailwindcss": "3.4.17"
+  },
   "scripts": {
     "dev": "npm --workspace front run dev",
     "build": "npm --workspace front run build",

@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function Header() {
   const [compact, setCompact] = useState(false);
+  const [invert, setInvert] = useState(false);
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [catalogRender, setCatalogRender] = useState(false);
   const [catalogClosing, setCatalogClosing] = useState(false);
@@ -20,14 +21,41 @@ export function Header() {
   const barRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    function isDarkUnderHeader() {
+      if (window.scrollY <= 8) return false;
+      if (compact) return false;
+
+      const headerEl = barRef.current;
+      const y = Math.max(1, Math.round((headerEl?.getBoundingClientRect().height ?? 64) / 2));
+      const x = Math.round(window.innerWidth / 2);
+      const stack = document.elementsFromPoint(x, y);
+
+      for (const el of stack) {
+        let cur: HTMLElement | null = el as HTMLElement;
+        while (cur) {
+          if (cur.id === "top") return true;
+          if (cur.classList?.contains("kr-dark-section")) return true;
+          if (cur.classList?.contains("kr-bw-section")) return true;
+          cur = cur.parentElement;
+        }
+      }
+
+      return false;
+    }
+
     function onScroll() {
       setCompact(window.scrollY > 24);
+      setInvert(isDarkUnderHeader());
     }
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [compact]);
 
   useEffect(() => {
     if (!catalogOpen) return;
@@ -117,7 +145,9 @@ export function Header() {
               <div className="flex min-w-0 items-center gap-4">
                 <Link
                   href="#top"
-                  className="shrink-0 text-sm font-semibold tracking-wide text-[color:var(--fg)] transition hover:opacity-80"
+                  className={`shrink-0 text-sm font-semibold tracking-wide transition hover:opacity-80 ${
+                    invert ? "text-white" : "text-[color:var(--fg)]"
+                  }`}
                   aria-label="Наверх"
                 >
                   {BRAND.name}
@@ -143,9 +173,11 @@ export function Header() {
                       >
                         <Link
                           href={l.href}
-                          className={`group inline-flex items-center rounded-xl px-3 py-2 text-sm text-[color:var(--muted)] transition hover:text-[color:var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] ${
-                            isCatalog ? "" : ""
-                          }`}
+                          className={`group inline-flex items-center rounded-xl px-3 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] ${
+                            invert
+                              ? "text-white/80 hover:text-white"
+                              : "text-[color:var(--muted)] hover:text-[color:var(--fg)]"
+                          } ${isCatalog ? "" : ""}`}
                         >
                           <span className="relative">
                             {l.label}
@@ -161,7 +193,9 @@ export function Header() {
               <div className="flex flex-nowrap items-center gap-2">
                 <a
                   href={CONTACTS.phoneHref}
-                  className="hidden shrink-0 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium text-[color:var(--fg)] hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:hover:bg-white/10 sm:inline-flex"
+                  className={`hidden shrink-0 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-medium hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:hover:bg-white/10 sm:inline-flex ${
+                    invert ? "text-white hover:bg-white/10" : "text-[color:var(--fg)]"
+                  }`}
                   aria-label={`Позвонить: ${CONTACTS.phoneDisplay}`}
                 >
                   {CONTACTS.phoneDisplay}
@@ -169,7 +203,11 @@ export function Header() {
 
               <a
                 href={`mailto:${CONTACTS.email}`}
-                className="hidden shrink-0 whitespace-nowrap rounded-xl px-3 py-2 text-sm text-[color:var(--muted)] hover:bg-black/5 hover:text-[color:var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:hover:bg-white/10 lg:inline-flex"
+                className={`hidden shrink-0 whitespace-nowrap rounded-xl px-3 py-2 text-sm hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:hover:bg-white/10 lg:inline-flex ${
+                  invert
+                    ? "text-white/85 hover:bg-white/10 hover:text-white"
+                    : "text-[color:var(--muted)] hover:text-[color:var(--fg)]"
+                }`}
                 aria-label={`Написать: ${CONTACTS.email}`}
               >
                 {CONTACTS.email}
