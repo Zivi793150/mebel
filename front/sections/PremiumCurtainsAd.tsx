@@ -257,7 +257,7 @@ export function PremiumCurtainsAd() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0b0b0b] text-[#f7f7f7]"
+      className="relative kr-header-invert bg-[#0b0b0b] text-[#f7f7f7]"
       style={{ height: `${(n + 1) * 100}vh` }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">

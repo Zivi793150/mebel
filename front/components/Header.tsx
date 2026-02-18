@@ -36,6 +36,7 @@ export function Header() {
           if (cur.id === "top") return true;
           if (cur.classList?.contains("kr-dark-section")) return true;
           if (cur.classList?.contains("kr-bw-section")) return true;
+          if (cur.classList?.contains("kr-header-invert")) return true;
           cur = cur.parentElement;
         }
       }

@@ -172,7 +172,7 @@ export function WorkOrder() {
     <section
       ref={sectionRef}
       aria-label="Порядок работы"
-      className="relative"
+      className="relative kr-header-invert"
       style={{ height: totalHeight }}
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
