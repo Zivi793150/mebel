@@ -18,13 +18,6 @@
   --panel-dark-fg: #f6f1eb;
 }
 
-@theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--fg);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 html[data-theme="dark"] {
   --bg: #0e1116;
   --fg: #eef2f7;
