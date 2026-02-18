@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# next.js (workspace: front)
+/front/.next/
+/front/out/
+
 # production
 /build
 
