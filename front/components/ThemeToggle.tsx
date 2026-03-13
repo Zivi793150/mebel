@@ -9,20 +9,24 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light";
+    const saved = window.localStorage.getItem("theme");
+    return saved === "dark" || saved === "light" ? saved : "light";
+  });
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("theme");
-    const initial: Theme = saved === "dark" || saved === "light" ? saved : "light";
-    setTheme(initial);
-    applyTheme(initial);
-  }, []);
+    applyTheme(theme);
+    try {
+      window.localStorage.setItem("theme", theme);
+    } catch {
+      // ignore
+    }
+  }, [theme]);
 
   function toggle() {
     const next: Theme = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    applyTheme(next);
-    window.localStorage.setItem("theme", next);
   }
 
   return (

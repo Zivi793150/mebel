@@ -1,0 +1,1045 @@
+{
+  "generatedAt": "2026-02-23T12:13:30.990Z",
+  "docs": [
+    {
+      "source": "koenigroom.ru",
+      "kind": "catalog",
+      "slug": "dekorativnye_karnizy",
+      "subcategories": [
+        {
+          "index": 0,
+          "slug": "scaglioni",
+          "thumb_url": null
+        },
+        {
+          "index": 1,
+          "slug": "winart",
+          "thumb_url": null
+        },
+        {
+          "index": 2,
+          "slug": "windeco",
+          "thumb_url": null
+        }
+      ],
+      "items": []
+    },
+    {
+      "source": "koenigroom.ru",
+      "kind": "catalog",
+      "slug": "scaglioni",
+      "items": [
+        {
+          "index": 0,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{A6C9DAE9-E937-6BC4-73C5-C012980C3EB6}.jpg"
+        },
+        {
+          "index": 1,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E6360C3A-F75D-BB46-35F1-DE335A9B87BC}.jpg"
+        },
+        {
+          "index": 2,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{EF972B14-7CE8-1F53-92F3-CB0304B6FBB8}.jpg"
+        },
+        {
+          "index": 3,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{A9D97B84-CBAA-7F34-DB49-9C35A662816E}.jpg"
+        },
+        {
+          "index": 4,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{353B82DF-29A5-A9A7-C39F-18A63CBEA001}.jpg"
+        },
+        {
+          "index": 5,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{0907EA9B-F903-B508-98F9-6655423F4479}.jpg"
+        },
+        {
+          "index": 6,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DF32FAE6-657E-2396-3958-686081AD68AE}.jpg"
+        },
+        {
+          "index": 7,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{FD919504-BA42-48B8-5BB3-24BC44FA12CD}.jpg"
+        },
+        {
+          "index": 8,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DE09E2BF-3219-DE62-01DA-24B33BEABF21}.jpg"
+        },
+        {
+          "index": 9,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DE249367-7E36-39FE-4EB5-C27992587312}.jpg"
+        },
+        {
+          "index": 10,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{3C96F72E-1F9C-60A9-8F8E-B4AA14449CD7}.jpg"
+        },
+        {
+          "index": 11,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{06060BE7-191D-DD20-6070-F51A27216C09}.jpg"
+        },
+        {
+          "index": 12,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{CB88D630-9687-12FA-5569-44E595EBA374}.jpg"
+        },
+        {
+          "index": 13,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{47895E50-D126-52C0-0B13-E7360C79DD62}.jpg"
+        },
+        {
+          "index": 14,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{7CDDAF9E-0A9A-8154-ECCB-92A08ADCE64E}.jpg"
+        },
+        {
+          "index": 15,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{FBBC0BF1-8D3F-08FE-1A05-714576E75BEA}.jpg"
+        },
+        {
+          "index": 16,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{21144F9E-0E67-2C2D-3883-77ECBCA1E893}.jpg"
+        },
+        {
+          "index": 17,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{15706257-ED43-2B44-1FC2-C6D0461A9CC3}.jpg"
+        },
+        {
+          "index": 18,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{1BF97712-D7B9-5CA7-5FA5-5C0C75894F58}.jpg"
+        },
+        {
+          "index": 19,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{313D5120-AC4E-8558-7CAF-54095B45EDA2}.jpg"
+        },
+        {
+          "index": 20,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{C99C7A76-E783-9215-12CF-F11C8AA88331}.jpg"
+        },
+        {
+          "index": 21,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{AF90D2B1-1415-0E39-FF81-BBA98BCE51E4}.jpg"
+        },
+        {
+          "index": 22,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{B7C3409C-5916-193C-09B5-3FFE5F836F7E}.jpg"
+        },
+        {
+          "index": 23,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{CCBEFE91-0AEA-4CB5-B6BE-AD7AF5B1D14F}.jpg"
+        },
+        {
+          "index": 24,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{0400E19D-69C2-74EF-B19A-892DAC41C944}.jpg"
+        },
+        {
+          "index": 25,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{BFE541F1-C362-B475-7601-C827A4C250DA}.jpg"
+        },
+        {
+          "index": 26,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{25A52638-C47D-5F8A-7DD5-300C748BAB12}.jpg"
+        },
+        {
+          "index": 27,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{53DE85B1-1288-4632-6DD0-393A2D3E3860}.jpg"
+        },
+        {
+          "index": 28,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{4D003B39-82F4-E48A-3D4E-77ED343144B9}.jpg"
+        },
+        {
+          "index": 29,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{0DFEF3B2-0515-ED24-5E49-0261483874E1}.jpg"
+        },
+        {
+          "index": 30,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{D05C93A5-CA2E-7AD5-B60C-211C5A3A9A01}.jpg"
+        },
+        {
+          "index": 31,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{854D0ED6-F697-218D-CF99-290E1A3B02E2}.jpg"
+        },
+        {
+          "index": 32,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{EA47EF55-BE4B-2409-D6CF-F88830EE25F4}.jpg"
+        },
+        {
+          "index": 33,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{D89C57B5-3897-F88D-4D6C-28E4987D25D7}.jpg"
+        },
+        {
+          "index": 34,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{8E5D46FA-C8B4-67C9-7846-D9EBC4036BCD}.jpg"
+        },
+        {
+          "index": 35,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DF8C00CB-6DCF-2E5B-D8FB-60039309CC99}.jpg"
+        },
+        {
+          "index": 36,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{B44A5D98-4CE4-00C7-C2D3-7FC586F880DA}.jpg"
+        },
+        {
+          "index": 37,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9CC02DFF-317F-3B06-9E3C-AE92481BDE96}.jpg"
+        },
+        {
+          "index": 38,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{130A3E76-297F-8777-58F4-C710CD682B30}.jpg"
+        },
+        {
+          "index": 39,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{40126228-6623-4FF0-CEE7-101BFEB03246}.jpg"
+        },
+        {
+          "index": 40,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{6AAF8700-B5FD-6B42-9D33-A78E3F9F3BCC}.jpg"
+        },
+        {
+          "index": 41,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{69F4D2D1-2227-D2D1-D8F8-815C2061A3EF}.jpg"
+        },
+        {
+          "index": 42,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{23795329-ECDB-A0CA-2F3D-17881A90EBBA}.jpg"
+        },
+        {
+          "index": 43,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{3EBF9D87-2938-BA67-98A4-4F3B5F3ECEA5}.jpg"
+        },
+        {
+          "index": 44,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{9B60C03F-A055-7625-953C-23A431B922A8}.jpg"
+        },
+        {
+          "index": 45,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4FD595DF-BB84-D79F-6806-E81525AB1F24}.jpg"
+        },
+        {
+          "index": 46,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{2EDB7CD0-8063-2F69-D96D-74B91B4E3849}.jpg"
+        },
+        {
+          "index": 47,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{6BDABB8F-CF81-C0AD-4D23-4545402A9EDE}.jpg"
+        },
+        {
+          "index": 48,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{F4BBB0CD-E97A-8E0B-9608-E906014FD68F}.jpg"
+        },
+        {
+          "index": 49,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{651564E3-89AC-3CDD-74FB-AA48B9B7244F}.jpg"
+        },
+        {
+          "index": 50,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{D66131D0-B078-CC77-D272-98C4947A8CE7}.jpg"
+        },
+        {
+          "index": 51,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{907F14F8-C0E7-699A-FF82-5892ED0F2D53}.jpg"
+        },
+        {
+          "index": 52,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{3EA9C053-8B6D-127E-A039-658E416D8507}.jpg"
+        },
+        {
+          "index": 53,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{0A125546-80E5-A635-082A-06FA160CA057}.jpg"
+        },
+        {
+          "index": 54,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{0325DE32-4A9E-F4FE-DB25-9CFDB65EE88C}.jpg"
+        },
+        {
+          "index": 55,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{8BA9B778-9748-B1EA-1342-34FD06B3921F}.jpg"
+        },
+        {
+          "index": 56,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{DC1FE34A-DFBA-B11F-68B5-4F3EA7A983C7}.jpg"
+        },
+        {
+          "index": 57,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{2770BAC4-DAF4-45D1-FB19-490DCE72812F}.jpg"
+        },
+        {
+          "index": 58,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{30271CE2-DCA8-454D-4374-923B36A19C1B}.jpg"
+        },
+        {
+          "index": 59,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{50193AE3-A778-1195-C7B8-95C30B4C2E86}.jpg"
+        },
+        {
+          "index": 60,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{D330DB02-91CE-C867-EB3C-975B9521ED87}.jpg"
+        },
+        {
+          "index": 61,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{45DE61B8-5592-BB87-B540-BB1BCE3F30E6}.jpg"
+        },
+        {
+          "index": 62,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{E521716F-90FF-66BE-644A-E05469A21483}.jpg"
+        },
+        {
+          "index": 63,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{9267BE92-D057-63CF-2445-7CB65E6633F9}.jpg"
+        },
+        {
+          "index": 64,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{9AD5ACFC-E902-F877-0A41-F0DE9522CB52}.jpg"
+        },
+        {
+          "index": 65,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{CF2D7262-B7F3-AD2F-04DC-BDFBBEEB54A6}.jpg"
+        },
+        {
+          "index": 66,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{6B235665-4273-9D0C-66F8-64AA1DD4D154}.jpg"
+        },
+        {
+          "index": 67,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{B3652F5F-4904-77C0-FD8B-6126AC153422}.jpg"
+        },
+        {
+          "index": 68,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{EDD3D8C1-0B8F-2DF7-2C1C-1EFE544BFE61}.jpg"
+        },
+        {
+          "index": 69,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{25B9BDB0-5A43-A14F-D2E5-10AFFDE64A58}.jpg"
+        },
+        {
+          "index": 70,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{8E3C639E-5AA8-3FE4-3712-58402CFE463B}.jpg"
+        },
+        {
+          "index": 71,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{943204C3-F9EE-56AA-B956-2C51F2AD2111}.jpg"
+        },
+        {
+          "index": 72,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{D2E13C6A-8F2B-797A-3376-A64758E7C7F3}.jpg"
+        },
+        {
+          "index": 73,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{F11F7227-CDB1-E9A2-C721-56CE6AF027DE}.jpg"
+        },
+        {
+          "index": 74,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{62C29E9E-FCB1-432B-1118-61907262C447}.jpg"
+        },
+        {
+          "index": 75,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4445BA47-02D1-C6B9-B064-F22B85A948BC}.jpg"
+        },
+        {
+          "index": 76,
+          "large_url": "https://metrika.1site.eu/counter.php"
+        }
+      ]
+    },
+    {
+      "source": "koenigroom.ru",
+      "kind": "catalog",
+      "slug": "winart",
+      "items": [
+        {
+          "index": 0,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{B7F9EBD8-B75A-25DC-B66B-19E67F98E5A3}.png"
+        },
+        {
+          "index": 1,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{5887462F-26E8-5A4E-515E-8AAFCD4A11F0}.png"
+        },
+        {
+          "index": 2,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{FE5FB615-2C66-86AF-8BA2-A13E6B775AE2}.png"
+        },
+        {
+          "index": 3,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{10D2B458-57B3-D716-C285-CF3969547FDE}.png"
+        },
+        {
+          "index": 4,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{D0D14943-8D8A-7D00-DD47-9682F2422360}.png"
+        },
+        {
+          "index": 5,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9EE3210C-C57C-CF50-496A-D00A1B14448F}.png"
+        },
+        {
+          "index": 6,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{0844606C-05F3-4B3C-4C2D-28A1FCBBF3A5}.png"
+        },
+        {
+          "index": 7,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{C9FDB69B-24F4-425B-5C6D-82C488AF3DAC}.png"
+        },
+        {
+          "index": 8,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{4D5D8DB4-28CB-1F28-6F97-D036EC8830C5}.png"
+        },
+        {
+          "index": 9,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{A3A97331-F667-2A98-4748-F8E254090740}.png"
+        },
+        {
+          "index": 10,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{7E38D339-BEAD-2F49-99C9-10448C3E0EFF}.png"
+        },
+        {
+          "index": 11,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{61272636-AE97-0AC6-6898-BEF08581CFCF}.png"
+        },
+        {
+          "index": 12,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{B91A2796-B3EF-4685-1E18-B488DA1EBBC4}.png"
+        },
+        {
+          "index": 13,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{5B558BAE-99B0-908A-70DC-4B1B0F463A60}.png"
+        },
+        {
+          "index": 14,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9B16AB11-139F-EA17-26FC-20C86BDDF8D2}.png"
+        },
+        {
+          "index": 15,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{4A54E6A0-959B-C982-1198-5CD966B9A6D6}.png"
+        },
+        {
+          "index": 16,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9582B582-47E2-226B-8795-A4FBA453CDA2}.png"
+        },
+        {
+          "index": 17,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{F0893620-58F4-6876-CA2E-457F7B1F01C1}.png"
+        },
+        {
+          "index": 18,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DC9770BF-B478-7295-CA87-A6810C777090}.png"
+        },
+        {
+          "index": 19,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{472445FD-2FC4-6450-D573-2EB41D27C7E5}.png"
+        },
+        {
+          "index": 20,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{A1C5BAEA-24A8-7E0D-E1CF-9122FD66CF9A}.png"
+        },
+        {
+          "index": 21,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{04653CB5-0E5D-0BEE-3E08-1D762B44765F}.png"
+        },
+        {
+          "index": 22,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{FADE3854-3524-3FB8-1C47-60079C87E0E3}.png"
+        },
+        {
+          "index": 23,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E7DFC220-F8C3-43F8-5CC9-15754B005BC0}.png"
+        },
+        {
+          "index": 24,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E6400E0C-67DE-6890-1D4A-AA979412659B}.png"
+        },
+        {
+          "index": 25,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{151FD3AA-D24E-2183-C119-EDA56A8276D7}.png"
+        },
+        {
+          "index": 26,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{552CA933-47BC-0FB1-8B5F-C87086A9D4F4}.png"
+        },
+        {
+          "index": 27,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9A114681-A25A-E1A2-728F-549C89E264C3}.png"
+        },
+        {
+          "index": 28,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{4B9B2ED6-1E5F-911B-CE75-4232403BF6DE}.png"
+        },
+        {
+          "index": 29,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{2DC1EE79-CF95-FB49-5D52-C5BA30A20E4D}.png"
+        },
+        {
+          "index": 30,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{387C7837-1562-5921-AEC9-296CAD293EE3}.png"
+        },
+        {
+          "index": 31,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{B7C40A89-ACD3-748B-8B97-107DCE2DFEBB}.png"
+        },
+        {
+          "index": 32,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{42776E64-75C3-29F2-2599-4BB67D15F152}.png"
+        },
+        {
+          "index": 33,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{55B2BE0E-610B-1995-8626-FC918500EC97}.png"
+        },
+        {
+          "index": 34,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{EDF28ED6-2E5F-0ACE-E1A7-125A60119C32}.png"
+        },
+        {
+          "index": 35,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{96B88AB3-0A5A-1661-1F7C-F154A94525EC}.png"
+        },
+        {
+          "index": 36,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{121AD66C-A648-87A1-B346-4E9ECA7BBDB0}.png"
+        },
+        {
+          "index": 37,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DEE32CE0-B07F-079B-F165-8CF579F1E553}.png"
+        },
+        {
+          "index": 38,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{5E353F2D-A33C-9DFC-CCDD-BE1E9BB75B20}.png"
+        },
+        {
+          "index": 39,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{7C654A7F-6279-F4AA-9851-0FB7DFDF1010}.png"
+        },
+        {
+          "index": 40,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{0F3671E3-F3DF-C375-2A7A-2AF1024DBD3A}.png"
+        },
+        {
+          "index": 41,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{D6A62F0B-8014-194D-4E53-58124E439E76}.png"
+        },
+        {
+          "index": 42,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{514276B8-ED34-AB8C-E135-07AA8501CE10}.png"
+        },
+        {
+          "index": 43,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{44C39887-64D9-8295-063C-82CB7E667791}.png"
+        },
+        {
+          "index": 44,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{D63D4593-971C-E223-5A3B-753852C9AE93}.png"
+        },
+        {
+          "index": 45,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{DDC086C0-EBC3-1609-89BB-BB4D1BB88A22}.png"
+        },
+        {
+          "index": 46,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{45BA7720-632B-CD43-2353-31D287354561}.png"
+        },
+        {
+          "index": 47,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E51D768B-1997-7ECB-E0BF-26F15729C155}.png"
+        },
+        {
+          "index": 48,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{D317DF4C-5B18-67B0-2E1D-37ECBD628080}.png"
+        },
+        {
+          "index": 49,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{34483E1F-6A2B-9082-A036-74120B6B5C71}.png"
+        },
+        {
+          "index": 50,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9609CAAE-F55D-06BD-0229-1298D40D00F2}.png"
+        },
+        {
+          "index": 51,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{848A84B3-7C6D-D098-8FDE-9B8BD544EE53}.png"
+        },
+        {
+          "index": 52,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E10E99B4-097F-EE65-4030-902A2B9CFAD8}.png"
+        },
+        {
+          "index": 53,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{32853746-BEA4-BFE9-DC3C-615322C54B4E}.png"
+        },
+        {
+          "index": 54,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{601A7E91-F74F-FFDE-D1F2-C52DC17E08E3}.png"
+        },
+        {
+          "index": 55,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{BD8FB5BB-3543-BD4A-E063-0E2D35D31DAB}.png"
+        },
+        {
+          "index": 56,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{CF212510-D855-6C43-C225-7C6EFE7FA64D}.png"
+        },
+        {
+          "index": 57,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{FD40F41F-9F5D-EFBD-F9AD-707F48EB4F99}.png"
+        },
+        {
+          "index": 58,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{CFA3B683-D642-AE4C-DDC5-F797EA424F95}.png"
+        },
+        {
+          "index": 59,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{933B0B04-2A55-444E-059E-8B383794DD62}.png"
+        },
+        {
+          "index": 60,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{242AAD79-BCE9-7EFE-060F-DFE146034393}.png"
+        },
+        {
+          "index": 61,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{25DC76C1-538B-C0B9-75AB-F36D894552A9}.png"
+        },
+        {
+          "index": 62,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4E14226F-FCBB-3CF2-23E2-771A23AC4FF1}.png"
+        },
+        {
+          "index": 63,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{3DE49A17-EF9E-1CCA-B6E4-9C5F0578298A}.png"
+        },
+        {
+          "index": 64,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{93C2C0C6-493D-1D28-07AC-51F1515CB567}.png"
+        },
+        {
+          "index": 65,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4CE55788-BD8B-C547-F57B-1D7D97D82F92}.png"
+        },
+        {
+          "index": 66,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{DA14D93E-3559-EA7C-916E-A78C8D500D2A}.png"
+        },
+        {
+          "index": 67,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{B5249A7E-C297-3C9E-BB15-E67A5EFD5D58}.png"
+        },
+        {
+          "index": 68,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{28DEFFF0-0EF4-B595-4F69-4EDA45D3C8F5}.png"
+        },
+        {
+          "index": 69,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{11EA7A3B-DA35-D232-F80E-97444D4E5735}.png"
+        },
+        {
+          "index": 70,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{F41BABCC-97B9-CAFB-46A8-D45E2711EA8A}.png"
+        },
+        {
+          "index": 71,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{29FBAC5A-B61F-1901-56F8-61D3F99E1EA4}.png"
+        },
+        {
+          "index": 72,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{027B1DEC-4AA8-B646-B5BC-94E2094D7973}.png"
+        },
+        {
+          "index": 73,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{C4F089F5-F1F2-AF23-6825-A8C8CF3CA6CA}.png"
+        },
+        {
+          "index": 74,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{791D2FC7-3F0F-A6A1-888A-8B6A48897779}.png"
+        },
+        {
+          "index": 75,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{DF76B4F6-628F-6B0B-C9F1-CB2D6736BDA2}.png"
+        },
+        {
+          "index": 76,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{21736E26-093D-D521-925D-D49B24B3A1C1}.png"
+        },
+        {
+          "index": 77,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{E5AE9493-7152-D6C7-CFE9-6356FDE22A4B}.png"
+        },
+        {
+          "index": 78,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{9BB926EA-B000-AA07-F667-54F5BE36AC1D}.png"
+        },
+        {
+          "index": 79,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{7812AA2F-4604-5F71-FC96-19FC46776AE2}.png"
+        },
+        {
+          "index": 80,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{AD235F6E-EC2C-2CE5-F06C-0A60A7690C87}.png"
+        },
+        {
+          "index": 81,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{2FF26DE2-622D-3330-2023-37BF7C44ABC6}.png"
+        },
+        {
+          "index": 82,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{191E354F-524A-692F-FFFE-43937E75F436}.png"
+        },
+        {
+          "index": 83,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{A5E60F1E-6571-90DE-B689-2B3A41472791}.png"
+        },
+        {
+          "index": 84,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{79D06DFD-1373-D8E9-7B53-D0FFDE5A4311}.png"
+        },
+        {
+          "index": 85,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{C92AEB7B-44EA-193C-F163-5ACA6D510F1D}.png"
+        },
+        {
+          "index": 86,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{18462294-45C1-821A-499F-B63C9E3103F0}.png"
+        },
+        {
+          "index": 87,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{07322A70-EB41-65DD-B24E-AD61E05644EF}.png"
+        },
+        {
+          "index": 88,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{3517994E-C4BF-E2D6-2B6C-57A48E3636BA}.png"
+        },
+        {
+          "index": 89,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{85A69804-7F29-3BC7-74FC-773C600126CC}.png"
+        },
+        {
+          "index": 90,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{B68EF715-5E51-A74D-7E6D-C10A292FAC16}.png"
+        },
+        {
+          "index": 91,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{E68B78BE-4E61-9ADB-7F90-D6B47F7FD0E3}.png"
+        },
+        {
+          "index": 92,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{1252B526-8C7F-5EF7-23BB-5D559538EE1F}.png"
+        },
+        {
+          "index": 93,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{2B1637AE-F62E-5333-3BC5-A97B0E7EAB47}.png"
+        },
+        {
+          "index": 94,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4ABC5D2E-4AB8-FB01-AF15-9930D4A10279}.png"
+        },
+        {
+          "index": 95,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4FBDD660-6245-A0B0-8CB5-FFCAA18E1CEA}.png"
+        },
+        {
+          "index": 96,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{0A5A824E-3251-9194-9028-FCE8F5613DFB}.png"
+        },
+        {
+          "index": 97,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{887F5E26-578C-78FA-1ABA-F8EF719F25B9}.png"
+        },
+        {
+          "index": 98,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{7E62028F-D7E0-03A0-6BD5-ECCC9C637FA9}.png"
+        },
+        {
+          "index": 99,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{613A8FAD-5906-D51D-B7DE-365B8012AF09}.png"
+        },
+        {
+          "index": 100,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{21671323-636F-4BC7-54DA-2F8A43A1518E}.png"
+        },
+        {
+          "index": 101,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{31932813-44B6-DD62-115C-EE8413F0F359}.png"
+        },
+        {
+          "index": 102,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{EF6B6326-7D0B-A3F2-4BC1-845D6A668612}.png"
+        },
+        {
+          "index": 103,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{9983F348-1831-37A9-E9F5-7BE553513CD8}.png"
+        },
+        {
+          "index": 104,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{94BEE271-56BB-2F4E-5D3D-8FFFC4F764DF}.png"
+        },
+        {
+          "index": 105,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{668E90E4-5177-EA05-7329-F7E9AF0ADCA1}.png"
+        },
+        {
+          "index": 106,
+          "large_url": "https://metrika.1site.eu/counter.php"
+        }
+      ]
+    },
+    {
+      "source": "koenigroom.ru",
+      "kind": "catalog",
+      "slug": "windeco",
+      "items": [
+        {
+          "index": 0,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{C368C288-8AD4-0B07-B341-BDF9F520D6F9}.jpg"
+        },
+        {
+          "index": 1,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{0844F994-DDE5-A12D-E697-8BCD7A9BA9FF}.jpg"
+        },
+        {
+          "index": 2,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E4BE21D0-510F-0A69-B6CA-BFCFAF869CB9}.jpg"
+        },
+        {
+          "index": 3,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{004C22CF-F6F5-E15A-D209-75DE670297F2}.jpg"
+        },
+        {
+          "index": 4,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{9959EACB-CBF0-D38C-813C-2FBA85ECB5FB}.jpg"
+        },
+        {
+          "index": 5,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{FE488DAE-01F9-7236-9402-AFB189926355}.jpg"
+        },
+        {
+          "index": 6,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{5CDEE7B1-0A18-A3EF-7796-1A2C92F14022}.jpg"
+        },
+        {
+          "index": 7,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{C7D03036-5B73-499B-4DF0-24A350A30463}.jpg"
+        },
+        {
+          "index": 8,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{73C7249D-AB7C-AA68-AF5F-8A4C4F25AF1C}.jpg"
+        },
+        {
+          "index": 9,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{7B418071-96B3-53EF-0336-AD2F92444493}.jpg"
+        },
+        {
+          "index": 10,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{2EF85257-D603-0957-F79C-D9D20924757E}.jpg"
+        },
+        {
+          "index": 11,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{6911AC10-636A-4FBC-47FD-A70C0997F6F0}.jpg"
+        },
+        {
+          "index": 12,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{29D55493-4903-6A97-9C88-441A8C0852F1}.jpg"
+        },
+        {
+          "index": 13,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{5AD55AA8-75B0-0E76-01CE-AB576F01B2D0}.jpg"
+        },
+        {
+          "index": 14,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{CD65C192-782C-90A6-46F2-7AC0DB8FAF46}.jpg"
+        },
+        {
+          "index": 15,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{776E59E5-8000-7CF3-23F8-B0BAA6A44A00}.jpg"
+        },
+        {
+          "index": 16,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{89691531-9A5A-68FE-7CDD-9ACD47B84A43}.jpg"
+        },
+        {
+          "index": 17,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{E110711B-B89E-6119-D5C9-7789062ED450}.jpg"
+        },
+        {
+          "index": 18,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{4796FC2A-129D-3594-0BCE-DA3FFD1E4EC1}.jpg"
+        },
+        {
+          "index": 19,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{794DADBE-1AFD-98F8-9B6B-F68F2A5D1214}.jpeg"
+        },
+        {
+          "index": 20,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{7E44A168-13AC-A051-CFEB-CD2B51D6A099}.jpeg"
+        },
+        {
+          "index": 21,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{FCF721A6-8D11-A97F-FA95-57255FCC0831}.jpg"
+        },
+        {
+          "index": 22,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{3B66A6A6-3255-2107-51E3-9579042D5C77}.jpg"
+        },
+        {
+          "index": 23,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{743A423A-90BD-85A3-DF83-D0B18799C24C}.jpg"
+        },
+        {
+          "index": 24,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{A5DCDEEA-3D3C-8641-B9E7-1CC52054AC99}.jpg"
+        },
+        {
+          "index": 25,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{786F58E8-E27A-E9B8-49F8-DA193AC8FD02}.jpg"
+        },
+        {
+          "index": 26,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{CB76DAA0-54A4-2180-405B-FA08C475F579}.jpg"
+        },
+        {
+          "index": 27,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{130BE651-467A-9EE8-14E8-24501FD770CB}.jpg"
+        },
+        {
+          "index": 28,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{30416A55-0885-2A1E-7C22-864888C6C399}.jpg"
+        },
+        {
+          "index": 29,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{C16EC7E6-87FA-44D2-3A29-42FAB928F9AD}.jpg"
+        },
+        {
+          "index": 30,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{BDE061FF-8710-389B-83DE-2E0C9ED507D7}.jpg"
+        },
+        {
+          "index": 31,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/small/{8B6D1617-42C3-76BA-2AAE-D564CAF1528A}.jpg"
+        },
+        {
+          "index": 32,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{A94043BC-425B-9D52-367C-8178A39C2B89}.jpg"
+        },
+        {
+          "index": 33,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{69D5B5D9-7852-585D-628B-A12089DBC017}.jpg"
+        },
+        {
+          "index": 34,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{844E627B-AA96-6C1E-E248-A7B8131E1738}.jpg"
+        },
+        {
+          "index": 35,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{0868CC78-E11D-160C-5ACD-C24593FBE360}.jpg"
+        },
+        {
+          "index": 36,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{A9601E13-0B13-C563-CF72-443336C7CC66}.jpg"
+        },
+        {
+          "index": 37,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{C2D85053-96DE-90ED-F0EA-6FF3735D9D9F}.jpg"
+        },
+        {
+          "index": 38,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{BAC2BF4F-4792-D845-3C8D-B7B1611605F1}.jpg"
+        },
+        {
+          "index": 39,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{AEAA8C66-563C-34D5-D85A-540536390BF5}.jpg"
+        },
+        {
+          "index": 40,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{51C0AEC6-A37F-EBD5-8DB5-DF51CD114158}.jpg"
+        },
+        {
+          "index": 41,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{20A22FFB-A3C0-8B97-F02E-D584007106A2}.jpg"
+        },
+        {
+          "index": 42,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{6A42EFF6-EF8E-9E68-25E8-778A1B000FF4}.jpg"
+        },
+        {
+          "index": 43,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{0B695B14-B184-EA43-18B2-49F22E967D65}.jpg"
+        },
+        {
+          "index": 44,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{8EE37EEF-79CB-336B-2C79-507A69C21033}.jpg"
+        },
+        {
+          "index": 45,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{11D3E22F-F87A-796F-9F5D-7FAEA3A0A684}.jpg"
+        },
+        {
+          "index": 46,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{8E4016E7-6ED0-16D9-19B8-60FFCB3B5B67}.jpg"
+        },
+        {
+          "index": 47,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{EB19AA8E-85E1-65FB-A353-252E7E4632F0}.jpg"
+        },
+        {
+          "index": 48,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{342564D3-C779-6216-4E70-E9C92C4F7297}.jpg"
+        },
+        {
+          "index": 49,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{FDD5FE30-354E-C6E0-55AF-ED20AAD043A4}.jpg"
+        },
+        {
+          "index": 50,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{EEB57F46-9DC6-19E1-E1BC-1830B894B0F8}.jpg"
+        },
+        {
+          "index": 51,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{1D552A10-478C-8ED3-7CC0-BBD7811D7F84}.jpeg"
+        },
+        {
+          "index": 52,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{F617BD41-EB5A-083F-32F3-BE3EE833BAAD}.jpeg"
+        },
+        {
+          "index": 53,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{73E514E7-E0C7-74CD-ACA6-8F2120D37C3E}.jpg"
+        },
+        {
+          "index": 54,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{BEB81936-F222-3E75-C811-79DF0ED90150}.jpg"
+        },
+        {
+          "index": 55,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{D563D698-2690-9E76-E5D0-6A9B262B98C8}.jpg"
+        },
+        {
+          "index": 56,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{1F9D35AB-235E-3E58-0202-D76B38786357}.jpg"
+        },
+        {
+          "index": 57,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4E133B6C-DAD8-EDF6-510C-9104AE8C8C56}.jpg"
+        },
+        {
+          "index": 58,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{7185F158-5B1C-9DEE-0CCF-105F0405177C}.jpg"
+        },
+        {
+          "index": 59,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{7F033AFB-F2F6-EAB9-B137-0AD157C3139D}.jpg"
+        },
+        {
+          "index": 60,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{4DDE189E-83A5-6CBA-B080-E20C37426F55}.jpg"
+        },
+        {
+          "index": 61,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{2B95A4E6-2C52-6F46-001E-365E9828F11D}.jpg"
+        },
+        {
+          "index": 62,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{A3453056-33F8-1888-8C37-59FF628551B7}.jpg"
+        },
+        {
+          "index": 63,
+          "large_url": "https://koenigroom.ru/images/upload/sites/site_id_9160/images/gallery/large/{B8280630-F374-A4D1-E2CF-E54502FD82A7}.jpg"
+        },
+        {
+          "index": 64,
+          "large_url": "https://metrika.1site.eu/counter.php"
+        }
+      ]
+    }
+  ]
+}

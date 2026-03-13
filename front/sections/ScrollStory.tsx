@@ -71,7 +71,7 @@ export function ScrollStory() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <div className="sticky top-24">
+            <div className="lg:sticky lg:top-24">
               <div className="relative overflow-hidden rounded-[28px] border border-black/10 bg-white/70 shadow-sm backdrop-blur">
 
                 <div className="relative aspect-[4/3]">
@@ -174,7 +174,7 @@ export function ScrollStory() {
                 <div
                   key={s.title}
                   data-kr-step={idx}
-                  className={`min-h-[42vh] py-10 transition sm:min-h-[48vh] ${
+                  className={`min-h-[28vh] py-8 transition sm:min-h-[48vh] sm:py-10 ${
                     idx !== 0 ? "border-t border-black/10" : ""
                   }`}
                 >

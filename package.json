@@ -12,6 +12,7 @@
     "dev": "npm --workspace front run dev",
     "build": "npm --workspace front run build",
     "start": "npm --workspace front run start",
-    "lint": "npm --workspace front run lint"
+    "lint": "npm --workspace front run lint",
+    "bot": "npm --workspace back run bot"
   }
 }

@@ -1,0 +1,142 @@
+/* Koenig Room wrapper integration overrides */
+
+/* CSS Variables matching Koenig Room site theme */
+:root {
+  --kr-bg: #f6f6f6;
+  --kr-fg: #0b1220;
+  --kr-muted: #6b7280;
+  --kr-accent: #a87e5d;
+  --kr-accent-contrast: #ffffff;
+  --kr-ring: #a87e5d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --kr-bg: #0e1116;
+    --kr-fg: #f6f6f6;
+    --kr-muted: #9ca3af;
+  }
+}
+
+html,
+body {
+  background: transparent !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Hide prototype header/footer to avoid double header/footer (we render our own) */
+.top-menu,
+.header,
+.mobile-header,
+.big-menu,
+.footer {
+  display: none !important;
+}
+
+/* Remove top spacing reserved for transparent header in prototype */
+.wrapper {
+  padding-top: 0 !important;
+}
+
+/* Keep main content full width inside iframe */
+main {
+  margin-top: 0 !important;
+}
+
+/* Make prototype containers a bit closer to Koenig Room airy look */
+.container {
+  max-width: 1120px !important;
+}
+
+/* Typography - bring closer to Koenig Room */
+body,
+.page__section,
+.page__section-content,
+.promo-suggest-block,
+.min-advants,
+._textilies,
+.portfolio {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  color: var(--kr-fg) !important;
+}
+
+/* Headings styling */
+h1, h2, h3, .title__h1, .title__text,
+.promo-suggest-block__title,
+.page__section-top .title__text {
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--kr-fg) !important;
+}
+
+/* Reduce hard borders/shadows where possible */
+.page__section,
+.page__section-content,
+.page__section-content-item {
+  box-shadow: none !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Button styling closer to Koenig Room */
+.btn,
+.btn_primary,
+.btn_secondary,
+.btn_transparent-board {
+  border-radius: 0.75rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn_primary {
+  background-color: var(--kr-accent) !important;
+  color: var(--kr-accent-contrast) !important;
+  border-color: var(--kr-accent) !important;
+}
+
+.btn_primary:hover {
+  opacity: 0.95 !important;
+}
+
+/* Links styling */
+a:not(.btn) {
+  color: var(--kr-accent) !important;
+  transition: opacity 0.2s ease !important;
+}
+
+a:not(.btn):hover {
+  opacity: 0.8 !important;
+}
+
+/* Text muted styling */
+.promo-suggest-block__sub-title,
+.portfolio__item-description,
+.footer__contacts-text,
+.el-karniz__description {
+  color: var(--kr-muted) !important;
+}
+
+/* Form inputs styling */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea {
+  border-radius: 0.75rem !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  font-family: inherit !important;
+}
+
+/* Dark mode support for prototype content */
+@media (prefers-color-scheme: dark) {
+  .page__section,
+  .promo-suggest-block,
+  .min-advants,
+  ._textilies,
+  .portfolio {
+    background-color: var(--kr-bg) !important;
+    color: var(--kr-fg) !important;
+  }
+  
+  .page__section {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+}

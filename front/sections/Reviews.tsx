@@ -105,7 +105,7 @@ function stars(n = 5) {
   return "★★★★★".slice(0, n);
 }
 
-export function Reviews() {
+export function Reviews({ images }: { images?: string[] }) {
   const [expanded, setExpanded] = useState(false);
 
   const items: ReviewItem[] = useMemo(
@@ -114,21 +114,23 @@ export function Reviews() {
         REVIEWS.map((r) => ({ kind: "review", ...r }) as ReviewItem),
         31,
       );
+
+      const pool = images && images.length > 0 ? images : ["/hero2.jpg", "/gray_hero.jpg", "/hero.jpg"];
       const photos = shuffle(
         [
-          { kind: "photo", src: "/hero2.jpg", alt: "Интерьер" },
-          { kind: "photo", src: "/gray_hero.jpg", alt: "Ткань" },
+          { kind: "photo", src: pool[0] || "/hero2.jpg", alt: "Интерьер" },
+          { kind: "photo", src: pool[1] || "/gray_hero.jpg", alt: "Интерьер" },
           { kind: "photo", src: "/1step.png", alt: "Процесс" },
           { kind: "photo", src: "/2step.png", alt: "Процесс" },
           { kind: "photo", src: "/3step.png", alt: "Процесс" },
-          { kind: "photo", src: "/hero.jpg", alt: "Интерьер" },
+          { kind: "photo", src: pool[2] || "/hero.jpg", alt: "Интерьер" },
         ] as ReviewItem[],
         47,
       );
 
       return mixReviewsAndPhotos(reviews, photos, 17);
     },
-    [],
+    [images],
   );
 
   const visible = expanded ? items.slice(0, 14) : items.slice(0, 6);

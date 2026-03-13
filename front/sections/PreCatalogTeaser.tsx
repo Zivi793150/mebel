@@ -31,14 +31,14 @@ export function PreCatalogTeaser() {
           "Ткани и фактуры, которые читаются в свете. Не “просто шторы”, а атмосфера комнаты.",
       },
       {
-        title: "Точность в сантиметрах",
+        title: "Точность в деталях",
         description:
-          "Посадка, длина и складка — то, что отличает премиум. Согласуем и доводим до чистого вида.",
+          "Нитки и фурнитура, идеальные складки, строчки, швы и первозданный вид на долгие годы",
       },
       {
         title: "Спокойный сервис",
         description:
-          "Делаем под ключ: подбор, пошив, монтаж. Без шума и лишних вопросов — с понятным результатом.",
+          "Комфортный подбор, пошив и монтаж. Без шума и лишних вопросов — с идеальным результатом.",
       },
     ],
     [],
@@ -110,7 +110,7 @@ export function PreCatalogTeaser() {
         <div className="grid items-stretch lg:grid-cols-12">
           <div className="lg:col-span-6">
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-              <div className="flex min-h-[660px] flex-col lg:min-h-[760px]">
+              <div className="flex h-full min-h-[660px] flex-col lg:min-h-[760px]">
                 <div>
                   <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
                     ЦЕННОСТИ KOENIG ROOM
@@ -120,8 +120,7 @@ export function PreCatalogTeaser() {
                     <span className="text-[color:var(--muted)]"> Но “дорого” рождается до него.</span>
                   </h2>
                   <p className="mt-4 max-w-xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
-                    Ткани, посадка и свет — это то, что делает интерьер цельным. Мы собираем это под
-                    ключ и доводим до чистого результата.
+                    Ткани, оформление пространства и освещение — три ключевых элемента, создающие гармоничность интерьера. Мы оформляем объект под ключ !
                   </p>
                 </div>
 
@@ -167,7 +166,7 @@ export function PreCatalogTeaser() {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="relative min-h-[660px] overflow-hidden lg:min-h-[760px]">
+            <div className="relative h-full min-h-[660px] overflow-hidden lg:min-h-[760px]">
               <div ref={visualRef} className="absolute inset-0">
                 <video
                   className="absolute inset-0 h-full w-full object-cover"

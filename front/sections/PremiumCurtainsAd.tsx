@@ -4,11 +4,27 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Container } from "@/components/Container";
 
+// Speaker icons for mute/unmute toggle
+function IconVolumeOn({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+    </svg>
+  );
+}
+
+function IconVolumeOff({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+    </svg>
+  );
+}
+
 type Scene = {
   kicker: string;
   title: string;
   subtitle: string;
-  videoSrc: string;
 };
 
 function clamp01(v: number) {
@@ -16,49 +32,61 @@ function clamp01(v: number) {
 }
 
 export function PremiumCurtainsAd() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
+
+  const videoSrc = "/premium-film.mp4";
   const scenes: Scene[] = useMemo(
     () => [
       {
         kicker: "PREMIUM FILM",
-        title: "Ткань ловит свет",
-        subtitle: "Штора — это не про окно. Это про атмосферу комнаты.",
-        videoSrc: "/0-3scene.alli60.mp4",
+        title: "Свет становится мягче",
+        subtitle: "Настраиваем атмосферу комнаты — не просто закрываем окно.",
       },
       {
         kicker: "PREMIUM FILM",
-        title: "Складка решает всё",
-        subtitle: "Линии, длина и вес ткани делают интерьер дороже за секунды.",
-        videoSrc: "/3-6scene.alli60.mp4",
+        title: "Детали делают интерьер дороже",
+        subtitle: "Карниз, ткань и свет — собираем всё в одну чистую линию.",
       },
       {
         kicker: "PREMIUM FILM",
-        title: "Монтаж — это ювелирка",
-        subtitle: "Чистая установка без компромиссов. Видно сразу.",
-        videoSrc: "/instryments.alli60.mp4",
+        title: "Фактура, которую хочется трогать",
+        subtitle: "Складка, плотность и длина сразу делают интерьер дороже.",
+      },
+      {
+        kicker: "PREMIUM FILM",
+        title: "Свет — под ваш сценарий",
+        subtitle: "Рулонки и жалюзи: приватность днём, затемнение ночью.",
       },
     ],
     [],
   );
 
   const sectionRef = useRef<HTMLElement | null>(null);
-  const videoARef = useRef<HTMLVideoElement | null>(null);
-  const videoBRef = useRef<HTMLVideoElement | null>(null);
-  const durationsRef = useRef<Record<string, number>>({});
   const [progress, setProgress] = useState(0);
-  const [renderProgress, setRenderProgress] = useState(0);
-  const [allowExit, setAllowExit] = useState(false);
-  const [activeSrc, setActiveSrc] = useState<string>(scenes[0]?.videoSrc ?? "");
-  const [pendingSrc, setPendingSrc] = useState<string | null>(null);
-  const [activeLayer, setActiveLayer] = useState<0 | 1>(0);
-  const [pendingReady, setPendingReady] = useState(false);
-  const [crossfade, setCrossfade] = useState(false);
-  const [isSwitching, setIsSwitching] = useState(false);
-  const lastTimeRef = useRef<number>(0);
-  const smoothProgressRef = useRef<number>(0);
-  const lastRawProgressRef = useRef<number>(0);
-  const lastVelTsRef = useRef<number>(0);
-  const velEmaRef = useRef<number>(0);
-  const commitTimerRef = useRef<number | null>(null);
+  const [fit, setFit] = useState<"contain" | "cover">("contain");
+
+  useEffect(() => {
+    function updateFit() {
+      const w = window.innerWidth || 1;
+      const h = window.innerHeight || 1;
+      const aspect = w / h;
+      // If viewport is wider than 16:9 -> cover (avoid side bars).
+      // If viewport is taller/narrower -> contain (letterbox top/bottom).
+      setFit(aspect > 16 / 9 ? "cover" : "contain");
+    }
+
+    updateFit();
+    window.addEventListener("resize", updateFit);
+    return () => window.removeEventListener("resize", updateFit);
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -74,14 +102,6 @@ export function PremiumCurtainsAd() {
       const scrolled = -rect.top;
       const p = total <= 0 ? 0 : clamp01(scrolled / total);
       setProgress(p);
-
-      if (!allowExit && total > 0) {
-        const absTop = rect.top + window.scrollY;
-        const gateScrollY = absTop + total * ((scenes.length - 0.02) / scenes.length);
-        if (window.scrollY > gateScrollY) {
-          window.scrollTo({ top: gateScrollY, left: 0, behavior: "auto" });
-        }
-      }
     }
 
     function onScroll() {
@@ -100,159 +120,12 @@ export function PremiumCurtainsAd() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [allowExit, scenes.length]);
-
-  useEffect(() => {
-    let raf = 0;
-
-    function smoothstep(edge0: number, edge1: number, x: number) {
-      const t = clamp01((x - edge0) / Math.max(1e-6, edge1 - edge0));
-      return t * t * (3 - 2 * t);
-    }
-
-    function tick() {
-      const now = performance.now();
-      const dt = Math.max(1, now - (lastVelTsRef.current || now));
-      lastVelTsRef.current = now;
-
-      const raw = progress;
-      const lastRaw = lastRawProgressRef.current;
-      const vel = Math.abs(raw - lastRaw) / dt;
-      lastRawProgressRef.current = raw;
-
-      // Smooth velocity a bit so tiny wheel pulses don't flip the mode.
-      velEmaRef.current = velEmaRef.current * 0.85 + vel * 0.15;
-      const velSmooth = velEmaRef.current;
-
-      // vel ~ 0..0.003 (depends on wheel + section height). Below vSlow => pronounced slow-mo.
-      const vSlow = 0.00025;
-      const vFast = 0.0011;
-
-      // When scrolling fast -> follow quickly.
-      // When slow/near-zero -> ease to target very slowly (continuous, no stepping), coming to rest in ~3s.
-      const fastMix = smoothstep(vSlow, vFast, velSmooth);
-      const sp = smoothProgressRef.current;
-
-      const dtSec = dt / 1000;
-      const tauFast = 0.10;
-      const tauSlow = 1.25;
-      const tau = tauSlow + (tauFast - tauSlow) * fastMix;
-      const alpha = 1 - Math.exp(-dtSec / Math.max(1e-3, tau));
-
-      const next = sp + (raw - sp) * alpha;
-      smoothProgressRef.current = next;
-      setRenderProgress(next);
-
-      raf = requestAnimationFrame(tick);
-    }
-
-    raf = requestAnimationFrame(tick);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [progress]);
+  }, [scenes.length]);
 
   const n = scenes.length;
-  const scaled = renderProgress * n;
+  const scaled = progress * n;
   const active = Math.min(n - 1, Math.floor(scaled));
   const t = clamp01(scaled - active);
-
-  useEffect(() => {
-    const src = scenes[active]?.videoSrc;
-    if (!src) return;
-    if (src === activeSrc) return;
-    lastTimeRef.current = 0;
-    setIsSwitching(true);
-    setPendingSrc(src);
-  }, [active, activeSrc, scenes]);
-
-  useEffect(() => {
-    if (!pendingSrc) return;
-    setPendingReady(false);
-    setCrossfade(false);
-    if (commitTimerRef.current) {
-      window.clearTimeout(commitTimerRef.current);
-      commitTimerRef.current = null;
-    }
-  }, [pendingSrc]);
-
-  useEffect(() => {
-    if (!pendingSrc) return;
-    if (!pendingReady) return;
-    if (crossfade) return;
-
-    setCrossfade(true);
-
-    commitTimerRef.current = window.setTimeout(() => {
-      const nextLayer: 0 | 1 = activeLayer === 0 ? 1 : 0;
-      setActiveLayer(nextLayer);
-      setActiveSrc(pendingSrc);
-      setPendingSrc(null);
-      setPendingReady(false);
-      setCrossfade(false);
-      setIsSwitching(false);
-      commitTimerRef.current = null;
-    }, 360);
-  }, [activeLayer, crossfade, pendingReady, pendingSrc]);
-
-  useEffect(() => {
-    const src = scenes[active]?.videoSrc;
-    if (!src) return;
-
-    let raf = 0;
-
-    function tick() {
-      const activeVideo = activeLayer === 0 ? videoARef.current : videoBRef.current;
-      const pendingVideo = activeLayer === 0 ? videoBRef.current : videoARef.current;
-      if (!activeVideo) return;
-
-      const srcNow = scenes[active]?.videoSrc;
-      if (!srcNow) return;
-
-      const duration = durationsRef.current[srcNow] ?? activeVideo.duration ?? 0;
-      if (!Number.isFinite(duration) || duration <= 0) {
-        raf = requestAnimationFrame(tick);
-        return;
-      }
-
-      if (!Number.isFinite(activeVideo.duration) || activeVideo.readyState < 2) {
-        raf = requestAnimationFrame(tick);
-        return;
-      }
-
-      const target = clamp01(t) * Math.max(0.001, duration - 0.05);
-      const prev = lastTimeRef.current || 0;
-
-      // Additional tiny smoothing (time-domain) to remove decoder micro-jitter.
-      // renderProgress already eases to rest over ~3s on scroll stop.
-      const alpha = 0.9;
-
-      const next = prev + (target - prev) * alpha;
-      lastTimeRef.current = next;
-
-      // Lock user in section until the last scene has effectively reached its end.
-      if (!allowExit && active === scenes.length - 1) {
-        if (duration > 0 && next >= Math.max(0, duration - 1)) {
-          setAllowExit(true);
-        }
-      }
-      try {
-        activeVideo.currentTime = next;
-        if (isSwitching && pendingVideo && pendingVideo.readyState >= 2) {
-          pendingVideo.currentTime = next;
-        }
-      } catch {
-        // ignore
-      }
-
-      raf = requestAnimationFrame(tick);
-    }
-
-    raf = requestAnimationFrame(tick);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [active, t, scenes, renderProgress, activeLayer, isSwitching, allowExit]);
 
   return (
     <section
@@ -263,73 +136,14 @@ export function PremiumCurtainsAd() {
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="absolute inset-0">
           <video
-            ref={videoARef}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={activeLayer === 0 ? activeSrc : pendingSrc ?? activeSrc}
-            muted
+            ref={videoRef}
+            className={`absolute inset-0 h-full w-full ${fit === "cover" ? "object-cover" : "object-contain"}`}
+            src={videoSrc}
+            autoPlay
+            muted={isMuted}
+            loop
             playsInline
-            preload="auto"
-            style={{
-              opacity:
-                activeLayer === 0
-                  ? crossfade
-                    ? 0
-                    : 1
-                  : crossfade
-                    ? 1
-                    : 0,
-              transition: "opacity 320ms ease",
-            }}
-            onLoadedMetadata={(e) => {
-              const v = e.currentTarget;
-              const srcKey = activeLayer === 0 ? activeSrc : pendingSrc;
-              if (srcKey && Number.isFinite(v.duration) && v.duration > 0) {
-                durationsRef.current[srcKey] = v.duration;
-              }
-              try {
-                v.pause();
-              } catch {
-                // ignore
-              }
-            }}
-            onCanPlayThrough={() => {
-              if (pendingSrc && activeLayer !== 0) setPendingReady(true);
-            }}
-          />
-
-          <video
-            ref={videoBRef}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={activeLayer === 1 ? activeSrc : pendingSrc ?? activeSrc}
-            muted
-            playsInline
-            preload="auto"
-            style={{
-              opacity:
-                activeLayer === 1
-                  ? crossfade
-                    ? 0
-                    : 1
-                  : crossfade
-                    ? 1
-                    : 0,
-              transition: "opacity 320ms ease",
-            }}
-            onLoadedMetadata={(e) => {
-              const v = e.currentTarget;
-              const srcKey = activeLayer === 1 ? activeSrc : pendingSrc;
-              if (srcKey && Number.isFinite(v.duration) && v.duration > 0) {
-                durationsRef.current[srcKey] = v.duration;
-              }
-              try {
-                v.pause();
-              } catch {
-                // ignore
-              }
-            }}
-            onCanPlayThrough={() => {
-              if (pendingSrc && activeLayer !== 1) setPendingReady(true);
-            }}
+            preload="metadata"
           />
           <div className="absolute inset-0 bg-[radial-gradient(1200px_circle_at_20%_20%,rgba(255,255,255,0.08),transparent_55%),linear-gradient(to_top,rgba(0,0,0,0.62),rgba(0,0,0,0.18),rgba(0,0,0,0.72))]" />
           <div className="absolute inset-0 bg-black opacity-0" />
@@ -338,34 +152,36 @@ export function PremiumCurtainsAd() {
         <Container>
           <div className="relative z-10 grid h-screen items-end pb-10 sm:pb-14">
             <div className="max-w-3xl">
-              <div
-                className="text-xs font-semibold tracking-[0.42em] text-white/65"
-                style={{
-                  opacity: 0.72 + 0.28 * (1 - Math.abs(t - 0.5) * 2),
-                }}
-              >
-                {scenes[active]?.kicker}
+              <div key={active} className="kr-work-bounce">
+                <div
+                  className="text-xs font-semibold tracking-[0.42em] text-white/65"
+                  style={{
+                    opacity: 0.72 + 0.28 * (1 - Math.abs(t - 0.5) * 2),
+                  }}
+                >
+                  {scenes[active]?.kicker}
+                </div>
+                <h2
+                  className="mt-4 text-balance text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl"
+                  style={{
+                    transform: `translateY(${Math.round((1 - t) * 10)}px)`,
+                    opacity: 0.88 + 0.12 * t,
+                    transition: "opacity 240ms ease",
+                  }}
+                >
+                  {scenes[active]?.title}
+                </h2>
+                <p
+                  className="mt-3 max-w-2xl text-pretty text-sm leading-6 text-white/75 sm:text-base"
+                  style={{
+                    transform: `translateY(${Math.round((1 - t) * 12)}px)`,
+                    opacity: 0.72 + 0.28 * t,
+                    transition: "opacity 240ms ease",
+                  }}
+                >
+                  {scenes[active]?.subtitle}
+                </p>
               </div>
-              <h2
-                className="mt-4 text-balance text-3xl font-semibold leading-tight tracking-tight text-white sm:text-5xl"
-                style={{
-                  transform: `translateY(${Math.round((1 - t) * 10)}px)`,
-                  opacity: 0.88 + 0.12 * t,
-                  transition: "opacity 240ms ease",
-                }}
-              >
-                {scenes[active]?.title}
-              </h2>
-              <p
-                className="mt-3 max-w-2xl text-pretty text-sm leading-6 text-white/75 sm:text-base"
-                style={{
-                  transform: `translateY(${Math.round((1 - t) * 12)}px)`,
-                  opacity: 0.72 + 0.28 * t,
-                  transition: "opacity 240ms ease",
-                }}
-              >
-                {scenes[active]?.subtitle}
-              </p>
 
               <div className="mt-6 flex items-center gap-3">
                 <a
@@ -385,10 +201,24 @@ export function PremiumCurtainsAd() {
               <div className="mt-8 h-1 w-full max-w-lg rounded-full bg-white/10">
                 <div
                   className="h-1 rounded-full bg-white/65"
-                  style={{ width: `${Math.round(renderProgress * 100)}%` }}
+                  style={{ width: `${Math.round(progress * 100)}%` }}
                 />
               </div>
             </div>
+
+            {/* Mute/Unmute button - bottom right corner */}
+            <button
+              onClick={toggleMute}
+              className="absolute bottom-10 right-0 z-20 inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/40 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:bottom-14"
+              aria-label={isMuted ? "Включить звук" : "Выключить звук"}
+              aria-pressed={!isMuted}
+            >
+              {isMuted ? (
+                <IconVolumeOff className="h-5 w-5" />
+              ) : (
+                <IconVolumeOn className="h-5 w-5" />
+              )}
+            </button>
           </div>
         </Container>
       </div>

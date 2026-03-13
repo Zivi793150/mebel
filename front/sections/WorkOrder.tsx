@@ -10,7 +10,7 @@ type Step = {
   meta: string;
 };
 
-export function WorkOrder() {
+export function WorkOrder({ images }: { images?: string[] }) {
   const steps: Step[] = useMemo(
     () => [
       {
@@ -48,24 +48,23 @@ export function WorkOrder() {
   );
 
   const sectionRef = useRef<HTMLElement | null>(null);
-  const wheelAccumRef = useRef(0);
-  const wheelDirRef = useRef<1 | -1 | 0>(0);
-  const wheelLockRef = useRef(false);
   const activeRef = useRef(0);
 
   const [active, setActive] = useState(0);
-  const [bg, setBg] = useState("/gray_hero.jpg");
+  const bgByStep = useMemo(() => {
+    const fallback = ["/1step.png", "/2step.png", "/3step.png", "/4step.png", "/4step.png"];
+    if (!images || images.length === 0) return fallback;
+    return Array.from({ length: steps.length }).map((_, idx) => images[idx % images.length] || fallback[idx] || fallback[0]);
+  }, [images, steps.length]);
+
+  const [bg, setBg] = useState(() => bgByStep[0] || "/gray_hero.jpg");
   const [bgPrev, setBgPrev] = useState<string | null>(null);
 
   useEffect(() => {
     activeRef.current = active;
   }, [active]);
 
-  const bgByStep = useMemo(() => {
-    return ["/1step.png", "/2step.png", "/3step.png", "/4step.png", "/4step.png"];
-  }, []);
-
-  const sectionHeightSv = 160;
+  const sectionHeightSv = 92;
   const totalHeight = `calc(${steps.length} * ${sectionHeightSv}svh)`;
 
   useEffect(() => {
@@ -85,14 +84,29 @@ export function WorkOrder() {
       const r = sec.getBoundingClientRect();
       const vh = window.innerHeight || 1;
       const totalScrollable = Math.max(1, sec.offsetHeight - vh);
-      const progressed = Math.min(
-        1,
-        Math.max(0, (vh * 0.5 - r.top) / totalScrollable),
-      );
+
+      // Dead-zone at the beginning so step 1 doesn't get skipped on gentle scroll.
+      // We start counting progress only after the section has moved a bit further into view.
+      const startOffset = vh * 0.28;
+      const raw = (vh * 0.5 - r.top - startOffset) / totalScrollable;
+      const progressed = Math.min(1, Math.max(0, raw));
 
       const maxIdx = steps.length - 1;
-      const raw = Math.floor(progressed * (maxIdx + 1));
-      const idx = Math.min(maxIdx, Math.max(0, raw));
+
+      // Hold the first step longer so it doesn't get skipped on steady scroll.
+      // Require almost a full "step" worth of progress before moving away from 0.
+      const holdFirstUntil = 0.85 / (maxIdx + 1);
+      if (progressed < holdFirstUntil) {
+        setActive((prev) => (prev === 0 ? prev : 0));
+        return;
+      }
+
+      // Map progress into [0..maxIdx] with a bit of hysteresis-friendly rounding.
+      // Using +1e-6 avoids edge flicker when progressed is extremely close to a boundary.
+      const idx = Math.min(
+        maxIdx,
+        Math.max(0, Math.floor((progressed + 1e-6) * (maxIdx + 1))),
+      );
       setActive((prev) => (prev === idx ? prev : idx));
     };
 
@@ -102,71 +116,6 @@ export function WorkOrder() {
       window.removeEventListener("scroll", onScroll);
     };
   }, [steps.length]);
-
-  function isSectionActive() {
-    const sec = sectionRef.current;
-    if (!sec) return false;
-    const r = sec.getBoundingClientRect();
-    const vh = window.innerHeight || 1;
-    return r.top < vh * 0.85 && r.bottom > vh * 0.15;
-  }
-
-  function scrollToStep(idx: number) {
-    const sec = sectionRef.current;
-    if (!sec) return;
-
-    const vh = window.innerHeight || 1;
-    const totalScrollable = Math.max(1, sec.offsetHeight - vh);
-    const maxIdx = Math.max(1, steps.length - 1);
-    const t = idx / maxIdx;
-
-    const r = sec.getBoundingClientRect();
-    const targetY = window.scrollY + r.top + t * totalScrollable;
-
-    wheelLockRef.current = true;
-    window.scrollTo({ top: targetY, behavior: "smooth" });
-    window.setTimeout(() => {
-      wheelLockRef.current = false;
-    }, 520);
-  }
-
-  useEffect(() => {
-    const onWheel = (e: WheelEvent) => {
-      if (wheelLockRef.current) {
-        e.preventDefault();
-        return;
-      }
-
-      if (!isSectionActive()) return;
-
-      const dy = e.deltaY;
-      if (Math.abs(dy) < 8) return;
-
-      const dir = (dy > 0 ? 1 : -1) as 1 | -1;
-      const current = activeRef.current;
-
-      const isLeavingUp = current === 0 && dir === -1;
-      const isLeavingDown = current === steps.length - 1 && dir === 1;
-      if (isLeavingUp || isLeavingDown) return;
-
-      e.preventDefault();
-
-      if (wheelDirRef.current !== dir) {
-        wheelDirRef.current = dir;
-        wheelAccumRef.current = 0;
-      }
-
-      wheelAccumRef.current += Math.abs(dy);
-      if (wheelAccumRef.current < 140) return;
-      wheelAccumRef.current = 0;
-
-      const next = Math.min(steps.length - 1, Math.max(0, current + dir));
-      scrollToStep(next);
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
-  }, [active, steps.length]);
 
   return (
     <section
@@ -211,7 +160,7 @@ export function WorkOrder() {
               key={active}
               className="w-full max-w-4xl text-center kr-work-bounce"
             >
-              <div className="mx-auto w-full max-w-4xl px-7 py-10 sm:px-10 sm:py-12">
+              <div className="mx-auto w-full max-w-4xl px-6 py-9 sm:px-10 sm:py-12">
                 <div className="text-xs font-semibold tracking-[0.34em] text-white/70">
                   ПОРЯДОК РАБОТЫ
                 </div>
@@ -231,10 +180,10 @@ export function WorkOrder() {
                   </div>
                 </div>
 
-                <h2 className="mx-auto mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">
+                <h2 className="mx-auto mt-6 max-w-4xl text-3xl font-semibold tracking-tight text-white sm:text-6xl">
                   {steps[active]?.title}
                 </h2>
-                <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-white/80 sm:text-xl">
+                <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-white/80 sm:mt-5 sm:text-xl sm:leading-8">
                   {steps[active]?.description}
                 </p>
 

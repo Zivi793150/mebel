@@ -1,0 +1,16 @@
+{
+  "name": "koenig-room-back",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.19.0",
+    "telegraf": "^4.16.3"
+  },
+  "scripts": {
+    "bot": "node telegram-leads-bot.mjs"
+  }
+}
