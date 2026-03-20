@@ -14,6 +14,7 @@ import { MobileCtaBar } from "@/components/MobileCtaBar";
 import { PillowsWhyMasonry } from "@/components/PillowsWhyMasonry";
 import { BeddingCatalog } from "@/components/BeddingCatalog";
 import { BlindsCategoriesNav } from "@/components/BlindsCategoriesNav";
+import { type CorniceItem, CornicesCatalog } from "@/components/CornicesCatalog";
 import { RailsShowcase } from "@/components/RailsShowcase";
 import { RailsVariantsCatalog } from "@/components/RailsVariantsCatalog";
 import { RugsStyleCatalog } from "@/components/RugsStyleCatalog";
@@ -157,6 +158,23 @@ async function getBlindsTypes(): Promise<BlindsTypeItem[]> {
     const col = client.db("koenig").collection<BlindsTypeItem>("blinds_types");
     const docs = await col
       .find({ source: "centrshtor.ru", kind: "blinds_type" }, { projection: { _id: 0 } })
+      .toArray();
+    return docs ?? [];
+  } catch {
+    return [];
+  }
+}
+
+async function getCornicesItems(): Promise<CorniceItem[]> {
+  try {
+    const client = await getMongoClient();
+    const col = client.db("koenig").collection<CorniceItem>("cornices");
+    const docs = await col
+      .find(
+        { source: "koenigroom.ru", kind: { $in: ["cornice_collection", "cornice_item"] } },
+        { projection: { _id: 0 } },
+      )
+      .limit(500)
       .toArray();
     return docs ?? [];
   } catch {
@@ -1181,6 +1199,7 @@ export default async function CategoryPage({ params }: Params) {
 
   const curtainTypes: CurtainTypeItem[] = isCurtains ? await getCurtainTypes() : [];
   const blindsTypes: BlindsTypeItem[] = isBlinds ? await getBlindsTypes() : [];
+  const cornicesItems: CorniceItem[] = isRails ? await getCornicesItems() : [];
 
   const heroImageFromDb = pickHeroImageFromDb(slug, koenigImages, railsSubcatDocs, copy.heroImage);
   const publicHeroCover = await pickPublicCatalogCover(slug);
@@ -1865,13 +1884,13 @@ export default async function CategoryPage({ params }: Params) {
               <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-end">
                 <div className="lg:col-span-8">
                   <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    ПОДКАТЕГОРИИ
+                    КАТАЛОГ
                   </div>
                   <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Коллекции карнизов
+                    Виды карнизов
                   </h2>
                   <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Выберите коллекцию — внутри будут варианты и фото. Названия вариантов пока условные (Вариант 1, 2...).
+                    Выберите вид и производителя — откроются карточки с фото и описанием.
                   </p>
                 </div>
                 <div className="lg:col-span-4 lg:flex lg:justify-end">
@@ -1884,38 +1903,8 @@ export default async function CategoryPage({ params }: Params) {
                 </div>
               </div>
 
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {RAILS_SUBCATEGORIES.map((s, idx) => {
-                  const doc = railsSubcatDocs[idx] ?? null;
-                  const img = pickKoenigImages(doc)[0] || "/catalog/rails.jpg";
-                  return (
-                    <Link
-                      key={s.subslug}
-                      href={`/catalog/rails/${s.subslug}`}
-                      className="block"
-                      aria-label={s.title}
-                    >
-                      <div className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-                        <div className="relative aspect-square overflow-hidden">
-                          <Image
-                            src={img}
-                            alt={s.title}
-                            fill
-                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                            className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.08]"
-                          />
-                          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
-                        </div>
-                        <div className="flex items-center justify-between gap-4 bg-white/70 p-5 text-[color:var(--fg)] backdrop-blur dark:bg-white/5">
-                          <div className="text-base font-semibold tracking-tight">{s.subslug}</div>
-                          <div className="inline-flex h-10 items-center justify-center rounded-xl bg-black/[0.06] px-4 text-sm font-semibold text-[color:var(--fg)] transition-colors duration-300 group-hover:bg-black/[0.10] dark:bg-white/[0.10] dark:group-hover:bg-white/[0.14]">
-                            Подробнее
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
+              <div className="mt-10">
+                <CornicesCatalog items={cornicesItems} />
               </div>
             </Container>
           </section>

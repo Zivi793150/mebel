@@ -109,7 +109,7 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-5xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
       >
         <div className="flex items-center justify-between">
           <button

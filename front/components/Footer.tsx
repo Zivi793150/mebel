@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { CONTACTS, CATALOG_CATEGORIES } from "@/lib/constants";
 import { Container } from "@/components/Container";
-import { IconInstagram, IconRuTube, IconTelegram, IconTwoGis, IconVK } from "@/components/icons";
+import { IconInstagram, IconMax, IconRuTube, IconTelegram, IconTwoGis, IconVK } from "@/components/icons";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const catalogGroups = [
@@ -164,6 +164,17 @@ export function Footer() {
                   <IconInstagram className="h-5 w-5" />
                 </a>
               ) : null}
+              {CONTACTS.maxHref ? (
+                <a
+                  href={CONTACTS.maxHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                  aria-label="MAX"
+                >
+                  <IconMax className="h-5 w-5" />
+                </a>
+              ) : null}
               <a
                 href={CONTACTS.phoneHref}
                 className="inline-flex h-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 px-3 text-sm text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
@@ -260,6 +271,11 @@ export function Footer() {
             {CONTACTS.instagramHref ? (
               <a href={CONTACTS.instagramHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
                 <IconInstagram className="h-5 w-5" />
+              </a>
+            ) : null}
+            {CONTACTS.maxHref ? (
+              <a href={CONTACTS.maxHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+                <IconMax className="h-5 w-5" />
               </a>
             ) : null}
             <a href={CONTACTS.phoneHref} className="inline-flex h-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 px-4 text-sm dark:border-white/10 dark:bg-white/5">

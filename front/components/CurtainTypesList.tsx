@@ -192,7 +192,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-7xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
       >
         <div className="flex items-center justify-between">
           <button
@@ -217,7 +217,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
         <div className="my-4 h-px w-full bg-black/10 dark:bg-white/10" />
 
         <div className="grid gap-4 lg:grid-cols-12">
-          <div className="relative lg:col-span-7">
+          <div className="relative lg:col-span-8">
             <div className="grid gap-3 sm:grid-cols-[92px,1fr]">
               <div className="hidden sm:block">
                 <div className="grid gap-2">
@@ -276,8 +276,8 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
               </div>
 
               <div className="relative">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
-                  <img alt={item.title || ""} className="h-full w-full object-cover" src={image} />
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
+                  <img alt={item.title || ""} className="h-full w-full object-cover object-center" src={image} />
                   <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0.28))]" />
                 </div>
 
@@ -307,7 +307,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
             </div>
           </div>
 
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
               <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
               <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
@@ -633,7 +633,7 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
 
       <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((it, idx) => {
-          const img = (it.images && it.images[0]) || it.image || "/catalog/curtains.jpg";
+          const img = it.image || (it.images && it.images[0]) || "/catalog/curtains.jpg";
           return (
             <button
               key={it.url}
@@ -646,7 +646,7 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
                 <img
                   src={img}
                   alt={it.title || ""}
-                  className="h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-[1.04]"
+                  className="h-full w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.18),rgba(0,0,0,0.52))]" />
               </div>

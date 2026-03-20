@@ -123,3 +123,17 @@ export function IconTelegram({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function IconMax({ className }: { className?: string }) {
+  return (
+    <svg
+      className={`${className} dark:invert dark:brightness-0 dark:contrast-200`}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <image href="/max.png" x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid meet" />
+    </svg>
+  );
+}

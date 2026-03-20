@@ -5,43 +5,51 @@ import { useMemo, useState } from "react";
 
 import { Container } from "@/components/Container";
 
+const CATALOG_REVIEW_PHOTOS = [
+  "/catalog/1.Шторы и ткани/1.1.Австрийские/photo_2026-03-02_16-21-17.jpg",
+  "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1426-HDR.jpg",
+  "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1500-HDR.jpg",
+  "/catalog/1.Шторы и ткани/1.14 Шторы на люверсах/1.webp",
+  "/catalog/1.Шторы и ткани/1.15 Шторы в ванную/photo_2026-03-12_17-12-04.jpg",
+  "/catalog/1.Шторы и ткани/1.11. Шторы  кабинет/photo_2025-10-07_15-26-09.jpg",
+];
+
 const REVIEWS = [
   {
-    name: "Анна",
-    text: "Очень аккуратная работа: складка, длина, монтаж — всё идеально. Интерьер стал значительно дороже выглядеть.",
+    name: "Мария Н",
+    text: "Заказала ковëр в спальню. Мне нужен был не стандартный размер. Осталась довольна результатом. И что очень важно для меня, натуральный состав! Очень приятно ходить босиком. Огромный выбор оттенков, глаза разбегаются! А ещё, эти ребята занимаются шторами! И моë знакомство с ними, началось именно с этого! Так держать! Дальнейшего вам развития, и спасибо за красоту в доме!!!",
+    initials: "МН",
+    date: "19 февраля",
   },
   {
-    name: "Сергей",
-    text: "Быстро предложили несколько решений и тканей. Понравилось, что не навязывали, а объясняли по делу.",
+    name: "Татьяна Рассказова",
+    text: "Заказывала ковер круглый в детскую, нужен был розовый определенного оттенка. Результат превзошел все мои ожидания! Спасибо ❤️❤️",
+    initials: "ТР",
+    date: "18 февраля",
   },
   {
-    name: "Екатерина",
-    text: "Сильный декор и фурнитура — именно это искала. Итог получился как на визуализации дизайнера.",
+    name: "Алексей Леонов",
+    text: "Купили два ковра в данном салоне. Добираться далековато, но это того стоило. Ковры отличного качества ! Рекомендую.",
+    initials: "АЛ",
+    date: "13 февраля",
   },
   {
-    name: "Мария",
-    text: "Супер сервис: замер, подбор тканей и монтаж прошли спокойно. Результат выглядит очень дорого.",
+    name: "Александр Ч",
+    text: "Пишу отзыв и радуюсь! Наконец появился салон с широким и нестандартным ассортиментом. Смогут удовлетворить потребности любого клиента, и цветов много и форм и размер могут сделать не стандартный. У нас был запрос на ковер 3*6! Теперь ждём свой коврик из производства❤️",
+    initials: "АЧ",
+    date: "6 февраля",
   },
   {
-    name: "Илья",
-    text: "Понравилось, что сразу предложили несколько вариантов под интерьер и бюджет. Всё в срок.",
-  },
-  {
-    name: "Наталья",
-    text: "Качество пошива отличное, складка ровная. Мастера аккуратные, ничего не испачкали и не повредили.",
-  },
-  {
-    name: "Ольга",
-    text: "Очень деликатно подобрали оттенки и фактуры. Смотрится спокойно, но при этом дорого.",
-  },
-  {
-    name: "Дмитрий",
-    text: "Монтаж аккуратный, всё выровняли идеально. Комната стала выглядеть цельнее и теплее.",
+    name: "Евгения С",
+    text: "Недавно посетила салон ковров Koenig carpet, осталась очень довольна обслуживанием и ассортиментом. Продавец-консультант Юлия оказалась компетентной и внимательной, помогла выбрать идеальный вариант для моего интерьера. Качество ковров высокое, представлены разнообразные коллекции на любой вкус и бюджет. Оформление покупки прошло быстро и без проблем. Рекомендую этот магазин всем, кто ищет качественные ковры!",
+    initials: "ЕС",
+    date: "29 января",
+    avatar: "https://i1.photo.2gis.com/images/profile/30258560051306223_3c0c.jpg",
   },
 ];
 
 type ReviewItem =
-  | { kind: "review"; name: string; text: string }
+  | { kind: "review"; name: string; text: string; initials?: string; date?: string; avatar?: string }
   | { kind: "photo"; src: string; alt: string };
 
 function mulberry32(seed: number) {
@@ -115,14 +123,15 @@ export function Reviews({ images }: { images?: string[] }) {
         31,
       );
 
-      const pool = images && images.length > 0 ? images : ["/hero2.jpg", "/gray_hero.jpg", "/hero.jpg"];
+      const poolRaw = images && images.length > 0 ? images : CATALOG_REVIEW_PHOTOS;
+      const pool = poolRaw.map((src) => encodeURI(src));
       const photos = shuffle(
         [
           { kind: "photo", src: pool[0] || "/hero2.jpg", alt: "Интерьер" },
           { kind: "photo", src: pool[1] || "/gray_hero.jpg", alt: "Интерьер" },
-          { kind: "photo", src: "/1step.png", alt: "Процесс" },
-          { kind: "photo", src: "/2step.png", alt: "Процесс" },
-          { kind: "photo", src: "/3step.png", alt: "Процесс" },
+          { kind: "photo", src: pool[2] || pool[0] || "/hero.jpg", alt: "Интерьер" },
+          { kind: "photo", src: pool[3] || pool[1] || "/hero.jpg", alt: "Интерьер" },
+          { kind: "photo", src: pool[4] || pool[2] || "/hero.jpg", alt: "Интерьер" },
           { kind: "photo", src: pool[2] || "/hero.jpg", alt: "Интерьер" },
         ] as ReviewItem[],
         47,
@@ -186,13 +195,31 @@ export function Reviews({ images }: { images?: string[] }) {
                     <div className="text-sm leading-none tracking-[0.2em] text-black">
                       {stars(5)}
                     </div>
-                    <div className="text-xs font-medium text-black/45">Google</div>
+                    <div className="text-xs font-medium text-black/45">2ГИС</div>
                   </div>
                   <blockquote className="mt-3 text-sm leading-6 text-black">
-                    “{it.text}”
+                    "{it.text}"
                   </blockquote>
-                  <figcaption className="mt-4 text-xs font-semibold tracking-wide text-black/55">
-                    {it.name}
+                  <figcaption className="mt-4 flex items-center gap-3">
+                    {it.avatar ? (
+                      <img
+                        src={it.avatar}
+                        alt={it.name}
+                        className="h-10 w-10 rounded-full object-cover"
+                      />
+                    ) : it.initials ? (
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-xs font-semibold text-neutral-600">
+                        {it.initials}
+                      </div>
+                    ) : null}
+                    <div className="flex flex-col">
+                      <span className="text-xs font-semibold tracking-wide text-black/80">
+                        {it.name}
+                      </span>
+                      {it.date ? (
+                        <span className="text-[10px] text-black/40">{it.date}</span>
+                      ) : null}
+                    </div>
                   </figcaption>
                 </figure>
               );

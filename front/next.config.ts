@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         hostname: "koenigcarpet.ru",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "i1.photo.2gis.com",
+        pathname: "/**",
+      },
     ],
   },
 };

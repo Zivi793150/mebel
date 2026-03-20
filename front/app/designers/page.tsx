@@ -1,4 +1,4 @@
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -16,9 +16,13 @@ export default function DesignersPage() {
 
       <main>
         <DesignersHero />
-        <DesignersServices />
+        <div className="bg-[#ede6de] dark:bg-white/[0.06]">
+          <DesignersServices />
+        </div>
         <DesignersBenefits />
-        <DesignersPortfolio />
+        <div className="bg-[#ede6de] dark:bg-white/[0.06]">
+          <DesignersPortfolio />
+        </div>
         <DesignersContact />
       </main>
 

@@ -51,7 +51,6 @@ const portfolioItems = [
     title: "Литовский вал",
     cover: enc("/for_designers/Литовский вал/RED_1170.jfif"),
     images: [
-      enc("/for_designers/Литовский вал/42ef1b33-15d3-4342-811a-88e0db258022.jfif"),
       enc("/for_designers/Литовский вал/RED_1170.jfif"),
       enc("/for_designers/Литовский вал/RED_1190.jfif"),
       enc("/for_designers/Литовский вал/RED_1198.jfif"),
@@ -114,7 +113,7 @@ function ProjectModal({
 
   const project = projects[activeProjectIndex];
   const images = useMemo(() => {
-    const arr = [...(project?.images || [])].filter(Boolean);
+    const arr = [project?.cover, ...(project?.images || [])].filter(Boolean);
     return Array.from(new Set(arr)).slice(0, 30);
   }, [project]);
 
@@ -168,7 +167,7 @@ function ProjectModal({
     <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <div
         ref={wrapRef}
-        className="w-full max-w-6xl rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-6xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
       >
         <div className="flex items-center justify-between gap-3">
           <button
@@ -391,7 +390,7 @@ export function DesignersPortfolio() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-[color:var(--bg)] py-16 sm:py-20 lg:py-24">
+    <section className="py-16 sm:py-20 lg:py-24">
       <Container>
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">

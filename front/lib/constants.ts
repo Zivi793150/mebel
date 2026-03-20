@@ -14,6 +14,7 @@ export const CONTACTS = {
   twoGisHref:
     "https://2gis.ru/kaliningrad/search/%D0%9A%D0%BE%D0%B2%D1%80%D1%8B/rubricId/19505/firm/70000001103690198/20.563928%2C54.720942?m=20.545521%2C54.723172%2F16.14",
   instagramHref: "https://www.instagram.com/koenigroom/",
+  maxHref: "https://max.ru/join/feos5xEfrDQWNiXbR6sjVFkmbiSqzrl6Bb-d9t5_tSg",
 };
 
 export type CatalogCategory = {
@@ -78,6 +79,7 @@ export const CATALOG_CATEGORIES: CatalogCategory[] = [
 
 export const NAV_LINKS = [
   { label: "Каталог", href: "/#catalog" },
+  { label: "Химчистка", href: "/himchistka" },
   { label: "Дизайнерам", href: "/designers" },
   { label: "О нас", href: "/about" },
   { label: "Отзывы", href: "/reviews" },

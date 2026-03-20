@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { BRAND, CONTACTS, NAV_LINKS } from "@/lib/constants";
 import { Container } from "@/components/Container";
-import { IconInstagram, IconRuTube, IconTelegram, IconTwoGis, IconVK } from "@/components/icons";
+import { IconInstagram, IconMax, IconRuTube, IconTelegram, IconTwoGis, IconVK } from "@/components/icons";
 
 export function Header() {
   const [compact, setCompact] = useState(false);
@@ -99,11 +99,11 @@ export function Header() {
           ref={barRef}
           className={`relative left-1/2 w-full -translate-x-1/2 transition-[max-width,margin,transform,border-radius,box-shadow,background-color,border-color] duration-500 ease-out will-change-transform ${
             compact
-              ? "mt-3 max-w-[1120px] scale-[0.985] rounded-2xl border border-black/10 bg-[color:var(--bg)]/55 supports-[backdrop-filter]:bg-[color:var(--bg)]/55 shadow-[0_18px_60px_rgba(0,0,0,0.10)] dark:border-white/10"
+              ? "mt-3 max-w-[1320px] scale-[0.985] rounded-2xl border border-black/10 bg-[color:var(--bg)]/55 supports-[backdrop-filter]:bg-[color:var(--bg)]/55 shadow-[0_18px_60px_rgba(0,0,0,0.10)] dark:border-white/10"
               : "max-w-[100%] border-b border-black/5 bg-transparent shadow-none dark:border-white/10"
           }`}
         >
-          <Container>
+          <div className="mx-auto w-full max-w-6xl px-0.5 sm:px-1 lg:px-2">
             <div className="relative flex h-16 items-center justify-between gap-3">
               <div className="flex min-w-0 items-center gap-4">
                 <Link
@@ -116,7 +116,7 @@ export function Header() {
                   {BRAND.name}
                 </Link>
 
-                <nav className="hidden items-center gap-1 lg:flex">
+                <nav className="hidden items-center gap-0.5 xl:flex">
                   {NAV_LINKS.map((l) => (
                     <a
                       key={l.href}
@@ -155,16 +155,17 @@ export function Header() {
 
                 <a
                   href={CONTACTS.telegramHref}
-                  className={`hidden shrink-0 items-center justify-center gap-2 rounded-xl border border-black/10 bg-white/70 px-3 py-2 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 sm:inline-flex ${
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`hidden sm:inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 ${
                     invert ? "text-white border-white/15 bg-white/5 hover:bg-white/10" : ""
                   }`}
-                  aria-label="Написать в Telegram"
+                  aria-label="Telegram"
                 >
-                  <IconTelegram className="h-4 w-4" />
-                  Telegram
+                  <IconTelegram className="h-5 w-5" />
                 </a>
 
-                <div className="hidden items-center gap-1 sm:flex">
+                <div className="hidden items-center gap-1.5 sm:flex">
                   <a
                     href={CONTACTS.vkHref}
                     target="_blank"
@@ -211,6 +212,19 @@ export function Header() {
                       <IconInstagram className="h-5 w-5" />
                     </a>
                   ) : null}
+                  {CONTACTS.maxHref ? (
+                    <a
+                      href={CONTACTS.maxHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 ${
+                        invert ? "text-white border-white/15 bg-white/5 hover:bg-white/10" : ""
+                      }`}
+                      aria-label="MAX"
+                    >
+                      <IconMax className="h-5 w-5" />
+                    </a>
+                  ) : null}
                 </div>
 
                 <Link
@@ -223,7 +237,7 @@ export function Header() {
                 </Link>
               </div>
             </div>
-          </Container>
+          </div>
         </div>
       </div>
 
@@ -315,6 +329,17 @@ export function Header() {
                         aria-label="Instagram"
                       >
                         <IconInstagram className="h-5 w-5" />
+                      </a>
+                    ) : null}
+                    {CONTACTS.maxHref ? (
+                      <a
+                        href={CONTACTS.maxHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                        aria-label="MAX"
+                      >
+                        <IconMax className="h-5 w-5" />
                       </a>
                     ) : null}
                   </div>

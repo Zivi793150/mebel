@@ -81,7 +81,8 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
     <section id="top" className="relative isolate overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src={backgroundSrc || "/hero.jpg"}
+          key={backgroundSrc || "/main_page.jpg"}
+          src={backgroundSrc || "/main_page.jpg"}
           alt="Koenig Room"
           fill
           sizes="100vw"

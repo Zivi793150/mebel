@@ -117,7 +117,7 @@ export function DesignersServices() {
     <section
       id="services"
       ref={sectionRef}
-      className="bg-[color:var(--bg)] py-16 sm:py-20 lg:py-24"
+      className="py-16 sm:py-20 lg:py-24"
     >
       <Container>
         <div className="mx-auto max-w-3xl text-center">

@@ -128,7 +128,7 @@ export function LeadRequestModal({
         ref={wrapRef}
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}
-        className="w-full max-w-xl rounded-3xl border border-black/10 bg-white/90 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/70"
+        className="w-full max-w-xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/90 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/70"
       >
         <div className="flex items-center justify-between">
           <button
