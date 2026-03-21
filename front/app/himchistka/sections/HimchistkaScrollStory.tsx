@@ -38,9 +38,9 @@ export function HimchistkaScrollStory() {
 
   const visuals = useMemo(
     () => [
-      { src: "/catalog/rails.jpg", alt: "Выезд и осмотр" },
-      { src: "/catalog/decor.jpg", alt: "Чистка и восстановление" },
-      { src: "/catalog/pillows.jpg", alt: "Монтаж обратно" },
+      { src: encodeURI("/химчистка/1. Выезд и осмотр .jpg"), alt: "Выезд и осмотр" },
+      { src: encodeURI("/химчистка/Чистка и восстановление .jpg"), alt: "Чистка и восстановление" },
+      { src: encodeURI("/химчистка/3. Установка на объекте .jpg"), alt: "Монтаж обратно" },
     ],
     [],
   );

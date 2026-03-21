@@ -213,10 +213,12 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
                     {scenario.cta.label}
                   </a>
                   <a
-                    href="#rugs-catalog"
-                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-black/[0.03] px-5 text-sm font-semibold text-[color:var(--fg)]/85 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                    href="https://koenigcarpet.ru"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)]/10 px-5 text-sm font-semibold text-[color:var(--accent)] shadow-sm backdrop-blur transition hover:bg-[color:var(--accent)]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
                   >
-                    Каталог <span aria-hidden="true" className="ml-2">→</span>
+                    Каталог на koenigcarpet.ru →
                   </a>
                 </div>
               </div>

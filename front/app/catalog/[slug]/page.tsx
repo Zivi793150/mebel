@@ -13,13 +13,13 @@ import { Header } from "@/components/Header";
 import { MobileCtaBar } from "@/components/MobileCtaBar";
 import { PillowsWhyMasonry } from "@/components/PillowsWhyMasonry";
 import { BeddingCatalog } from "@/components/BeddingCatalog";
-import { BlindsCategoriesNav } from "@/components/BlindsCategoriesNav";
-import { type CorniceItem, CornicesCatalog } from "@/components/CornicesCatalog";
+import { BlindsTypesCatalog, type BlindsTypeItem } from "@/components/BlindsTypesCatalog";
 import { RailsShowcase } from "@/components/RailsShowcase";
 import { RailsVariantsCatalog } from "@/components/RailsVariantsCatalog";
 import { RugsStyleCatalog } from "@/components/RugsStyleCatalog";
 import { RugsWhyShowcase } from "@/components/RugsWhyShowcase";
 import { CurtainTypesCatalog, CurtainTypesList, type CurtainTypeItem } from "@/components/CurtainTypesList";
+import { CornicesCatalog } from "@/components/CornicesCatalog";
 import type { BlindsTypeItem } from "@/components/BlindsTypesCatalog";
 import { CONTACTS, CATALOG_CATEGORIES } from "@/lib/constants";
 import { getMongoClient } from "@/lib/mongo";
@@ -114,12 +114,21 @@ type BedspreadsAndPillowsItemDoc = {
   priceText?: string;
 };
 
+type DecorItemDoc = {
+  source?: string;
+  kind?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  images?: string[];
+};
+
 async function getBeddingItems(): Promise<BeddingItemDoc[]> {
   try {
     const client = await getMongoClient();
     const col = client.db("koenig").collection<BeddingItemDoc>("bedding_items");
     const docs = await col
-      .find({ source: "koenigroom.ru", kind: "bedding_item" }, { projection: { _id: 0 } })
+      .find({ source: "koenig_room", kind: "bedding_item" }, { projection: { _id: 0 } })
       .toArray();
     return docs ?? [];
   } catch {
@@ -131,8 +140,21 @@ async function getBedspreadsAndPillowsItems(): Promise<BedspreadsAndPillowsItemD
   try {
     const client = await getMongoClient();
     const db = client.db("koenig");
-    const col = db.collection<BedspreadsAndPillowsItemDoc>("bedspreads_and _illows");
-    const docs = await col.find({ source: "koenigroom.ru" }, { projection: { _id: 0 } }).toArray();
+    const col = db.collection<BedspreadsAndPillowsItemDoc>("bedspreads_and_pillows");
+    const docs = await col.find({ source: "koenig_room", kind: "bedspreads_and_pillows_item" }, { projection: { _id: 0 } }).toArray();
+    return docs ?? [];
+  } catch {
+    return [];
+  }
+}
+
+async function getDecorItems(): Promise<DecorItemDoc[]> {
+  try {
+    const client = await getMongoClient();
+    const col = client.db("koenig").collection<DecorItemDoc>("decor_items");
+    const docs = await col
+      .find({ source: "koenig_room", kind: "decor_item" }, { projection: { _id: 0 } })
+      .toArray();
     return docs ?? [];
   } catch {
     return [];
@@ -144,7 +166,7 @@ async function getCurtainTypes(): Promise<CurtainTypeItem[]> {
     const client = await getMongoClient();
     const col = client.db("koenig").collection<CurtainTypeItem>("curtain_types");
     const docs = await col
-      .find({ source: "centrshtor.ru", kind: "curtain_type" }, { projection: { _id: 0 } })
+      .find({ source: "koenig_room", kind: "curtain_type" }, { projection: { _id: 0 } })
       .toArray();
     return docs ?? [];
   } catch {
@@ -157,7 +179,7 @@ async function getBlindsTypes(): Promise<BlindsTypeItem[]> {
     const client = await getMongoClient();
     const col = client.db("koenig").collection<BlindsTypeItem>("blinds_types");
     const docs = await col
-      .find({ source: "centrshtor.ru", kind: "blinds_type" }, { projection: { _id: 0 } })
+      .find({ source: "koenig_room", kind: "blinds_type" }, { projection: { _id: 0 } })
       .toArray();
     return docs ?? [];
   } catch {
@@ -171,7 +193,7 @@ async function getCornicesItems(): Promise<CorniceItem[]> {
     const col = client.db("koenig").collection<CorniceItem>("cornices");
     const docs = await col
       .find(
-        { source: "koenigroom.ru", kind: { $in: ["cornice_collection", "cornice_item"] } },
+        { source: "koenig_room", kind: { $in: ["cornice_collection", "cornice_item"] } },
         { projection: { _id: 0 } },
       )
       .limit(500)
@@ -1131,15 +1153,23 @@ export default async function CategoryPage({ params }: Params) {
   const romanCatalog = injectImages(ROMAN_CATALOG, koenigImages);
   const curtainsCatalog = injectImages(CURTAINS_CATALOG, koenigImages);
 
-  const decorVariantCards = (koenigImages.length
-    ? koenigImages
-    : Array.from({ length: 24 }).map(() => "/catalog/decor.jpg")
-  )
-    .slice(0, 72)
-    .map((src, idx) => ({
-      title: `Вариант ${idx + 1}`,
-      imageSrc: src || "/catalog/decor.jpg",
-    }));
+  const decorItems: DecorItemDoc[] = isDecor
+    ? await getDecorItems()
+    : [];
+
+  const decorVariantCards = decorItems.length
+    ? decorItems.map((item) => ({
+        title: item.title || "Вариант",
+        imageSrc: item.image || "/catalog/decor.jpg",
+        images: item.images || [],
+        description: item.description || "",
+      }))
+    : Array.from({ length: 24 }).map((_, idx) => ({
+        title: `Вариант ${idx + 1}`,
+        imageSrc: "/catalog/decor.jpg",
+        images: [] as string[],
+        description: "",
+      }));
 
   const beddingItems: BeddingItemDoc[] = isBedding
     ? await getBeddingItems()
@@ -1457,6 +1487,57 @@ export default async function CategoryPage({ params }: Params) {
         {isRugs ? (
           <section id="rugs-all" className="py-14 sm:py-18">
             <Container>
+              {/* Partner block about koenigcarpet.ru */}
+              <div className="mb-12 rounded-3xl border border-black/10 bg-gradient-to-br from-white/70 to-white/40 p-6 shadow-lg backdrop-blur dark:border-white/10 dark:from-black/30 dark:to-black/20 sm:p-8 lg:p-10">
+                <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+                  <div className="lg:col-span-8">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent)]/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-[color:var(--accent)]">
+                      НАШ САЙТ
+                    </div>
+                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
+                      Koenig Carpet — ковры премиум-класса
+                    </h2>
+                    <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+                      Наш специализированный сайт для покупки качественных ковров. Koenig Room — основной зал со всей продукцией, а здесь — исключительно ковры.
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
+                        <span className="text-[color:var(--fg)]">Доставка по Калининграду</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
+                        <span className="text-[color:var(--fg)]">Подбор по фото интерьера</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
+                        <span className="text-[color:var(--fg)]">Гарантия качества</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="lg:col-span-4 lg:flex lg:justify-end">
+                    <div className="flex flex-col gap-3">
+                      <a
+                        href="https://koenigcarpet.ru"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-14 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-6 text-base font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95"
+                      >
+                        Перейти в каталог →
+                      </a>
+                      <a
+                        href="https://koenigcarpet.ru/ru/all-rugs"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                      >
+                        Все ковры на сайте
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
                 <div className="lg:col-span-8">
                   <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ВСЕ КОВРЫ</div>
@@ -1643,12 +1724,12 @@ export default async function CategoryPage({ params }: Params) {
         ) : null}
 
         {isBlinds ? (
-          <section id="blinds-subcatalog" className="py-14 sm:py-18">
+          <section id="blinds-catalog" className="py-14 sm:py-18">
             <Container>
               <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
                 <div className="lg:col-span-8">
                   <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    КАТЕГОРИИ ЖАЛЮЗИ
+                    КАТАЛОГ ЖАЛЮЗИ
                   </div>
                   <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
                     Выберите тип
@@ -1667,42 +1748,9 @@ export default async function CategoryPage({ params }: Params) {
                 </div>
               </div>
 
-              <BlindsCategoriesNav
-                koenigImages={koenigImages}
-                items={blindsTypes}
-                categories={[
-                  {
-                    subslug: "aluminum",
-                    title: "Алюминиевые жалюзи",
-                    text: "Практичное и долговечное решение для регулировки освещения, обеспечивающее стильный вид и защиту от солнца.",
-                    imageIdx: 0,
-                  },
-                  {
-                    subslug: "wood",
-                    title: "Деревянные жалюзи",
-                    text: "Сочетание натуральной эстетики и функциональности: комфортная светорегуляция и стильное оформление интерьера.",
-                    imageIdx: 6,
-                  },
-                  {
-                    subslug: "pleated",
-                    title: "Жалюзи плиссе",
-                    text: "Функциональное решение для окон любой формы: комфортную светорегуляцию, защиту от солнца и эстетичный вид.",
-                    imageIdx: 12,
-                  },
-                  {
-                    subslug: "roman",
-                    title: "Римские шторы",
-                    text: "Элегантное и практичное решение для окон, сочетающее стильный дизайн и удобство в ежедневном использовании.",
-                    imageIdx: 18,
-                  },
-                  {
-                    subslug: "roller",
-                    title: "Рулонные шторы",
-                    text: "Современное и функциональное решение для окон: комфорт, лаконичность и точное управление светом.",
-                    imageIdx: 24,
-                  },
-                ]}
-              />
+              <div className="mt-10">
+                <BlindsTypesCatalog items={blindsTypes} />
+              </div>
             </Container>
           </section>
         ) : null}

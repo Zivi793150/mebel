@@ -1,0 +1,390 @@
+[{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92cb"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 1",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50007.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50007.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92cc"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 2",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50008 (1).png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50008 (1).png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92cd"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 3",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50008.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50008.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92ce"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 4",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50010.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50010.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92cf"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 5",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50054.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50054.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d0"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 6",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50055.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50055.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d1"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 7",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50056.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50056.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d2"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 8",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50057.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50057.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d3"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 9",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/50058.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/50058.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d4"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 10",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80001.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80001.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d5"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 11",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80003.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80003.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d6"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 12",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80004.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80004.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d7"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 13",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80009.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80009.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d8"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 14",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80010.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80010.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92d9"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 15",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80054.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80054.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92da"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 16",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/80055.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/80055.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92db"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 17",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/85001.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/85001.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92dc"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 18",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/85009.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/85009.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92dd"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 19",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/85010.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/85010.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92de"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 20",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/85054.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/85054.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92df"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 21",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/85055.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/85055.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e0"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 22",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90007.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90007.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e1"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 23",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90008.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90008.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e2"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 24",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90009.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90009.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e3"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 25",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90010.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90010.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e4"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 26",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90054.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90054.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e5"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 27",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90055.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90055.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e6"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 28",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90056.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90056.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e7"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 29",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90057.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90057.png"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69bd848eb5a191f2559e92e8"
+  },
+  "source": "koenig_room",
+  "kind": "decor_item",
+  "title": "Вариант 30",
+  "description": "Декоративный элемент для штор",
+  "image": "/catalog/5. Декор, фурнитура/90058.png",
+  "images": [
+    "/catalog/5. Декор, фурнитура/90058.png"
+  ]
+}]

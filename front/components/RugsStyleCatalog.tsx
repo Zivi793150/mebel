@@ -163,7 +163,7 @@ function FilterSelect({
                   className={
                     "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition " +
                     (disabled
-                      ? "cursor-not-allowed text-[color:var(--muted)]/40"
+                      ? "cursor-not-allowed bg-black/[0.02] text-[color:var(--muted)]/40 dark:bg-white/[0.02]"
                       : active
                         ? "bg-[color:var(--accent)]/12 text-[color:var(--fg)]"
                         : "text-[color:var(--fg)] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]")
@@ -563,8 +563,19 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
 
       <div>
         {filtered.length === 0 ? (
-          <div className="rounded-3xl border border-black/10 bg-white/50 p-8 text-sm text-[color:var(--muted)] backdrop-blur dark:border-white/10 dark:bg-white/5">
-            Пока нет товаров в этой категории. Запусти парсер и залей в Mongo.
+          <div className="rounded-3xl border border-black/10 bg-white/50 p-8 text-center backdrop-blur dark:border-white/10 dark:bg-white/5">
+            <div className="text-lg font-semibold text-[color:var(--fg)]">Ковры не найдены</div>
+            <div className="mt-3 text-sm text-[color:var(--muted)]">
+              Больше ковров на сайте{" "}
+              <a
+                href="https://koenigcarpet.ru"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-[color:var(--accent)] underline underline-offset-2 transition hover:opacity-80"
+              >
+                koenigcarpet.ru
+              </a>
+            </div>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -618,11 +629,11 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
       </div>
 
       {filtered.length > visible.length ? (
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-4">
           <button
             type="button"
             onClick={() => setVisibleCount((v) => v + 20)}
-            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-black/10 bg-white/70 px-6 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-black/10 bg-white/70 px-6 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
             aria-label="Показать ещё"
           >
             Показать ещё
@@ -630,8 +641,27 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
               ↓
             </span>
           </button>
+          <a
+            href="https://koenigcarpet.ru"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.16)] transition hover:opacity-95"
+          >
+            Больше ковров на koenigcarpet.ru →
+          </a>
         </div>
-      ) : null}
+      ) : (
+        <div className="flex justify-center">
+          <a
+            href="https://koenigcarpet.ru"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[color:var(--accent)] px-6 py-3 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.16)] transition hover:opacity-95"
+          >
+            Больше ковров на koenigcarpet.ru →
+          </a>
+        </div>
+      )}
 
       {activeItem ? <RugDetailsModal item={activeItem} onClose={() => setActiveItem(null)} /> : null}
     </div>

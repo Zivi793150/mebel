@@ -1,0 +1,179 @@
+﻿
+FullName                                                                                                                                 
+--------                                                                                                                                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Багетные карнизы\1.png                                                               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Багетные карнизы\2.png                                                               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Багетные карнизы\3.png                                                               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Багетные карнизы\4.png                                                               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Багетные карнизы\5.png                                                               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Главн .jpg                                                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Гладиатор .png                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Капитолий .jpg                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Кнопка 3.png                  
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Консул .jpg                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Кубок .png                    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Кубок 2.png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Цезарь .png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Империум\Эксклюзивный латунный карниз Центурион .png                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Андромеда .png               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Кассиопея .png               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Орион .png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Орион 2 .png                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Сан Марко 2 .png             
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Сан Марко 3 .png             
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Сан Марко t.png              
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Кристалло\Эксклюзивный латунный карниз Северная корона .png         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\27585da79.jpg                                               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\Эксклюзивный латунный карниз Берн .png                      
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\Эксклюзивный латунный карниз Колизей .png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\Эксклюзивный латунный карниз Кубок .png                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\Эксклюзивный латунный карниз Кубок 2 .png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\Эксклюзивный латунный карниз Маракеш .png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Латунные карнизы\Сенатор\Эксклюзивный латунный карниз Форум .png                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Гефест .png                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Гефест 2 .png                      
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Копье .png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Крюк .png                          
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Крюк 2  .png                       
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Лилия .png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Шар .png                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Шар 2 .png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Шар 3.png                          
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Гефест\Металлический карниз Шишка .png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Ветка .png                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Копье .png                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Крюк .png                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Крюк.png                  
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Лилия .png                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Лист .png                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Руны .png                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Тор .png                  
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Флора .png                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Шар .jpg                  
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Шар .png                  
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Металлический карниз Шар.png                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Артик\Фото на главную .jpg                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\49d5845e7.jpg                                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\bebi_2.jpg                                      
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник  Утенок .png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Бабочка .png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Вертолет .png                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Краб .png                            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Крокодил .png                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Пожарная машина .png                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Пчела .png                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Коллекция Бэби\Наконечник Цветок t.png                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10001.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10001_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10002.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10002_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10003.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10003_new_catalog.jpg
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10004.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10004_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10005.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10005_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10006.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10006_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10007.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10007_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10008.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10008_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10009.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10009_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10010.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10010_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10011.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10011_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10054.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10054_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10055_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10056.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10056_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10057.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10057_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10058.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10058_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10059 .jpg           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10059_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10060.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10060_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10061.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10061_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10062.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10062_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10063.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10063_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10064.jpg            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\10064_catalog.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\Palas 10003.jpg      
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\НОВЫЕ фото карнизов (металлические)\Palas\_10055.jpg           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Прима\Металлический карниз Астория .jpg                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Прима\Металлический карниз Грация .jpg                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Прима\Металлический карниз Прима .jpg                          
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Прима\Металлический карниз Ривьера .jpg                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Прима\Металлический карниз Фиоро.jpg                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Прима\Металлический карниз Шар .jpg                            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Селена\Металлический карниз Гелиос .jpg                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Селена\Металлический карниз Каллисто .jpg                      
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Селена\Металлический карниз Кнопка .jpg                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Селена\Металлический карниз Кнопка a.jpg                       
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Металлические карнизы\Селена\Металлический карниз Фаэтон .jpg                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\2356e1baa4a69727e52049609a373152.jpg                              
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\9ac293ffe2385a1d2c30c791e9d232e2.png                              
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\d861e9fd84e6c95d2f5d6c15cd0d486d.jpg                              
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\uawdbpclectkr592z0qek40n6vgj6wrp.png                              
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\«Универсал» Белый .jpg                                            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\Алюминиевый потолочный карниз .jpg                                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\Алюминиевый потолочный карниз .png                                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\Однорядный потолочный пластиковый карниз .jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Потолочные карнизы\Однорядный потолочный пластиковый карниз 1 .jpg                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\1. Отель\5ecfbc3f1983a5ceb366eb4e3ffef26b.png                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\1. Отель\8143fbc7ae44bfa04a1bc5936e9315eb.jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\1. Отель\94ba3c68164453effac2069189e268c7.jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\1. Отель\ae6ed244e8053452fabd85d88dea767b.jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\1. Отель\b7fe8a7873108b1efb03e441a2c19e40.png                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\1. Отель\e29611ce3770e0fe96bb51738854dd95.jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\2. Однорядный _Универсал_\2356e1baa4a69727e52049609a373152.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\2. Однорядный _Универсал_\422dcdd7905ae9954fc2cec8630712b8.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\2. Однорядный _Универсал_\623811bc7b70ea29a0c92a615bc115f9.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\2. Однорядный _Универсал_\9ac293ffe2385a1d2c30c791e9d232e2.png    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\2. Однорядный _Универсал_\d861e9fd84e6c95d2f5d6c15cd0d486d.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\2. Однорядный _Универсал_\uawdbpclectkr592z0qek40n6vgj6wrp.png    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\3. МАСТЕР 03-1\3d87d4df080615b9e15e0f90e8b6e8f6.jpg               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\3. МАСТЕР 03-1\a33b3c89cc182429ccc822170d54c6d0.jpg               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\3. МАСТЕР 03-1\eeb4943b51aa706d3269f6d65489d0e2.jpg               
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\4. Велкро с липучкой\52587f002b38db7d54c8600e569c07c3.jpg         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\4. Велкро с липучкой\562b53ac52403186847cdb6f29d05e92.jpg         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\4. Велкро с липучкой\79b152ec0fb4e1b161c46393fa44d2ba.png         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\4. Велкро с липучкой\fb3c99e3860487da91a17bc42bbf6193.jpg         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\5. Двухрядный _Универсал_\09cd359ef0cf8e149d56ac995401f274.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\5. Двухрядный _Универсал_\3440ba24998e3bf7ec2926030bf962c4.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\5. Двухрядный _Универсал_\4a4f667ecd6464739a2aa1b26bb60cfa.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\5. Двухрядный _Универсал_\a71a7487286fa0c97a89ac7beefbdf33.png    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\5. Двухрядный _Универсал_\fab02a6b8efe4903ea18fbd569754055.jpg    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Профильные карнизы\5. Двухрядный _Универсал_\pcfxceet6liyela3t6rpirnbu1tlrax1.png    
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\8d5895d5a388b3482a148445333db28f-optimized.png                        
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Электрокарнизы  2 .MOV                                                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Электрокарнизы 1 .MOV                                                 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Prime\1t71sq61n83xjq2w9p2fsl64gvvnju3b.webp                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Prime\44444445ydrm.jpg                                                
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Prime\edw6f49aiag0zxs5t1ynzj6s492exkbg.webp                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Prime\ekmbom1ptpq5qgr837t1t0mapv9zg4ya.webp                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Prime\x7yecnh7miull9t5237gmra31v04e3xz.webp                           
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\563a0156a68a897777a43cdee3f70965.jpg                            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\8d5895d5a388b3482a148445333db28f-optimized.png                  
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\b58897918f4d2c7f24e8e5b3fbd0bb21.png                            
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\razdvirismo-5b.jpg                                              
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\razdvirismo-6-1.png                                             
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\razdvirismo-6-2.png                                             
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Somfy\wgarden-3.jpg                                                   
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Unit\Электропривод Unit-  2.png                                       
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Unit\Электропривод Unit-2.png                                         
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Римские шторы на электроприводе\rim-1.jpg                             
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Римские шторы на электроприводе\sonesse40-6-1.jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Римские шторы на электроприводе\sonesse40-6-3.jpg                     
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Рулонные шторы на электроприводе\cb217dee4fa2cafae3db0a81285afa7d.jpg 
+C:\Users\zivi7\mebel\front\public\catalog\4.Карнизы\Электрокарнизы\Рулонные шторы на электроприводе\ef3d7cb619707c557398c313b6212b0c.jpg 
+
+

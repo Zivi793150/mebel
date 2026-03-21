@@ -11,7 +11,7 @@ import { HimchistkaScrollStory } from "./sections/HimchistkaScrollStory";
 import { HimchistkaProofs } from "./sections/HimchistkaProofs";
 
 const HERO_IMAGE = encodeURI(
-  "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1500-HDR.jpg",
+  "/химчистка/Чистка и восстановление 1 .jpg",
 );
 
 export default function HimchistkaPage() {

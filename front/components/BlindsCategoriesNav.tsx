@@ -20,6 +20,7 @@ function matchSubslug(subslug: string, item: BlindsTypeItem) {
   if (s === "pleated") return /(плиссе|plisse|pliss|плис)/i.test(t);
   if (s === "roller") return /(рулон|рол|кассет|зебра|день\s*ночь)/i.test(t);
   if (s === "roman") return /(римск)/i.test(t);
+  if (s === "textile") return /(текстиль)/i.test(t);
   return false;
 }
 

@@ -6,6 +6,7 @@ const START = `${BASE}/ru/all-rugs`;
 
 const DEFAULT_MAX_PAGES = 120;
 const DEFAULT_MAX_TARGETS = 0; // 0 = no limit
+const MAX_ITEMS_PER_FILTER = 18; // limit carpets per filter
 
 function uniq(arr) {
   return Array.from(new Set(arr));
@@ -288,6 +289,7 @@ async function main() {
   }
 
   const map = new Map();
+  const filterCounts = new Map(); // track count per filter
 
   const targets = [
     ...styleList.map((u) => ({ type: "style", url: u })),
@@ -299,13 +301,21 @@ async function main() {
 
   for (const target of targetsLimited) {
     const valueSlug = slugFromUrl(target.url);
-    console.log(`Target: ${target.type}:${valueSlug}`);
+    const filterKey = `${target.type}:${valueSlug}`;
+    filterCounts.set(filterKey, 0);
+    console.log(`Target: ${filterKey}`);
 
     // Try pagination: ?page=1..N until no new images/titles are found
     let page = 1;
     let emptyStreak = 0;
 
     while (page <= maxPages && emptyStreak < 2) {
+      // Check if we already have enough items for this filter
+      if (filterCounts.get(filterKey) >= MAX_ITEMS_PER_FILTER) {
+        console.log(`  Reached limit of ${MAX_ITEMS_PER_FILTER} items for ${filterKey}`);
+        break;
+      }
+
       const url = `${target.url}?page=${page}`;
       if (!debug && page % 5 === 0) console.log(`  page ${page}`);
       let html;
@@ -346,6 +356,11 @@ async function main() {
 
       const count = Math.max(cards.length, loose.length, images.length, links.length);
       for (let i = 0; i < count; i += 1) {
+        // Skip if we already have enough items for this filter
+        if (filterCounts.get(filterKey) >= MAX_ITEMS_PER_FILTER) {
+          break;
+        }
+
         const card = cards[i];
         const row = loose[i];
         const urlValue = links[i] || null;
@@ -353,6 +368,11 @@ async function main() {
         const titleValue = card?.title || row?.title || null;
         const priceValue = card?.priceText || row?.priceText || null;
         const key = urlValue || `${titleValue || ""}::${imageValue || ""}`;
+
+        // Skip items without title or image (likely garbage)
+        if (!titleValue && !imageValue) continue;
+        // Skip logo images
+        if (imageValue && (imageValue.includes("logo") || imageValue.includes("static"))) continue;
 
         const prev = map.get(key) || {
           source: "koenigcarpet.ru",
@@ -382,6 +402,7 @@ async function main() {
         };
 
         map.set(key, next);
+        filterCounts.set(filterKey, filterCounts.get(filterKey) + 1);
       }
 
       page += 1;

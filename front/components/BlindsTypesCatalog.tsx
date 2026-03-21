@@ -50,7 +50,7 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
     const arr = [...(item.images || [])].filter(Boolean);
     if (item.image) arr.unshift(item.image);
     const uniq = Array.from(new Set(arr));
-    return (uniq.length ? uniq : ["/catalog/blinds.jpg"]).slice(0, 12);
+    return (uniq.length ? uniq : ["/catalog/blinds.jpg"]).slice(0, 12).map(encodeURI);
   }, [item.image, item.images]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -385,7 +385,8 @@ export function BlindsTypesCatalog({
     <div className="rounded-3xl border border-black/10 bg-white/60 p-8 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {cleaned.map((it) => {
-          const img = it.image || it.images?.[0] || "/catalog/blinds.jpg";
+          const rawImg = it.image || it.images?.[0] || "/catalog/blinds.jpg";
+          const img = encodeURI(rawImg);
           return (
             <button
               key={it.url}
