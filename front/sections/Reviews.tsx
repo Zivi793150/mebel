@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-
 import { Container } from "@/components/Container";
 
 const CATALOG_REVIEW_PHOTOS = [
@@ -16,40 +15,49 @@ const CATALOG_REVIEW_PHOTOS = [
 
 const REVIEWS = [
   {
-    name: "Мария Н",
-    text: "Заказала ковëр в спальню. Мне нужен был не стандартный размер. Осталась довольна результатом. И что очень важно для меня, натуральный состав! Очень приятно ходить босиком. Огромный выбор оттенков, глаза разбегаются! А ещё, эти ребята занимаются шторами! И моë знакомство с ними, началось именно с этого! Так держать! Дальнейшего вам развития, и спасибо за красоту в доме!!!",
-    initials: "МН",
-    date: "19 февраля",
+    name: "Анна Медведева",
+    text: "Хочу выразить благодарность всему коллективу за ваш труд! Я в восторге от штор. Заказывала шторы в три комнаты, результатом довольна на все 100%. В Центре шикарный выбор тканей на любой вкус.",
+    photos: ["/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1426-HDR.jpg", "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1500-HDR.jpg"],
   },
   {
-    name: "Татьяна Рассказова",
-    text: "Заказывала ковер круглый в детскую, нужен был розовый определенного оттенка. Результат превзошел все мои ожидания! Спасибо ❤️❤️",
-    initials: "ТР",
-    date: "18 февраля",
+    name: "Александр И.",
+    text: "Спасибо огромное за шторы в моей новой квартире! Качество материалов, пошив и сервис на высоте! Пошив продуман во всех деталях.",
+    photos: [],
   },
   {
-    name: "Алексей Леонов",
-    text: "Купили два ковра в данном салоне. Добираться далековато, но это того стоило. Ковры отличного качества ! Рекомендую.",
-    initials: "АЛ",
-    date: "13 февраля",
+    name: "Екатерина",
+    text: "Я стала счастливой обладательницей прекрасных штор. Устроил их подход к подбору штор. Когда я покупаю, предварительно посмотрев смонтированный ролик с примерами - я просто влюбилась в их сервис.",
+    photos: ["/catalog/1.Шторы и ткани/1.14 Шторы на люверсах/1.webp"],
   },
   {
-    name: "Александр Ч",
-    text: "Пишу отзыв и радуюсь! Наконец появился салон с широким и нестандартным ассортиментом. Смогут удовлетворить потребности любого клиента, и цветов много и форм и размер могут сделать не стандартный. У нас был запрос на ковер 3*6! Теперь ждём свой коврик из производства❤️",
-    initials: "АЧ",
-    date: "6 февраля",
+    name: "Марина Кутовая",
+    text: "Хочу сказать слова благодарности Юлии за отличную работу. Обращаюсь уже не в первый раз, заказывала шторы в спальню и гостиную.",
+    photos: [],
   },
   {
-    name: "Евгения С",
-    text: "Недавно посетила салон ковров Koenig carpet, осталась очень довольна обслуживанием и ассортиментом. Продавец-консультант Юлия оказалась компетентной и внимательной, помогла выбрать идеальный вариант для моего интерьера. Качество ковров высокое, представлены разнообразные коллекции на любой вкус и бюджет. Оформление покупки прошло быстро и без проблем. Рекомендую этот магазин всем, кто ищет качественные ковры!",
-    initials: "ЕС",
-    date: "29 января",
-    avatar: "https://i1.photo.2gis.com/images/profile/30258560051306223_3c0c.jpg",
+    name: "Рамиль Ш.",
+    text: "Все супер, качество штор отличное, все сроки соблюдены, сервис на высшем уровне. Отдельно хочется поблагодарить менеджера Татьяну.",
+    photos: ["/catalog/1.Шторы и ткани/1.15 Шторы в ванную/photo_2026-03-12_17-12-04.jpg"],
+  },
+  {
+    name: "Анна Коровина",
+    text: "Хочу выразить огромную благодарность дизайнеру Наталье Белановой за шикарно проведенную работу! Наталья - высококвалифицированный профессионал своего дела!",
+    photos: [],
+  },
+  {
+    name: "Ольга",
+    text: "Заказывали в салоне римские шторы на электроприводе на балкон. Огромное спасибо дизайнеру Анастасии за помощь в подборе идеальной ткани.",
+    photos: ["/catalog/1.Шторы и ткани/1.1.Австрийские/photo_2026-03-02_16-21-17.jpg"],
+  },
+  {
+    name: "Александр",
+    text: "Мы проехали много магазинов по всему городу, нигде не удовлетворили наш запрос. Обратившись к дизайнеру Татьяне мы получили максимально развернутый ассортимент. Результат превзошёл все мои ожидания.",
+    photos: [],
   },
 ];
 
 type ReviewItem =
-  | { kind: "review"; name: string; text: string; initials?: string; date?: string; avatar?: string }
+  | { kind: "review"; name: string; text: string; photos: string[] }
   | { kind: "photo"; src: string; alt: string };
 
 function mulberry32(seed: number) {
@@ -74,7 +82,6 @@ function shuffle<T>(arr: T[], seed = 42) {
 function mixReviewsAndPhotos(reviews: ReviewItem[], photos: ReviewItem[], seed = 17) {
   const rnd = mulberry32(seed);
   const out: ReviewItem[] = [];
-
   let r = 0;
   let p = 0;
   let run = 0;
@@ -109,71 +116,53 @@ function mixReviewsAndPhotos(reviews: ReviewItem[], photos: ReviewItem[], seed =
   return out;
 }
 
-function stars(n = 5) {
-  return "★★★★★".slice(0, n);
-}
-
-export function Reviews({ images }: { images?: string[] }) {
+export function Reviews() {
   const [expanded, setExpanded] = useState(false);
 
   const items: ReviewItem[] = useMemo(
     () => {
       const reviews = shuffle(
-        REVIEWS.map((r) => ({ kind: "review", ...r }) as ReviewItem),
+        REVIEWS.map((r) => ({ kind: "review" as const, ...r }) as ReviewItem),
         31,
       );
 
-      const poolRaw = images && images.length > 0 ? images : CATALOG_REVIEW_PHOTOS;
-      const pool = poolRaw.map((src) => encodeURI(src));
       const photos = shuffle(
-        [
-          { kind: "photo", src: pool[0] || "/hero2.jpg", alt: "Интерьер" },
-          { kind: "photo", src: pool[1] || "/gray_hero.jpg", alt: "Интерьер" },
-          { kind: "photo", src: pool[2] || pool[0] || "/hero.jpg", alt: "Интерьер" },
-          { kind: "photo", src: pool[3] || pool[1] || "/hero.jpg", alt: "Интерьер" },
-          { kind: "photo", src: pool[4] || pool[2] || "/hero.jpg", alt: "Интерьер" },
-          { kind: "photo", src: pool[2] || "/hero.jpg", alt: "Интерьер" },
-        ] as ReviewItem[],
+        CATALOG_REVIEW_PHOTOS.map((src) => ({ kind: "photo" as const, src, alt: "Интерьер" }) as ReviewItem),
         47,
       );
 
       return mixReviewsAndPhotos(reviews, photos, 17);
     },
-    [images],
+    [],
   );
 
   const visible = expanded ? items.slice(0, 14) : items.slice(0, 6);
 
   return (
-    <section id="reviews" className="bg-[#eef0f3] py-14 sm:py-18">
+    <section className="bg-[color:var(--bg)] py-16 sm:py-20">
       <Container>
-        <div className="text-xs font-semibold tracking-[0.32em] text-black/55">
-          ОТЗЫВЫ
+        <div className="mb-8">
+          <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+            Сотни клиентов
+          </span>
+          <span className="block text-2xl font-medium tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+            рекомендуют нас
+          </span>
+          <span className="ml-2 inline-block font-['Rozovii_Chulok',cursive] text-xl tracking-normal text-[color:var(--green)] sm:ml-4 sm:text-3xl lg:text-4xl" style={{ transform: 'rotate(-6deg)' }}>
+            отзывы
+          </span>
         </div>
-        <h2 className="mt-4 text-4xl font-semibold tracking-tight text-black sm:text-5xl">
-          Что говорят клиенты
-        </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-black/60 sm:text-base">
-          Коротко и по делу — как в хорошем каталоге.
-        </p>
 
         <div className="relative mt-10">
           <div className="columns-1 gap-4 [column-fill:_balance] sm:columns-2 lg:columns-3">
             {visible.map((it, idx) => {
               if (it.kind === "photo") {
-                const rnd = mulberry32(900 + idx)();
-                const ratio =
-                  rnd < 0.33
-                    ? "aspect-[4/3]"
-                    : rnd < 0.66
-                      ? "aspect-[3/4]"
-                      : "aspect-[16/10]";
                 return (
                   <figure
                     key={`${it.src}-${idx}`}
-                    className="mb-4 break-inside-avoid overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm"
+                    className="mb-4 break-inside-avoid overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)]"
                   >
-                    <div className={`relative ${ratio}`}>
+                    <div className="relative aspect-[4/3]">
                       <Image
                         src={it.src}
                         alt={it.alt}
@@ -189,38 +178,36 @@ export function Reviews({ images }: { images?: string[] }) {
               return (
                 <figure
                   key={`${it.name}-${idx}`}
-                  className="mb-4 break-inside-avoid rounded-3xl border border-black/10 bg-white p-6 shadow-sm"
+                  className="mb-4 break-inside-avoid border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-6"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="text-sm leading-none tracking-[0.2em] text-black">
-                      {stars(5)}
-                    </div>
-                    <div className="text-xs font-medium text-black/45">2ГИС</div>
+                  <div className="text-lg font-medium text-[color:var(--fg)]">
+                    {it.name}
                   </div>
-                  <blockquote className="mt-3 text-sm leading-6 text-black">
+                  <div className="mt-2 flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} className="h-4 w-4 text-[color:var(--green)]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 1.729a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-1.729a1 1 0 00-1.175 0l-2.8 1.729c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <blockquote className="mt-4 text-sm leading-6 text-[color:var(--muted)]">
                     "{it.text}"
                   </blockquote>
-                  <figcaption className="mt-4 flex items-center gap-3">
-                    {it.avatar ? (
-                      <img
-                        src={it.avatar}
-                        alt={it.name}
-                        className="h-10 w-10 rounded-full object-cover"
-                      />
-                    ) : it.initials ? (
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100 text-xs font-semibold text-neutral-600">
-                        {it.initials}
-                      </div>
-                    ) : null}
-                    <div className="flex flex-col">
-                      <span className="text-xs font-semibold tracking-wide text-black/80">
-                        {it.name}
-                      </span>
-                      {it.date ? (
-                        <span className="text-[10px] text-black/40">{it.date}</span>
-                      ) : null}
+                  {it.photos.length > 0 && (
+                    <div className="mt-4 flex gap-2">
+                      {it.photos.slice(0, 2).map((src, i) => (
+                        <div key={i} className="relative h-16 w-16 overflow-hidden">
+                          <Image
+                            src={src}
+                            alt={`Фото ${i + 1}`}
+                            fill
+                            sizes="64px"
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
                     </div>
-                  </figcaption>
+                  )}
                 </figure>
               );
             })}
@@ -228,8 +215,8 @@ export function Reviews({ images }: { images?: string[] }) {
 
           {!expanded ? (
             <div className="pointer-events-none relative z-10 -mt-64 h-64">
-              <div className="absolute inset-x-0 bottom-0 h-56 bg-[radial-gradient(120%_100%_at_50%_100%,rgba(238,240,243,0.95)_0%,rgba(238,240,243,0.8)_35%,rgba(238,240,243,0.2)_70%,rgba(238,240,243,0)_100%)] blur-2xl" />
-              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(238,240,243,0),rgba(238,240,243,0.18),rgba(238,240,243,0.55),rgba(238,240,243,0.82),rgba(238,240,243,1))]" />
+              <div className="absolute inset-x-0 bottom-0 h-56 bg-[radial-gradient(120%_100%_at_50%_100%,var(--bg)_0%,var(--bg)_35%,color-mix(in_srgb,var(--bg)_20%,transparent)_70%,transparent_100%)]" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,var(--bg)_0.18,var(--bg)_0.55,var(--bg)_0.82,var(--bg)_1)]" />
             </div>
           ) : null}
 
@@ -238,12 +225,31 @@ export function Reviews({ images }: { images?: string[] }) {
               <button
                 type="button"
                 onClick={() => setExpanded(true)}
-                className="inline-flex h-12 items-center justify-center rounded-full bg-black px-8 text-sm font-semibold text-white shadow-sm transition hover:opacity-95"
+                className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-8 text-xs font-normal uppercase tracking-[0.15em] text-white transition hover:bg-[color:var(--dark-gray)]"
               >
                 Показать больше
               </button>
             </div>
           ) : null}
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <a
+            href="https://novosibirsk.flamp.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-12 items-center justify-center border border-[color:var(--fg)] bg-transparent px-8 text-xs font-normal uppercase tracking-[0.15em] text-[color:var(--fg)] transition hover:bg-[color:var(--fg)] hover:text-[color:var(--bg)]"
+          >
+            Больше отзывов на FLAMP
+          </a>
+          <a
+            href="https://yandex.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-12 items-center justify-center border border-[color:var(--fg)] bg-transparent px-8 text-xs font-normal uppercase tracking-[0.15em] text-[color:var(--fg)] transition hover:bg-[color:var(--fg)] hover:text-[color:var(--bg)]"
+          >
+            Больше отзывов на Яндекс
+          </a>
         </div>
       </Container>
     </section>

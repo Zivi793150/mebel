@@ -117,24 +117,11 @@ export async function Catalog() {
       <Container>
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
-            <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-              ЧТО МЫ ПРЕДЛАГАЕМ
+            <div className="mb-4">
+              <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                Каталог
+              </span>
             </div>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-              Каталог
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-              Полный ассортимент Koenig Room. Быстро покажем категории и дальше
-              сфокусируемся на самом сильном — шторах.
-            </p>
-          </div>
-          <div className="lg:col-span-4 lg:flex lg:justify-end">
-            <Link
-              href="#cta"
-              className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-            >
-              Подобрать решение
-            </Link>
           </div>
         </div>
 
@@ -151,9 +138,7 @@ export async function Catalog() {
                 className="group block"
               >
                 <div
-                  className={`relative h-[320px] overflow-hidden rounded-2xl border border-black/10 bg-white/25 shadow-sm transition-[transform,background-color,box-shadow] duration-500 dark:border-white/10 dark:bg-white/[0.03] sm:h-[380px] lg:h-[420px] ${
-                    c.emphasis ? "border-[color:var(--accent)]/40" : ""
-                  } group-hover:-translate-y-0.5 group-hover:bg-white/35 group-hover:shadow-md dark:group-hover:bg-white/[0.06]`}
+                  className={`relative h-[320px] overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition duration-500 sm:h-[380px] lg:h-[420px]`}
                 >
                   <Image
                     src={imageSrc}
@@ -165,27 +150,16 @@ export async function Catalog() {
 
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)] opacity-85 transition-opacity duration-500 group-hover:opacity-95" />
 
-                <div className="absolute left-5 top-5 right-5">
-                  <div className="inline-flex max-w-full flex-col gap-3">
-                    <div className="h-px w-12 bg-white/35" />
-                    <div className="inline-flex max-w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-2.5 shadow-sm backdrop-blur-sm">
-                      <div className="text-lg font-semibold leading-tight tracking-tight text-white">
-                        {c.title}
-                      </div>
-                    </div>
+                <div className="absolute inset-x-0 top-0 flex h-16 items-center bg-black/50 px-5">
+                  <div className="text-lg font-medium text-white">
+                    {c.title}
                   </div>
                 </div>
 
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="flex min-h-[176px] flex-col justify-end">
-                    <div className="text-sm leading-6 text-white/80 opacity-100 transition-[opacity,transform] duration-500 translate-y-0 lg:opacity-0 lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0">
+                  <div className="flex min-h-[80px] flex-col justify-end">
+                    <div className="text-sm leading-6 text-white/80 opacity-100 transition duration-500">
                       {c.description}
-                    </div>
-
-                    <div className="pt-4">
-                      <div className="inline-flex h-10 items-center gap-2 rounded-full bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition group-hover:opacity-95">
-                        Заказать <span aria-hidden="true">→</span>
-                      </div>
                     </div>
                   </div>
                 </div>

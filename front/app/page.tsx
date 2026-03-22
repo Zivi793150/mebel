@@ -1,16 +1,17 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MobileCtaBar } from "@/components/MobileCtaBar";
-import { Cases } from "@/sections/Cases";
+import { Advantages } from "@/sections/Advantages";
 import { Catalog } from "@/sections/Catalog";
 import { CTA } from "@/sections/CTA";
 import { FAQ } from "@/sections/FAQ";
 import { Hero } from "@/sections/Hero";
-import { PreCatalogTeaser } from "@/sections/PreCatalogTeaser";
+import { PortfolioSlider } from "@/sections/PortfolioSlider";
 import { PremiumCurtainsAd } from "@/sections/PremiumCurtainsAd";
 import { Reviews } from "@/sections/Reviews";
-import { ScrollStory } from "@/sections/ScrollStory";
-import { WorkOrder } from "@/sections/WorkOrder";
+import { Services } from "@/sections/Services";
+import { Team } from "@/sections/Team";
+import { WorkSteps } from "@/sections/WorkSteps";
 import { getMongoClient } from "@/lib/mongo";
 
 type KoenigCatalogItem = {
@@ -49,30 +50,47 @@ function pickStable(images: string[], indexes: number[]): string[] {
 
 export default async function Home() {
   const portfolio = await getPortfolioImages();
-  const [case1, case2, case3] = ["/ph1.jpg", "/ph2.jpg", "/ph3.jpg"];
   const reviewImages = pickStable(portfolio, [6, 20, 34]);
-  const workOrderImages = pickStable(portfolio, [2, 16, 30, 44, 58]);
+  const workStepsImages = pickStable(portfolio, [2, 16, 30, 44, 58]);
 
   return (
     <div className="min-h-screen bg-[color:var(--bg)] pb-20 text-[color:var(--fg)] sm:pb-0">
       <Header />
 
       <main>
+        {/* Hero section with banners */}
         <Hero />
-        <PreCatalogTeaser />
+        
+        {/* Advantages section with videos */}
+        <Advantages />
+        
+        {/* Services section */}
+        <Services />
+        
+        {/* Catalog section */}
         <div className="bg-black/[0.02] dark:bg-white/[0.03]">
           <Catalog />
         </div>
-        <Cases images={[case1, case2, case3].filter(Boolean)} />
+        
+        {/* Portfolio slider */}
+        <PortfolioSlider />
+        
+        {/* Team section */}
+        <Team />
+        
+        {/* Work steps */}
+        <WorkSteps />
+        
+        {/* Premium curtains ad - video section */}
         <PremiumCurtainsAd />
-        <div className="kr-dark-section">
-          <ScrollStory />
-        </div>
-        <WorkOrder images={workOrderImages} />
-        <div className="kr-bw-section">
-          <Reviews images={reviewImages} />
-        </div>
+        
+        {/* Reviews section */}
+        <Reviews />
+        
+        {/* FAQ section */}
         <FAQ />
+        
+        {/* CTA section */}
         <CTA />
       </main>
 
