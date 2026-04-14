@@ -24,7 +24,7 @@
 # production
 /build
 front/dist/
-
+/front/public
 # misc
 .DS_Store
 *.pem
