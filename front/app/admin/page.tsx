@@ -46,6 +46,55 @@ function ensureStringArray(v: unknown) {
   return [] as string[];
 }
 
+const CATALOG_FOLDER_ALIASES: Record<string, string> = {
+  "1.Шторы и ткани": "1.shtory-i-tkani",
+  "2.Жалюзи": "2.zhalyuzi",
+  "3.Римские": "3.rimskie",
+  "4.Карнизы": "4.karnizy",
+  "5. Декор, фурнитура": "5.-dekor-furnitura",
+  "6. Ковры": "6.-kovry",
+  "7.Постельное бельё": "7.postelnoe-bele",
+  "8.Декоративные подушки-покрывала": "8.dekorativnye-podushki-pokryvala",
+};
+
+function normalizeAdminImageSrc(raw: string) {
+  const v = ensureString(raw).trim();
+  if (!v) return "";
+  if (v.startsWith("http://") || v.startsWith("https://")) return v;
+
+  let next = v.replace(/\\/g, "/");
+  if (!next.startsWith("/")) next = "/" + next;
+
+  try {
+    next = decodeURIComponent(next);
+  } catch {
+    // ignore
+  }
+
+  let parts = next.split("/").filter((p) => p.length > 0);
+
+  // Remove consecutive duplicate segments (e.g., "2.zhalyuzi/2.zhalyuzi" -> "2.zhalyuzi")
+  const deduped: string[] = [];
+  for (let i = 0; i < parts.length; i++) {
+    if (i === 0 || parts[i] !== parts[i - 1]) {
+      deduped.push(parts[i]);
+    }
+  }
+  parts = deduped;
+
+  const catalogIdx = parts.indexOf("catalog");
+  if (catalogIdx !== -1 && parts[catalogIdx + 1]) {
+    const folder = parts[catalogIdx + 1];
+    const mapped = CATALOG_FOLDER_ALIASES[folder] || folder;
+    parts[catalogIdx + 1] = mapped;
+    next = "/" + parts.join("/");
+  } else {
+    next = "/" + parts.join("/");
+  }
+
+  return encodeURI(next);
+}
+
 function normalizeImageFields(doc: Record<string, unknown>) {
   const image = ensureString(doc.image);
   const images = ensureStringArray(doc.images);
@@ -226,7 +275,7 @@ export default function AdminPage() {
 
     if (activeId === id) {
       setActiveId(null);
-      setActiveDoc(null);
+      setDoc(null);
       setDocText("");
     }
     await loadList();
@@ -299,12 +348,15 @@ export default function AdminPage() {
 
   const images = useMemo(() => {
     if (!doc) return [] as string[];
-    return normalizeImageFields(doc).images;
+    return normalizeImageFields(doc)
+      .images
+      .map((src) => normalizeAdminImageSrc(src))
+      .filter(Boolean);
   }, [doc]);
 
   const mainImage = useMemo(() => {
     if (!doc) return "";
-    return normalizeImageFields(doc).image;
+    return normalizeAdminImageSrc(normalizeImageFields(doc).image);
   }, [doc]);
 
   function removeImage(src: string) {

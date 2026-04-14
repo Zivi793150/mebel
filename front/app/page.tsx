@@ -1,6 +1,54 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MobileCtaBar } from "@/components/MobileCtaBar";
+
+export const metadata: Metadata = {
+  title: "Koenig Room — премиальные шторы, жалюзи и декор в Калининграде",
+  description: "Премиальные шторы, жалюзи и интерьерный декор в Калининграде. Подбор тканей, профессиональный пошив и монтаж. Работаем с 2018 года. Более 500 реализованных проектов.",
+  keywords: [
+    "шторы Калининград",
+    "жалюзи Калининград",
+    "карнизы Калининград",
+    "пошив штор",
+    "римские шторы",
+    "рулонные шторы",
+    "пластиковые жалюзи",
+    "деревянные жалюзи",
+    "интерьерный текстиль",
+    "декор окна",
+    "шторы на заказ",
+    "koenig room",
+    "ковры Калининград",
+    "подушки декоративные",
+    "постельное бельё",
+  ],
+  alternates: {
+    canonical: "https://koenigroom.ru",
+  },
+  openGraph: {
+    title: "Koenig Room — премиальные шторы, жалюзи и декор в Калининграде",
+    description: "Подбор тканей, профессиональный пошив и монтаж. Работаем с 2018 года. Более 500 реализованных проектов.",
+    url: "https://koenigroom.ru",
+    siteName: "Koenig Room",
+    locale: "ru_RU",
+    type: "website",
+    images: [
+      {
+        url: "https://koenigroom.ru/Фоновая на главную 1.webp",
+        width: 1920,
+        height: 1080,
+        alt: "Koenig Room — премиальные шторы и декор в Калининграде",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Koenig Room — премиальные шторы, жалюзи и декор",
+    description: "Подбор тканей, профессиональный пошив и монтаж в Калининграде.",
+    images: ["https://koenigroom.ru/Фоновая на главную 1.webp"],
+  },
+};
 import { Advantages } from "@/sections/Advantages";
 import { Catalog } from "@/sections/Catalog";
 import { CTA } from "@/sections/CTA";

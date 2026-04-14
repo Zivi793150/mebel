@@ -7,6 +7,7 @@ import { Container } from "@/components/Container";
 import { CATALOG_CATEGORIES } from "@/lib/constants";
 import { getMongoClient } from "@/lib/mongo";
 
+
 type KoenigCatalogItem = {
   index: number;
   large_url: string;
@@ -58,30 +59,21 @@ function firstImage(doc: KoenigCatalogDoc | null): string | null {
 }
 
 async function pickPublicCatalogCover(appSlug: string): Promise<string | null> {
-  const folderBySlug: Record<string, string> = {
-    curtains: "Шторы и ткани",
-    blinds: "Жалюзи",
-    roman: "Римские",
+  const fileBySlug: Record<string, string> = {
+    curtains: "shtory-i-tkani.webp",
+    blinds: "zhalyuzi-_121.webp",
+    roman: "rimskie-shtory_907.webp",
+    rails: "dekorativnye-karnizy-_121.webp",
+    decor: "dekor-i-furnitura-.webp",
+    bedding: "postelnoe-bele-.webp",
+    rugs: "kovry-.webp",
+    pillows: "podushki-.webp",
   };
 
-  if (appSlug === "blinds") {
-    return encodeURI(`/catalog/${folderBySlug.blinds}/SVM05621.jpg`);
-  }
+  const fileName = fileBySlug[appSlug];
+  if (!fileName) return null;
 
-  const folder = folderBySlug[appSlug] ?? appSlug;
-  const absDir = path.join(process.cwd(), "public", "catalog", folder);
-  try {
-    const entries = await readdir(absDir, { withFileTypes: true });
-    const files = entries
-      .filter((e) => e.isFile())
-      .map((e) => e.name)
-      .sort((a, b) => a.localeCompare(b, "ru"));
-    const picked = files[1] ?? files[0];
-    if (!picked) return null;
-    return encodeURI(`/catalog/${folder}/${picked}`);
-  } catch {
-    return null;
-  }
+  return `/ikonki-katalog/${fileName}`;
 }
 
 export async function Catalog() {
@@ -145,7 +137,9 @@ export async function Catalog() {
                     alt={c.title}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    className={`object-cover transition duration-500 group-hover:scale-[1.03] ${c.slug === "pillows" ? "object-[20%_center]" : ""}`}
+                    loading="eager"
+                    priority
                   />
 
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)] opacity-85 transition-opacity duration-500 group-hover:opacity-95" />

@@ -1,0 +1,18 @@
+const fs = require('fs');
+const path = require('path');
+
+// Fix corrupted encoding paths in Team.tsx
+const teamPath = path.join(__dirname, '..', 'sections', 'Team.tsx');
+let content = fs.readFileSync(teamPath, 'utf8');
+
+// The corrupted path should be replaced with correct Russian filename
+// Correct path: /äåâî÷êà äèçàéíåðàì.webp
+const correctPath = Buffer.from([0x2f, 0xd0, 0xb4, 0xd0, 0xb5, 0xd0, 0xb2, 0xd0, 0xbe, 0xd1, 0x87, 0xd0, 0xba, 0xd0, 0xb0, 0x20, 0xd0, 0xb4, 0xd0, 0xb8, 0xd0, 0xb7, 0xd0, 0xb0, 0xd0, 0xb9, 0xd0, 0xbd, 0xd0, 0xb5, 0xd1, 0x80, 0xd0, 0xb0, 0xd0, 0xbc, 0x2e, 0x77, 0x65, 0x62, 0x70]).toString('utf8');
+
+content = content.replace(
+  /imageSrc="\/[^"]*webp"/,
+  `imageSrc="${correctPath}"`
+);
+
+fs.writeFileSync(teamPath, content, 'utf8');
+console.log('Fixed Team.tsx');

@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 
-import { LeadRequestModal } from "@/components/LeadRequestModal";
+import { ContactModal } from "@/components/ContactModal";
 import { IconTelegram } from "@/components/icons";
 
 type RugItem = {
@@ -130,7 +129,7 @@ function FilterSelect({
         disabled={isDisabled}
         onClick={() => setOpen((v) => !v)}
         className={
-          "mt-2 flex h-11 w-full items-center justify-between rounded-2xl border px-3 text-left text-sm shadow-sm outline-none transition " +
+          "mt-2 flex h-11 w-full items-center justify-between border px-3 text-left text-sm shadow-sm outline-none transition " +
           (isDisabled
             ? "cursor-not-allowed border-black/10 bg-black/[0.02] text-[color:var(--muted)]/50 dark:border-white/10 dark:bg-white/[0.03]"
             : "border-black/10 bg-white/70 text-[color:var(--fg)] hover:bg-white/90 focus:ring-2 focus:ring-[color:var(--accent)]/30 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10")
@@ -146,7 +145,7 @@ function FilterSelect({
       </button>
 
       {open ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border border-black/10 bg-white/90 shadow-xl backdrop-blur dark:border-white/10 dark:bg-black/50">
+        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden border border-black/10 bg-white/90 shadow-xl dark:border-white/10 dark:bg-black/50">
           <div className="max-h-72 overflow-auto p-1">
             {options.map((o) => {
               const active = o.value === value;
@@ -192,7 +191,7 @@ function RugDetailsModal({
     const base = (item.images && item.images.length ? item.images : item.image ? [item.image] : []).filter(
       Boolean,
     ) as string[];
-    return base.length ? Array.from(new Set(base)) : ["/catalog/rugs.jpg"];
+    return base.length ? Array.from(new Set(base)) : ["/hero.webp"];
   }, [item.image, item.images]);
 
   const [idx, setIdx] = useState(0);
@@ -221,17 +220,17 @@ function RugDetailsModal({
   const [leadOpen, setLeadOpen] = useState(false);
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-5xl border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ←
           </button>
@@ -240,7 +239,7 @@ function RugDetailsModal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ✕
           </button>
@@ -250,7 +249,7 @@ function RugDetailsModal({
 
         <div className="grid grid-cols-12 gap-4">
           <div className="order-2 col-span-12 sm:order-1 sm:col-span-3">
-            <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden">
               <div className="flex gap-3 overflow-auto sm:max-h-[420px] sm:flex-col sm:pr-2">
                 {images.map((src, i) => (
                   <button
@@ -259,7 +258,7 @@ function RugDetailsModal({
                     aria-pressed={i === idx}
                     onClick={() => setIdx(i)}
                     className={
-                      "relative overflow-hidden rounded-xl border p-0 outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]/40 " +
+                      "relative overflow-hidden border p-0 outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]/40 " +
                       (i === idx
                         ? "border-[color:var(--fg)]"
                         : "border-black/10 hover:border-black/30 dark:border-white/10 dark:hover:border-white/30")
@@ -280,7 +279,7 @@ function RugDetailsModal({
           <div className="order-1 col-span-12 sm:order-2 sm:col-span-9">
             <div className="grid gap-4 lg:grid-cols-12">
               <div className="relative lg:col-span-8">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-black/[0.03] dark:bg-white/[0.04]">
                   <img alt={item.title || ""} className="h-full w-full object-contain" src={current} />
                 </div>
 
@@ -290,7 +289,7 @@ function RugDetailsModal({
                       type="button"
                       onClick={() => setIdx((v) => (v - 1 + images.length) % images.length)}
                       aria-label="Previous image"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/80 shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/40 dark:hover:bg-black/55"
+                      className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/80 shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/40 dark:hover:bg-black/55"
                     >
                       ‹
                     </button>
@@ -298,7 +297,7 @@ function RugDetailsModal({
                       type="button"
                       onClick={() => setIdx((v) => (v + 1) % images.length)}
                       aria-label="Next image"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/80 shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/40 dark:hover:bg-black/55"
+                      className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/80 shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/40 dark:hover:bg-black/55"
                     >
                       ›
                     </button>
@@ -307,7 +306,7 @@ function RugDetailsModal({
               </div>
 
               <div className="lg:col-span-4">
-                <div className="rounded-3xl border border-black/10 bg-white/60 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+                <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-4">
                   <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ИНФОРМАЦИЯ</div>
                   <div className="mt-2 text-lg font-semibold text-[color:var(--fg)]">{item.title || "Ковёр"}</div>
 
@@ -316,7 +315,7 @@ function RugDetailsModal({
                       {chips.map((c) => (
                         <div
                           key={c.label}
-                          className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-[color:var(--fg)] dark:border-white/10 dark:bg-white/[0.06]"
+                          className="border border-black/10 bg-white/70 px-3 py-1 text-xs text-[color:var(--fg)] dark:border-white/10 dark:bg-white/[0.06]"
                           title={c.label}
                         >
                           <span className="text-[color:var(--muted)]">{c.label}: </span>
@@ -341,7 +340,7 @@ function RugDetailsModal({
                         href={item.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                        className="inline-flex h-11 items-center justify-center border border-black/10 bg-white/70 px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                       >
                         Открыть на сайте
                       </a>
@@ -350,36 +349,24 @@ function RugDetailsModal({
                     <button
                       type="button"
                       onClick={() => setLeadOpen(true)}
-                      className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                      className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
                     >
-                      <span className="inline-flex items-center gap-2">
-                        <IconTelegram className="h-5 w-5" />
-                        Написать нам
-                      </span>
+                      Связаться
                     </button>
 
                     <button
                       type="button"
                       onClick={onClose}
-                      className="inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                      className="inline-flex h-11 items-center justify-center border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
                     >
                       Закрыть
                     </button>
                   </div>
 
                   {leadOpen ? (
-                    <LeadRequestModal
-                      context={{
-                        productType: "rug",
-                        source: "koenigcarpet.ru",
-                        kind: "rug",
-                        url: item.url || "",
-                        title: item.title,
-                        category: item.style,
-                        image: current,
-                        images,
-                      }}
+                    <ContactModal
                       onClose={() => setLeadOpen(false)}
+                      imageSrc="/foto-na-knopku-1-.webp"
                     />
                   ) : null}
                 </div>
@@ -427,7 +414,7 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
 
   return (
     <div className="grid gap-6">
-      <div className="sticky top-16 z-30 rounded-3xl border border-black/10 bg-white/70 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-black/20">
+      <div className="sticky top-16 z-30 border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-4">
         <div className="flex items-center justify-between gap-3 sm:hidden">
           <div className="flex items-center gap-2">
             <button
@@ -437,14 +424,14 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                 setCollection("all");
                 setColor("all");
               }}
-              className="inline-flex h-10 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-3 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+              className="inline-flex h-10 items-center justify-center border border-black/10 bg-white/70 px-3 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
             >
               Сбросить
             </button>
             <button
               type="button"
               onClick={() => setMobileFiltersOpen((v) => !v)}
-              className="inline-flex h-10 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-3 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+              className="inline-flex h-10 items-center justify-center border border-black/10 bg-white/70 px-3 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
               aria-expanded={mobileFiltersOpen}
             >
               Фильтры <span className={"ml-2 transition " + (mobileFiltersOpen ? "rotate-180" : "")}>▾</span>
@@ -580,7 +567,7 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((it, idx) => {
-              const current = it.image || "/catalog/rugs.jpg";
+              const current = it.image || "/hero.webp";
               return (
                 <button
                   key={(it.url || it.title || "rug") + idx}
@@ -589,14 +576,13 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                   className="block text-left"
                   aria-label={it.title || "Ковёр"}
                 >
-                  <div className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+                  <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     <div className="relative aspect-[4/3] overflow-hidden">
-                      <Image
+                      <img
                         src={current}
                         alt={it.title || ""}
-                        fill
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                        className="h-full w-full object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                        loading="eager"
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
                     </div>
@@ -610,7 +596,7 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                             {normalizePrice(it.priceText) || ""}
                           </div>
                         </div>
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
+                        <div className="flex h-10 w-10 items-center justify-center border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
                           <span
                             aria-hidden="true"
                             className="text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
@@ -633,7 +619,7 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
           <button
             type="button"
             onClick={() => setVisibleCount((v) => v + 20)}
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-black/10 bg-white/70 px-6 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-12 items-center justify-center gap-2 border border-black/10 bg-white/70 px-6 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
             aria-label="Показать ещё"
           >
             Показать ещё

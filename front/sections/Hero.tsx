@@ -6,6 +6,7 @@ import type { CSSProperties } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Container } from "@/components/Container";
+import { ContactButton } from "@/components/ContactButton";
 
 type ProofStat = {
   label: string;
@@ -40,7 +41,7 @@ function formatNumber(n: number) {
 }
 
 export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
-  const title = "Свет, приватность и интерьер — в одном премиальном решении.";
+  const title = "Текстиль , который говорит без слов";
   const titleWords = title.split(" ");
 
   const stats: ProofStat[] = useMemo(
@@ -78,28 +79,28 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
   }, [proofInView]);
 
   return (
-    <section id="top" className="relative isolate overflow-hidden">
+    <section id="top" className="relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          key={backgroundSrc || "/main_page.jpg"}
-          src={backgroundSrc || "/main_page.jpg"}
+          key={backgroundSrc || "/fonovaya-na-glavnuyu-1.webp"}
+          src={backgroundSrc || "/fonovaya-na-glavnuyu-1.webp"}
           alt="Koenig Room"
           fill
           sizes="100vw"
-          className="object-cover scale-[1.04] blur-[2px] brightness-[0.92] dark:brightness-[0.48]"
+          className="object-cover brightness-[0.75]"
+          loading="eager"
           priority
+          fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_20%_10%,rgba(255,255,255,0.55),transparent_62%),linear-gradient(to_bottom,rgba(255,255,255,0.34),rgba(255,255,255,0.38),rgba(255,255,255,0.46))] dark:bg-[radial-gradient(900px_circle_at_20%_10%,rgba(255,255,255,0.06),transparent_55%),linear-gradient(to_bottom,rgba(8,12,20,0.58),rgba(8,12,20,0.68),rgba(8,12,20,0.84))]" />
-        <div className="absolute inset-0 bg-[radial-gradient(1200px_circle_at_80%_80%,rgba(0,0,0,0.10),transparent_60%)] dark:bg-[radial-gradient(1200px_circle_at_80%_80%,rgba(0,0,0,0.35),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.55),rgba(0,0,0,0.35),rgba(0,0,0,0.45))]" />
       </div>
 
       <Container>
         <div className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:py-20">
           <div className="relative z-10 lg:col-span-7">
             <h1
-              className="kr-word-title max-w-[46rem] text-[clamp(1.7rem,2.3vw,3.25rem)] font-semibold leading-tight tracking-tight text-[color:var(--fg)] dark:text-white"
+              className="kr-word-title max-w-[46rem] text-[clamp(2.2rem,2.3vw,3.25rem)] font-medium leading-tight tracking-tight text-white"
               aria-label={title}
-              style={{ textShadow: "0 18px 60px rgba(0,0,0,0.18)" }}
             >
               {titleWords.map((w, i) => (
                 <span key={i}>
@@ -111,24 +112,20 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
               ))}
             </h1>
 
-            <p
-              className="mt-4 max-w-xl text-pretty text-base leading-7 text-[color:var(--muted)] sm:text-lg dark:text-white"
-              style={{ textShadow: "0 14px 44px rgba(0,0,0,0.12)" }}
-            >
-              Подбираем ткани и решения под стиль пространства. Шьём, собираем,
-              устанавливаем. Чистый премиум без лишнего шума.
+            <p className="mt-4 max-w-xl text-pretty text-base leading-7 text-white/80 sm:text-lg">
+              Подбираем ткани и решения под стиль пространства.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/#cta"
-                className="inline-flex h-12 items-center justify-center rounded-xl bg-[color:var(--fg)] px-5 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white dark:text-[#0b1220] dark:hover:bg-white/90 dark:focus-visible:ring-white/40"
+              <ContactButton
+                className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-medium text-[color:var(--accent-contrast)] transition hover:opacity-90"
+                imageSrc="/foto-na-knopku-1-.webp"
               >
                 Рассчитать стоимость
-              </Link>
+              </ContactButton>
               <a
                 href="#catalog"
-                className="inline-flex h-12 items-center justify-center rounded-xl border border-black/15 bg-white/30 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/30 dark:bg-white/0 dark:text-white dark:hover:bg-white/10 dark:focus-visible:ring-white/30"
+                className="inline-flex h-12 items-center justify-center border border-white/25 bg-transparent px-5 text-sm font-medium text-white transition hover:bg-white/10"
               >
                 Смотреть каталог
               </a>
@@ -143,14 +140,14 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
                 return (
                   <div
                     key={s.label}
-                    className="rounded-2xl border border-black/10 bg-white/55 px-4 py-3 shadow-sm backdrop-blur dark:border-white/15 dark:bg-white/5"
+                    className="border border-white/20 bg-white/10 px-4 py-3 backdrop-blur-sm"
                   >
-                    <div className="text-2xl font-semibold tracking-tight text-[color:var(--fg)] dark:text-white">
+                    <div className="text-2xl font-medium tracking-tight text-white">
                       {prefix}
                       {shown}
                       {suffix}
                     </div>
-                    <div className="mt-1 text-xs font-medium tracking-[0.22em] text-[color:var(--muted)] dark:text-white/65">
+                    <div className="mt-1 text-xs font-medium tracking-[0.22em] text-white/65">
                       {s.label.toUpperCase()}
                     </div>
                   </div>
@@ -159,10 +156,10 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
             </div>
           </div>
 
-          <div className="relative z-10 lg:col-span-5">
+          <div className="relative lg:col-span-5">
             <div className="relative mx-auto aspect-square w-full max-w-[520px] sm:max-w-[760px] lg:max-w-[980px]">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Koenig Room"
                 fill
                 sizes="1240px"
@@ -171,7 +168,9 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
                   filter:
                     "drop-shadow(0 0 1px rgba(255,255,255,0.95)) drop-shadow(0 0 3px rgba(255,255,255,0.85)) drop-shadow(0 0 14px rgba(230,242,255,0.55)) drop-shadow(0 0 32px rgba(210,232,255,0.42)) drop-shadow(0 18px 60px rgba(0,0,0,0.55))",
                 }}
+                loading="eager"
                 priority
+                fetchPriority="high"
               />
             </div>
           </div>

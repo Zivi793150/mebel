@@ -28,25 +28,25 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
           {
             title: "Палитра",
             text: "Один базовый + один тёплый акцент + нейтральный связующий.",
-            imageSrc: "/catalog/pillows.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A4803.webp",
             size: "lg",
           },
           {
             title: "Фактуры",
             text: "Букле/лён/велюр — чтобы глубина читалась даже в пасмурном свете.",
-            imageSrc: "/catalog/curtains.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A4920.webp",
             size: "md",
           },
           {
             title: "Баланс",
             text: "Сначала крупные, потом маленькие. Так выглядит как проект, а не “накупили”.",
-            imageSrc: "/catalog/rugs.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144a5632-.webp",
             size: "md",
           },
           {
             title: "Финальный штрих",
             text: "Один необычный материал — и всё становится “дороже”.",
-            imageSrc: "/catalog/decor.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/IMG_1280.webp",
             size: "sm",
           },
         ],
@@ -60,25 +60,25 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
           {
             title: "Один акцент",
             text: "Выбираем один цвет и повторяем его 2 раза — это создаёт “дорогую” логику.",
-            imageSrc: "/catalog/pillows.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_dop_-maxiimov.webp",
             size: "lg",
           },
           {
             title: "Геометрия",
             text: "Квадрат + прямоугольник + покрывало. Разные формы = собранный вид.",
-            imageSrc: "/catalog/rails.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/IMG_1353-HDR.webp",
             size: "md",
           },
           {
             title: "Оттенки",
             text: "Лучше 2 близких тона, чем один “кричащий”.",
-            imageSrc: "/catalog/roman.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/IMG_7436-1.webp",
             size: "md",
           },
           {
             title: "Стоп-сигнал",
             text: "Если сомневаетесь — убираем одну подушку. Чистота важнее количества.",
-            imageSrc: "/catalog/blinds.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_-_-maxiimov.webp",
             size: "sm",
           },
         ],
@@ -92,25 +92,25 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
           {
             title: "Тактильность",
             text: "Интерьер воспринимается дороже, когда вещи хочется трогать.",
-            imageSrc: "/catalog/bed.jpg",
+            imageSrc: "/2foto_dark.webp",
             size: "lg",
           },
           {
             title: "Свет",
             text: "Фактура ловит свет и создаёт объём на диване/кровати.",
-            imageSrc: "/hero2.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/SVM06671.webp",
             size: "md",
           },
           {
             title: "Сдержанно",
             text: "Без принтов — легче попасть и выглядит современнее.",
-            imageSrc: "/catalog/decor.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/IMG-20251007-WA0051.webp",
             size: "md",
           },
           {
             title: "Практика",
             text: "Под ваш сценарий подберём ткань, которая не боится жизни.",
-            imageSrc: "/catalog/pillows.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/SVMF4635.webp",
             size: "sm",
           },
         ],
@@ -124,25 +124,25 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
           {
             title: "Композиция",
             text: "Симметрия даёт ощущение порядка и премиальности.",
-            imageSrc: "/catalog/bed.jpg",
+            imageSrc: "/2foto_dark.webp",
             size: "lg",
           },
           {
             title: "Слои",
             text: "Плед/покрывало + подушки = быстрый “дорогой” апгрейд.",
-            imageSrc: "/catalog/pillows.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A0592.webp",
             size: "md",
           },
           {
             title: "Чистые цвета",
             text: "Белый/молочный/серый/песочный — выглядит дороже при правильной фактуре.",
-            imageSrc: "/2foto_dark.jpg",
+            imageSrc: "/2foto_dark.webp",
             size: "md",
           },
           {
             title: "Меньше, но лучше",
             text: "Одна хорошая подушка лучше трёх случайных.",
-            imageSrc: "/catalog/curtains.jpg",
+            imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/RED_0958_01.webp",
             size: "sm",
           },
         ],
@@ -199,11 +199,11 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
   }, [active]);
 
   return (
-    <section className="relative bg-[color:var(--bg)] py-18 sm:py-24">
+    <section className="relative bg-[color:var(--card)] py-12 lg:py-16">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(#00000014_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff1a_1px,transparent_1px)] [background-size:18px_18px]" />
-        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
-        <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
+        <div className="absolute -left-24 top-10 h-72 w-72 bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
+        <div className="absolute -right-24 bottom-10 h-72 w-72 bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -220,7 +220,7 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
           <div className="lg:col-span-4 lg:flex lg:justify-end">
             <a
               href="#pillows-catalog"
-              className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+              className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
             >
               Смотреть варианты
             </a>
@@ -237,8 +237,8 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
                 onClick={() => setActive(p.id)}
                 className={
                   isActive
-                    ? "inline-flex h-10 items-center justify-center rounded-full bg-[color:var(--accent)] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--accent-contrast)] shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                    : "inline-flex h-10 items-center justify-center rounded-full bg-black/[0.03] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--fg)]/75 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                    ? "inline-flex h-10 items-center justify-center bg-[color:var(--accent)] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--accent-contrast)] shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    : "inline-flex h-10 items-center justify-center bg-black/[0.03] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--fg)]/75 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
                 }
               >
                 {p.label}
@@ -249,7 +249,7 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-6 lg:sticky lg:top-24 lg:self-start">
-            <div className="group relative min-h-[520px] overflow-hidden rounded-[28px] bg-black/[0.03] shadow-[0_26px_90px_rgba(0,0,0,0.18)] dark:bg-white/[0.05] dark:shadow-[0_26px_90px_rgba(0,0,0,0.55)]">
+            <div className="group relative min-h-[520px] overflow-hidden bg-black/[0.03] shadow-[0_26px_90px_rgba(0,0,0,0.18)] dark:bg-white/[0.05] dark:shadow-[0_26px_90px_rgba(0,0,0,0.55)]">
               {palette.tiles.map((t, idx) => (
                 <div
                   key={t.title}
@@ -263,6 +263,7 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     className="object-cover transition-[transform,filter] duration-700"
+                    loading="eager"
                     style={{ transform: activeStep === idx ? "scale(1.06)" : "scale(1.02)" }}
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.08),rgba(0,0,0,0.18),rgba(0,0,0,0.84))]" />
@@ -275,7 +276,7 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
                 <div className="mt-3 max-w-md text-sm leading-6 text-white/80">{palette.tiles[activeStep]?.text}</div>
                 <a
                   href="#cta"
-                  className="mt-6 inline-flex h-12 items-center justify-center rounded-2xl bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md"
+                  className="mt-6 inline-flex h-12 items-center justify-center bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md"
                 >
                   Собрать комплект <span aria-hidden="true" className="ml-2">→</span>
                 </a>
@@ -327,13 +328,13 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               <a
                 href="#cta"
-                className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.16)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.16)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
               >
                 Собрать под мой интерьер
               </a>
               <a
                 href="#pillows-catalog"
-                className="inline-flex h-12 items-center justify-center rounded-2xl bg-black/[0.03] px-5 text-sm font-semibold text-[color:var(--fg)]/85 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                className="inline-flex h-12 items-center justify-center bg-black/[0.03] px-5 text-sm font-semibold text-[color:var(--fg)]/85 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
               >
                 Каталог <span aria-hidden="true" className="ml-2">→</span>
               </a>

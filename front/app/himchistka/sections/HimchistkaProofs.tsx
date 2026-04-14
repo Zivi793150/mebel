@@ -72,12 +72,12 @@ export function HimchistkaProofs() {
           {proofs.map((p, idx) => (
             <div
               key={p.title}
-              className={`rounded-3xl border border-black/10 bg-white/50 p-6 shadow-sm backdrop-blur transition-[opacity,transform] duration-700 dark:border-white/15 dark:bg-white/5 ${
+              className={`border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6 transition-[opacity,transform] duration-700 ${
                 inView ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
               style={{ transitionDelay: `${120 + idx * 140}ms` }}
             >
-              <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-white/65">
+              <div className="inline-flex items-center gap-2 border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-3 py-1 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
                 {p.kicker}
               </div>

@@ -133,7 +133,7 @@ export function IconMax({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <image href="/max.png" x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid meet" />
+      <image href="/max.webp" x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid meet" />
     </svg>
   );
 }

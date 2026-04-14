@@ -4,12 +4,13 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 
-import { LeadRequestModal } from "@/components/LeadRequestModal";
+import { ContactModal } from "@/components/ContactModal";
 import { IconTelegram } from "@/components/icons";
 
 type RailVariantCard = {
   title: string;
   imageSrc: string;
+  description?: string;
 };
 
 function useOnClickOutside(ref: RefObject<HTMLElement | null>, handler: () => void) {
@@ -68,24 +69,24 @@ function RailsVariantModal({
   }, [activeIndex, cards.length, onChangeIndex, onClose]);
 
   const currentCard = cards[Math.min(Math.max(0, activeIndex), cards.length - 1)];
-  const currentImage = currentCard?.imageSrc || images[0] || "/catalog/rails.jpg";
+  const currentImage = currentCard?.imageSrc || images[0] || "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp";
 
   const [leadOpen, setLeadOpen] = useState(false);
 
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-5xl border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ←
           </button>
@@ -94,7 +95,7 @@ function RailsVariantModal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ✕
           </button>
@@ -104,9 +105,8 @@ function RailsVariantModal({
 
         <div className="grid gap-4 lg:grid-cols-12">
           <div className="relative lg:col-span-7">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
-              <img alt={currentCard?.title || ""} className="h-full w-full object-cover" src={currentImage} />
-              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0.28))]" />
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-white/90">
+              <img alt={currentCard?.title || ""} className="h-full w-full object-contain p-4" src={currentImage} />
             </div>
 
             {cards.length > 1 ? (
@@ -121,8 +121,8 @@ function RailsVariantModal({
                       aria-label={c.title}
                       className={
                         isActive
-                          ? "h-16 w-16 flex-none overflow-hidden rounded-2xl border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
-                          : "h-16 w-16 flex-none overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                          ? "h-16 w-16 flex-none overflow-hidden border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
+                          : "h-16 w-16 flex-none overflow-hidden border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                       }
                     >
                       <img alt="" src={c.imageSrc} className="h-full w-full object-cover" />
@@ -134,10 +134,10 @@ function RailsVariantModal({
           </div>
 
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+            <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-5">
               <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
               <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
-                Подберём карниз под ваш интерьер, высоту установки и вес ткани. Подскажем крепёж и рассчитаем комплект.
+                {currentCard?.description || "Подберём карниз под ваш интерьер, высоту установки и вес ткани. Подскажем крепёж и рассчитаем комплект."}
               </div>
 
               <div className="mt-5 grid gap-2">
@@ -145,35 +145,23 @@ function RailsVariantModal({
                   <button
                     type="button"
                     onClick={() => setLeadOpen(true)}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
                   >
-                    <span className="inline-flex items-center gap-2">
-                      <IconTelegram className="h-5 w-5" />
-                      Написать нам
-                    </span>
+                    Связаться
                   </button>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                    className="inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm font-semibold text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                   >
                     Закрыть
                   </button>
                 </div>
 
                 {leadOpen ? (
-                  <LeadRequestModal
-                    context={{
-                      productType: "rail_variant",
-                      source: contextBase.source,
-                      kind: contextBase.kind,
-                      url: contextBase.url,
-                      title: [contextBase.title, currentCard?.title].filter(Boolean).join(" — "),
-                      category: contextBase.category,
-                      image: currentImage,
-                      images,
-                    }}
+                  <ContactModal
                     onClose={() => setLeadOpen(false)}
+                    imageSrc="/foto-na-knopku-1-.webp"
                   />
                 ) : null}
               </div>
@@ -216,16 +204,16 @@ export function RailsVariantsCatalog({
             className="block text-left"
             aria-label={c.title}
           >
-            <div className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-px hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-              <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-px hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+              <div className="relative aspect-[4/3] overflow-hidden bg-white/80">
                 <Image
                   src={c.imageSrc}
                   alt={c.title}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.08]"
+                  className="object-contain p-4 transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.02]"
+                  loading="eager"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
               </div>
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
@@ -239,7 +227,7 @@ export function RailsVariantsCatalog({
                     </span>
                   </div>
                 </div>
-                <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">Подробнее</div>
+                <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">{c.description || "Подробнее"}</div>
               </div>
             </div>
           </button>

@@ -23,6 +23,7 @@
 
 # production
 /build
+front/dist/
 
 # misc
 .DS_Store
@@ -43,3 +44,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# custom folders and files
+/dizayneram/
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+/home/
+*.sh
+deploy*.tar.gz
+build*.tar.gz

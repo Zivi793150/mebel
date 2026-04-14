@@ -8,9 +8,21 @@ import { isAllowedCollection } from "@/lib/adminCollections";
 function safeExt(filename: string) {
   const ext = path.extname(filename || "").toLowerCase();
   if (!ext) return "";
-  if (!/^\.[a-z0-9]+$/i.test(ext)) return "";
+  if (!/\.[a-z0-9]+$/i.test(ext)) return "";
   return ext.slice(0, 12);
 }
+
+// Маппинг коллекций на папки каталога
+const COLLECTION_TO_FOLDER: Record<string, string> = {
+  catalog_items: "1.shtory-i-tkani",
+  blinds_types: "2.zhalyuzi",
+  roman_catalogs: "3.rimskie",
+  cornices: "4.karnizy",
+  decor_items: "5.-dekor-furnitura",
+  carpet_items: "6.-kovry",
+  bedding_items: "7.postelnoe-bele",
+  bedspreads_and_pillows: "8.dekorativnye-podushki-pokryvala",
+};
 
 export async function POST(req: Request) {
   const form = await req.formData().catch(() => null);
@@ -26,7 +38,10 @@ export async function POST(req: Request) {
 
   try {
     const out: string[] = [];
-    const baseDir = path.join(process.cwd(), "public", "uploads", collection);
+    
+    // Определяем папку назначения
+    const folderName = COLLECTION_TO_FOLDER[collection] || collection;
+    const baseDir = path.join(process.cwd(), "public", "catalog", folderName);
     await mkdir(baseDir, { recursive: true });
 
     for (const file of files.slice(0, 20)) {
@@ -35,11 +50,12 @@ export async function POST(req: Request) {
       const name = crypto.randomBytes(16).toString("hex") + ext;
       const abs = path.join(baseDir, name);
       await writeFile(abs, buf);
-      out.push(`/uploads/${collection}/${name}`);
+      out.push(`/catalog/${folderName}/${name}`);
     }
 
     return NextResponse.json({ ok: true, files: out });
-  } catch {
+  } catch (err) {
+    console.error("Upload failed:", err);
     return NextResponse.json({ error: "upload_failed" }, { status: 500 });
   }
 }

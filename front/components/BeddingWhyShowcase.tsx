@@ -27,7 +27,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
           { title: "Дышит", text: "Комфортнее в тёплых спальнях и при плотных одеялах." },
           { title: "Цвет", text: "Спокойные оттенки выглядят как отель: чисто и дорого." },
         ],
-        imageSrc: "/2foto_dark.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/SVM05681.webp",
         ctaLabel: "Хочу прохладнее",
       },
       {
@@ -41,7 +41,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
           { title: "Тишина", text: "Ткань не шуршит и не раздражает в движении." },
           { title: "Вид", text: "Драпировка и матовость создают дорогую картинку." },
         ],
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/dsc08092-.webp",
         ctaLabel: "Хочу мягче",
       },
       {
@@ -55,7 +55,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
           { title: "Форма", text: "Комплект лежит ровнее и выглядит опрятнее." },
           { title: "Практика", text: "Учитываем детей/питомцев и частоту смены белья." },
         ],
-        imageSrc: "/catalog/pillows.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/144a5631-.webp",
         ctaLabel: "Хочу практично",
       },
       {
@@ -69,7 +69,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
           { title: "Комплект", text: "Можно добавить подушки/плед — будет цельно." },
           { title: "Впечатление", text: "Выглядит дороже за счёт фактуры и посадки." },
         ],
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/IMG_1604.webp",
         ctaLabel: "Собрать подарок",
       },
     ],
@@ -88,11 +88,11 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
   const mode = derivedModes.find((m) => m.id === active) ?? derivedModes[0];
 
   return (
-    <section className="relative overflow-hidden bg-[color:var(--bg)] py-18 sm:py-24">
+    <section className="relative overflow-hidden bg-[color:var(--card)] py-12 lg:py-16">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(#00000014_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff1a_1px,transparent_1px)] [background-size:18px_18px]" />
-        <div className="absolute -left-28 top-14 h-80 w-80 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
-        <div className="absolute -right-28 bottom-14 h-80 w-80 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
+        <div className="absolute -left-28 top-14 h-80 w-80 bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
+        <div className="absolute -right-28 bottom-14 h-80 w-80 bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -110,7 +110,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
           <div className="lg:col-span-4 lg:flex lg:justify-end">
             <a
               href="#bedding-catalog"
-              className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+              className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
             >
               Смотреть варианты
             </a>
@@ -129,8 +129,8 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
                     onClick={() => setActive(m.id)}
                     className={
                       isActive
-                        ? "group flex w-full items-center justify-between gap-4 rounded-3xl bg-[color:var(--accent)] px-6 py-5 text-left text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.14)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                        : "group flex w-full items-center justify-between gap-4 rounded-3xl bg-black/[0.02] px-6 py-5 text-left shadow-sm backdrop-blur transition hover:bg-black/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.05] dark:hover:bg-white/[0.08]"
+                        ? "group flex w-full items-center justify-between gap-4 bg-[color:var(--accent)] px-6 py-5 text-left text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.14)] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                        : "group flex w-full items-center justify-between gap-4 bg-black/[0.02] px-6 py-5 text-left shadow-sm backdrop-blur transition hover:bg-black/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.05] dark:hover:bg-white/[0.08]"
                     }
                     aria-pressed={isActive}
                   >
@@ -151,8 +151,8 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
                     <div
                       className={
                         isActive
-                          ? "flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20"
-                          : "flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black/[0.03] text-[color:var(--muted)] dark:bg-white/[0.08]"
+                          ? "flex h-11 w-11 shrink-0 items-center justify-center bg-white/20"
+                          : "flex h-11 w-11 shrink-0 items-center justify-center bg-black/[0.03] text-[color:var(--muted)] dark:bg-white/[0.08]"
                       }
                       aria-hidden="true"
                     >
@@ -165,13 +165,14 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="group relative h-full min-h-[560px] overflow-hidden rounded-[28px] bg-black/[0.03] shadow-[0_26px_90px_rgba(0,0,0,0.18)] transition-[transform,box-shadow] duration-500 hover:-translate-y-1 dark:bg-white/[0.05] dark:shadow-[0_26px_90px_rgba(0,0,0,0.55)]">
+            <div className="group relative h-full min-h-[560px] overflow-hidden bg-black/[0.03] shadow-[0_26px_90px_rgba(0,0,0,0.18)] transition-[transform,box-shadow] duration-500 hover:-translate-y-1 dark:bg-white/[0.05] dark:shadow-[0_26px_90px_rgba(0,0,0,0.55)]">
               <Image
                 src={mode.imageSrc}
                 alt="Постельное бельё"
                 fill
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 className="object-cover transition-[transform,filter] duration-700 group-hover:scale-[1.06] group-hover:saturate-[1.06]"
+                loading="eager"
               />
               <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.08),rgba(0,0,0,0.26),rgba(0,0,0,0.86))]" />
 
@@ -181,7 +182,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
 
                 <div className="mt-6 flex flex-wrap gap-2">
                   {mode.cues.map((c) => (
-                    <div key={c.title} className="rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur">
+                    <div key={c.title} className="border border-white/15 bg-white/10 px-4 py-2 backdrop-blur">
                       <div className="text-xs font-semibold tracking-[0.22em] text-white/85">{c.title}</div>
                       <div className="mt-1 text-xs leading-5 text-white/70">{c.text}</div>
                     </div>
@@ -190,7 +191,7 @@ export function BeddingWhyShowcase({ images }: { images?: string[] }) {
 
                 <a
                   href="#cta"
-                  className="mt-7 inline-flex h-12 items-center justify-center rounded-2xl bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md"
+                  className="mt-7 inline-flex h-12 items-center justify-center bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md"
                 >
                   {mode.ctaLabel} <span aria-hidden="true" className="ml-2">→</span>
                 </a>

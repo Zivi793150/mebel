@@ -37,7 +37,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
             text: "Тишина и тактильность дают эффект “дороже”, даже без ярких деталей.",
           },
         ],
-        imageSrc: "/catalog/rugs.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_0EE59916-FB5D-9EC2-85FA-10187D73D387_.webp",
         proof: [
           { metric: "1 слой", note: "и комната уже воспринимается собраннее" },
           { metric: "0 хаоса", note: "палитру держит фактура" },
@@ -65,7 +65,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
             text: "Сразу учитываем стирку/чистку и ваш ритм жизни.",
           },
         ],
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_153EFD43-D7A1-B5CA-712C-66EB7205DEFF_.webp",
         proof: [
           { metric: "7:00", note: "комфорт с первого шага" },
           { metric: "− холод", note: "ощущение теплее в зоне кровати" },
@@ -93,7 +93,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
             text: "Подбираем так, чтобы ковёр не спорил, а связывал палитру комнаты.",
           },
         ],
-        imageSrc: "/catalog/pillows.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_6B2F51A4-0FD7-F56F-759D-E648496BE4B6_.webp",
         proof: [
           { metric: "1 правило", note: "передние ножки мебели на ковре" },
           { metric: "2 варианта", note: "даём на выбор по смелости" },
@@ -121,7 +121,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
             text: "Под ваш сценарий подбираем плотность и состав — без лишней пыли и запахов.",
           },
         ],
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_85F80F14-70B6-14CD-D79C-1B25E9AC2AF0_.webp",
         proof: [
           { metric: "дети/питомцы", note: "закладываем сразу" },
           { metric: "1 подсказка", note: "что делать при пятне" },
@@ -145,15 +145,15 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
   const scenario = derivedScenarios.find((s) => s.id === active) ?? derivedScenarios[0];
 
   return (
-    <section className="relative overflow-hidden bg-[color:var(--bg)]">
+    <section className="relative overflow-hidden bg-[color:var(--card)]">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(#00000014_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff1a_1px,transparent_1px)] [background-size:18px_18px]" />
-        <div className="absolute -left-28 top-16 h-80 w-80 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
-        <div className="absolute -right-28 bottom-16 h-80 w-80 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
+        <div className="absolute -left-28 top-16 h-80 w-80 bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
+        <div className="absolute -right-28 bottom-16 h-80 w-80 bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
       </div>
 
       <div className="relative z-10">
-        <div className="flex flex-col items-center px-4 pt-18 text-center sm:pt-24">
+        <div className="flex flex-col items-center px-4 pt-12 text-center lg:pt-16">
           <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ЗАЧЕМ</div>
           <h2 className="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
             Ковёр — это тишина, тепло и собранный интерьер
@@ -174,8 +174,8 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
                   onClick={() => setActive(s.id)}
                   className={
                     isActive
-                      ? "inline-flex h-10 items-center justify-center rounded-full bg-[color:var(--accent)] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--accent-contrast)] shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                      : "inline-flex h-10 items-center justify-center rounded-full bg-black/[0.03] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--fg)]/75 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                      ? "inline-flex h-10 items-center justify-center bg-[color:var(--accent)] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--accent-contrast)] shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                      : "inline-flex h-10 items-center justify-center bg-black/[0.03] px-5 text-xs font-semibold tracking-[0.26em] text-[color:var(--fg)]/75 shadow-sm backdrop-blur transition hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
                   }
                 >
                   {s.label}
@@ -208,7 +208,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
                 <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                   <a
                     href={scenario.cta.href}
-                    className="inline-flex h-12 flex-1 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.16)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    className="inline-flex h-12 flex-1 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.16)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
                   >
                     {scenario.cta.label}
                   </a>
@@ -216,7 +216,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
                     href="https://koenigcarpet.ru"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)]/10 px-5 text-sm font-semibold text-[color:var(--accent)] shadow-sm backdrop-blur transition hover:bg-[color:var(--accent)]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)]/10 px-5 text-sm font-semibold text-[color:var(--accent)] shadow-sm backdrop-blur transition hover:bg-[color:var(--accent)]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
                   >
                     Каталог на koenigcarpet.ru →
                   </a>
@@ -225,13 +225,12 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="group relative h-full min-h-[520px] overflow-hidden rounded-[28px] bg-black/[0.03] shadow-[0_26px_90px_rgba(0,0,0,0.18)] transition-[transform,box-shadow] duration-500 hover:-translate-y-1 dark:bg-white/[0.05] dark:shadow-[0_26px_90px_rgba(0,0,0,0.55)]">
-                <Image
+              <div className="group relative h-full min-h-[520px] overflow-hidden bg-black/[0.03] shadow-[0_26px_90px_rgba(0,0,0,0.18)] transition-[transform,box-shadow] duration-500 hover:-translate-y-1 dark:bg-white/[0.05] dark:shadow-[0_26px_90px_rgba(0,0,0,0.55)]">
+                <img
                   src={scenario.imageSrc}
                   alt="Ковры"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover transition-[transform,filter] duration-700 group-hover:scale-[1.06] group-hover:saturate-[1.08]"
+                  className="h-full w-full object-cover transition-[transform,filter] duration-700 group-hover:scale-[1.06] group-hover:saturate-[1.08]"
+                  loading="eager"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.08),rgba(0,0,0,0.22),rgba(0,0,0,0.82))]" />
 
@@ -243,7 +242,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
                   </div>
                   <a
                     href="#cta"
-                    className="mt-6 inline-flex h-12 items-center justify-center rounded-2xl bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md"
+                    className="mt-6 inline-flex h-12 items-center justify-center bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md"
                   >
                     Спросить <span aria-hidden="true" className="ml-2">→</span>
                   </a>
@@ -252,7 +251,7 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
             </div>
           </div>
 
-          <div className="pb-18 pt-10 sm:pb-24" />
+          <div className="pb-12 pt-10 lg:pb-16" />
         </div>
       </div>
     </section>

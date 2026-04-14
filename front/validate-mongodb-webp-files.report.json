@@ -1,0 +1,12 @@
+{
+  "total": 340,
+  "missingCount": 0,
+  "invalidCount": 1,
+  "missing": [],
+  "invalid": [
+    {
+      "path": "/catalog/2.Жалюзи/Деревянные/Жалюзи  деревянные 1 .webp",
+      "error": "Input file contains unsupported image format"
+    }
+  ]
+}

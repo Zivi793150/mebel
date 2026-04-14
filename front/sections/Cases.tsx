@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Container } from "@/components/Container";
-import { CONTACTS } from "@/lib/constants";
+import { ContactButton } from "@/components/ContactButton";
 
 type CaseItem = {
   title: string;
@@ -19,7 +19,7 @@ const BASE_CASES: CaseItem[] = [
     goal: "Полное затемнение и тишина — без ощущения “глухой стены”.",
     solution: "Комбо: плотный blackout + мягкий верхний слой, точная длина и посадка.",
     result: "Комната выглядит дороже, сон — комфортнее.",
-    imageSrc: "/hero2.jpg",
+    imageSrc: "/hero2.webp",
   },
   {
     badge: "ГОСТИНАЯ",
@@ -27,7 +27,7 @@ const BASE_CASES: CaseItem[] = [
     goal: "Сохранить вид и свет, но добавить приватность вечером.",
     solution: "Полупрозрачные ткани с правильной фактурой + аккуратный потолочный карниз.",
     result: "Лёгкость днём, комфорт вечером.",
-    imageSrc: "/hero.jpg",
+    imageSrc: "/hero.webp",
   },
   {
     badge: "КУХНЯ / ОФИС",
@@ -35,7 +35,7 @@ const BASE_CASES: CaseItem[] = [
     goal: "Убрать блики и перегрев, не затемняя комнату полностью.",
     solution: "Жалюзи/рулонные системы под сценарий света + чистый монтаж.",
     result: "Работать и отдыхать стало проще — без раздражающих бликов.",
-    imageSrc: "/gray_hero.jpg",
+    imageSrc: "/gray_hero.webp",
   },
 ];
 
@@ -63,12 +63,9 @@ export function Cases({ images }: { images?: string[] }) {
           </div>
 
           <div className="lg:col-span-4 lg:flex lg:justify-end">
-            <a
-              href={CONTACTS.telegramHref}
-              className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-            >
-              Обсудить проект в Telegram
-            </a>
+            <ContactButton className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]">
+              Обсудить проект
+            </ContactButton>
           </div>
         </div>
 
@@ -110,12 +107,9 @@ export function Cases({ images }: { images?: string[] }) {
                 </div>
 
                 <div className="mt-6">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-black/10 bg-white/70 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
+                  <ContactButton className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-black/10 bg-white/70 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     Подобрать под мой интерьер
-                  </a>
+                  </ContactButton>
                 </div>
               </div>
             </article>

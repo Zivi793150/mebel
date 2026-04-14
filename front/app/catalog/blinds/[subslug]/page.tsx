@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import path from "path";
-import { readdir } from "fs/promises";
 
 import { BlindsTypesCatalog, type BlindsTypeItem } from "@/components/BlindsTypesCatalog";
+import { ContactButton } from "@/components/ContactButton";
 import { Container } from "@/components/Container";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { CONTACTS } from "@/lib/constants";
 import { getMongoClient } from "@/lib/mongo";
 import { CTA } from "@/sections/CTA";
+import { BlindsShowcase } from "@/components/BlindsShowcase";
 
 type KoenigCatalogItem = {
   index: number;
@@ -67,7 +67,7 @@ async function getKoenigBlindsSubcatalog(subslug: string): Promise<KoenigBlindsS
       .collection<KoenigBlindsSubcatalogDoc>("blinds_subcatalogs");
 
     const doc = await col.findOne(
-      { source: "koenigroom.ru", kind: "blinds_subcatalog", subslug },
+      { source: "koenig_room", kind: "blinds_subcatalog", subslug },
       { projection: { _id: 0 } },
     );
 
@@ -106,39 +106,6 @@ async function getBlindsTypesForSubslug(subslug: string): Promise<BlindsTypeItem
 function pickWindow(images: string[], start: number, count: number): string[] {
   if (images.length === 0) return [];
   return Array.from({ length: count }).map((_, i) => images[(start + i) % images.length]);
-}
-
-async function pickPublicRomanImage(query: RegExp): Promise<string | null> {
-  const folder = "Римские";
-  const absDir = path.join(process.cwd(), "public", "catalog", folder);
-  try {
-    const entries = await readdir(absDir, { withFileTypes: true });
-    const files = entries
-      .filter((e) => e.isFile())
-      .map((e) => e.name)
-      .sort((a, b) => a.localeCompare(b, "ru"));
-    const match = files.find((f) => query.test(f));
-    if (!match) return null;
-    return encodeURI(`/catalog/${folder}/${match}`);
-  } catch {
-    return null;
-  }
-}
-
-async function pickPublicRomanLastFiles(count: number): Promise<string[]> {
-  const folder = "Римские";
-  const absDir = path.join(process.cwd(), "public", "catalog", folder);
-  try {
-    const entries = await readdir(absDir, { withFileTypes: true });
-    const files = entries
-      .filter((e) => e.isFile())
-      .map((e) => e.name)
-      .sort((a, b) => a.localeCompare(b, "ru"));
-    const picked = files.slice(Math.max(0, files.length - count));
-    return picked.map((f) => encodeURI(`/catalog/${folder}/${f}`));
-  } catch {
-    return [];
-  }
 }
 
 const SUBCATS = [
@@ -208,33 +175,8 @@ export default async function BlindsSubcatalogPage({
         }),
       )
     : await getBlindsTypesForSubslug(subslug);
-  const publicRomanHero = meta.subslug === "roman" ? await pickPublicRomanImage(/^Однорядные\.jpg$/i) : null;
-  const publicRomanSingle = meta.subslug === "roman" ? await pickPublicRomanImage(/Однорядн/i) : null;
-  const publicRomanDouble = meta.subslug === "roman" ? await pickPublicRomanImage(/Двухрядн/i) : null;
-  const publicRomanClassicRaw = meta.subslug === "roman" ? await pickPublicRomanImage(/Классич/i) : null;
-  const publicRomanClassic = publicRomanClassicRaw || publicRomanSingle;
-  const publicRomanElectroMedia = meta.subslug === "roman" ? await pickPublicRomanLastFiles(4) : [];
-  const publicRomanElectroCover = publicRomanElectroMedia.find((s) => /\.(jpe?g|png|webp)(\?.*)?$/i.test(s)) || null;
 
-  const patchedBlindsTypes = meta.subslug === "roman"
-    ? blindsTypes.map((it) => {
-        const t = `${it.title || ""} ${it.description || ""}`.toLowerCase();
-        if (/(электро|привод|мотор)/.test(t) && publicRomanElectroMedia.length) {
-          const merged = Array.from(new Set([...(publicRomanElectroCover ? [publicRomanElectroCover] : []), ...publicRomanElectroMedia, ...(it.images || [])].filter(Boolean)));
-          return {
-            ...it,
-            image: publicRomanElectroCover || it.image,
-            images: merged,
-          };
-        }
-        if (/классич/.test(t) && publicRomanClassic) return { ...it, image: publicRomanClassic };
-        if (/двухряд/.test(t) && publicRomanDouble) return { ...it, image: publicRomanDouble };
-        if (/одноряд/.test(t) && publicRomanSingle) return { ...it, image: publicRomanSingle };
-        return it;
-      })
-    : blindsTypes;
-
-  const hero = publicRomanHero || images[meta.startIndex % Math.max(1, images.length)] || "/catalog/blinds.jpg";
+  const hero = images[meta.startIndex % Math.max(1, images.length)] || "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp";
   const popularImages = pickWindow(images, meta.startIndex + 9, 7);
   const variantsIntro =
     koenigSubcat?.variantsIntro ||
@@ -244,6 +186,161 @@ export default async function BlindsSubcatalogPage({
 
   const isRoman = meta.subslug === "roman";
 
+  // Roman blinds get special styling matching the reference site
+  if (isRoman) {
+    return (
+      <div className="min-h-screen bg-[color:var(--bg)] text-[color:var(--fg)]">
+        <Header />
+
+        <main>
+          {/* Hero Banner - Full width slider style */}
+          <section className="relative min-h-[60vh] overflow-hidden sm:min-h-[70vh]">
+            <div className="absolute inset-0">
+              <Image
+                src={hero}
+                alt={meta.title}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-black/40" />
+            </div>
+            <div className="relative z-10 flex min-h-[60vh] items-center sm:min-h-[70vh]">
+              <Container>
+                <div className="max-w-2xl">
+                  <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                    Римские шторы на заказ: практичное решение для вашего интерьера
+                  </h1>
+                  <p className="mt-4 text-base leading-relaxed text-white/90 sm:text-lg">
+                    Предлагаем большой выбор материалов, точные замеры и профессиональный монтаж
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <ContactButton
+                      className="inline-flex h-11 items-center justify-center bg-[color:var(--accent)] px-6 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95"
+                      imageSrc={hero}
+                    >
+                      Получить консультацию
+                    </ContactButton>
+                  </div>
+                </div>
+              </Container>
+            </div>
+          </section>
+
+          {/* Variants Section */}
+          <section className="bg-black/5 py-16 sm:py-20">
+            <Container>
+              <div className="text-center">
+                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
+                  ВАРИАНТЫ
+                </div>
+                <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
+                  Выберите систему
+                </h2>
+                <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+                  {variantsIntro}
+                </p>
+              </div>
+
+              <div className="mt-12">
+                <BlindsTypesCatalog items={blindsTypes} showDescriptions={true} />
+              </div>
+
+              <div className="mt-10 text-center">
+                <ContactButton
+                  className="inline-flex h-11 items-center justify-center bg-[color:var(--accent)] px-6 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95"
+                  imageSrc={hero}
+                >
+                  Получить консультацию
+                </ContactButton>
+              </div>
+            </Container>
+          </section>
+
+          {/* Guarantee Section */}
+          <section className="py-16 sm:py-20">
+            <Container>
+              <div className="text-center">
+                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
+                  ГАРАНТИЯ
+                </div>
+                <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
+                  высокого качества
+                </h2>
+              </div>
+              <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <div className="border border-black/10 bg-white/50 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+                    <div className="text-lg font-semibold text-[color:var(--fg)]">
+                      Ежедневный контроль технологии пошива по 30-ти параметрам
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-[color:var(--muted)]">
+                      К качеству пошива мы относимся с особым трепетом. Все изделия изготавливаются
+                      в технологичном цехе вручную. Мы используем только немецкие нитки, фурнитуру
+                      и шторные ленты, создаем идеальные складки, строчки и швы, что гарантирует
+                      вам первозданный вид штор на долгие годы.
+                    </p>
+                    <ContactButton
+                      className="mt-6 inline-flex h-11 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95"
+                      imageSrc={hero}
+                    >
+                      Получить консультацию
+                    </ContactButton>
+                  </div>
+                </div>
+                <div className="relative aspect-video overflow-hidden border border-black/10 dark:border-white/10">
+                  <Image
+                    src={hero}
+                    alt="Качество пошива"
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
+                    loading="eager"
+                  />
+                </div>
+              </div>
+            </Container>
+          </section>
+
+          {/* Location CTA */}
+          <section className="bg-black/5 py-16 sm:py-20">
+            <Container>
+              <div className="text-center">
+                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
+                  LOCATION
+                </div>
+                <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
+                  Мы находимся в центре
+                </h2>
+                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)]">
+                  Рады видеть вас в нашем шоу-руме с удобным паркингом.
+                  Угостим вкусным кофе, покажем новые коллекции тканей, расскажем о вариантах сотрудничества.
+                </p>
+                <p className="mt-4 text-sm font-medium text-[color:var(--fg)]">
+                  г. Новосибирск, ул. 1905 года, д. 69
+                </p>
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                  <ContactButton
+                    className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-6 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95"
+                    imageSrc={hero}
+                  >
+                    Присоединиться к Telegram-каналу
+                  </ContactButton>
+                </div>
+              </div>
+            </Container>
+          </section>
+
+          <CTA />
+        </main>
+
+        <Footer />
+      </div>
+    );
+  }
+
+  // Non-Roman subcategories keep the original layout
   return (
     <div className="min-h-screen bg-[color:var(--bg)] text-[color:var(--fg)]">
       <Header />
@@ -252,36 +349,24 @@ export default async function BlindsSubcatalogPage({
         <section className="py-14 sm:py-18">
           <Container>
             <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-              <div className={`lg:col-span-6 ${isRoman ? "text-center lg:text-left" : ""}`}>
-                <div
-                  className={`text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)] ${
-                    isRoman ? "justify-center lg:justify-start" : ""
-                  }`}
-                >
+              <div className="lg:col-span-6">
+                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
                   ПОДКАТАЛОГ
                 </div>
-                <h1
-                  className={`mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl ${
-                    isRoman ? "sm:text-6xl" : ""
-                  }`}
-                >
+                <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
                   {meta.title}
                 </h1>
-                <p
-                  className={`mt-4 text-base leading-7 text-[color:var(--muted)] sm:text-lg ${
-                    isRoman ? "mx-auto max-w-2xl lg:mx-0" : "max-w-xl"
-                  }`}
-                >
+                <p className="mt-4 max-w-xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
                   {meta.description}
                 </p>
 
-                <div className={`mt-7 flex flex-wrap gap-3 ${isRoman ? "justify-center lg:justify-start" : ""}`}>
-                  <a
-                    href={CONTACTS.telegramHref}
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <ContactButton
                     className="inline-flex h-11 items-center justify-center rounded-full bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95"
+                    imageSrc={hero}
                   >
                     Подобрать под мой интерьер
-                  </a>
+                  </ContactButton>
                   <Link
                     href="/catalog/blinds"
                     className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10"
@@ -299,6 +384,7 @@ export default async function BlindsSubcatalogPage({
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     className="object-cover"
+                    loading="eager"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.10),rgba(0,0,0,0.38))]" />
                 </div>
@@ -307,6 +393,7 @@ export default async function BlindsSubcatalogPage({
           </Container>
         </section>
 
+        {/* Variants Section */}
         <section className="pb-14 sm:pb-18">
           <Container>
             <div className={`grid gap-6 lg:grid-cols-12 lg:items-end ${isRoman ? "text-center" : ""}`}>
@@ -324,7 +411,7 @@ export default async function BlindsSubcatalogPage({
             </div>
 
             <div className="mt-10">
-              <BlindsTypesCatalog items={patchedBlindsTypes} showDescriptions={!isRoman} />
+              <BlindsTypesCatalog items={blindsTypes} showDescriptions={!isRoman} />
             </div>
           </Container>
         </section>
@@ -345,17 +432,17 @@ export default async function BlindsSubcatalogPage({
                   </p>
                 </div>
                 <div className="lg:col-span-5 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
+                  <ContactButton
                     className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95"
+                    imageSrc={hero}
                   >
                     Рассчитать стоимость
-                  </a>
+                  </ContactButton>
                 </div>
               </div>
 
               <div className="mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
-                {(popularImages.length > 0 ? popularImages : Array.from({ length: 7 }).map(() => "/catalog/blinds.jpg")).map(
+                {(popularImages.length > 0 ? popularImages : Array.from({ length: 7 }).map(() => "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp")).map(
                   (src, idx) => (
                     <a
                       key={`${src}-${idx}`}
@@ -369,6 +456,7 @@ export default async function BlindsSubcatalogPage({
                         fill
                         sizes="180px"
                         className="object-cover transition-transform duration-300 group-hover:scale-[1.05]"
+                        loading="eager"
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.18),rgba(0,0,0,0.56))]" />
                       <div className="absolute bottom-3 left-3 text-xs font-semibold tracking-[0.20em] text-white/85">

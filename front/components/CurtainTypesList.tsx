@@ -4,8 +4,9 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "next/navigation";
 
-import { LeadRequestModal } from "@/components/LeadRequestModal";
+import { ContactModal } from "@/components/ContactModal";
 import { IconTelegram } from "@/components/icons";
+import { normalizeClientImageUrl } from "@/lib/clientUtils";
 
 export type CurtainTypeItem = {
   source?: string;
@@ -93,10 +94,10 @@ function FilterSelect({
         disabled={isDisabled}
         onClick={() => setOpen((v) => !v)}
         className={
-          "mt-2 flex h-11 w-full items-center justify-between rounded-2xl border px-3 text-left text-sm shadow-sm outline-none transition " +
+          "mt-2 flex h-11 w-full items-center justify-between border px-3 text-left text-sm outline-none transition " +
           (isDisabled
-            ? "cursor-not-allowed border-black/10 bg-black/[0.02] text-[color:var(--muted)]/50 dark:border-white/10 dark:bg-white/[0.03]"
-            : "border-black/10 bg-white/70 text-[color:var(--fg)] hover:bg-white/90 focus:ring-2 focus:ring-[color:var(--accent)]/30 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10")
+            ? "cursor-not-allowed border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--muted)]/50"
+            : "border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] hover:bg-[color:var(--bg)] focus:ring-1 focus:ring-[color:var(--accent)]")
         }
       >
         <span className="truncate pr-3">{selectedLabel}</span>
@@ -107,7 +108,7 @@ function FilterSelect({
       </button>
 
       {open ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border border-black/10 bg-white/90 shadow-xl backdrop-blur dark:border-white/10 dark:bg-black/50">
+        <div className="absolute left-0 right-0 top-[calc(100%+4px)] z-50 overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] shadow-lg">
           <div className="max-h-72 overflow-auto p-1">
             {options.map((o) => {
               const active = o.value === value;
@@ -122,12 +123,12 @@ function FilterSelect({
                     setOpen(false);
                   }}
                   className={
-                    "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition " +
+                    "flex w-full items-center justify-between px-3 py-2 text-left text-sm transition " +
                     (disabled
                       ? "cursor-not-allowed text-[color:var(--muted)]/40"
                       : active
                         ? "bg-[color:var(--accent)]/12 text-[color:var(--fg)]"
-                        : "text-[color:var(--fg)] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]")
+                        : "text-[color:var(--fg)] hover:bg-[color:var(--bg)]")
                   }
                 >
                   <span className="truncate">{o.label}</span>
@@ -152,8 +153,8 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
   }, []);
 
   const images = useMemo(() => {
-    const arr = [...(item.images || [])].filter(Boolean);
-    if (item.image) arr.unshift(item.image);
+    const arr = [...(item.images || [])].filter(Boolean).map(normalizeClientImageUrl);
+    if (item.image) arr.unshift(normalizeClientImageUrl(item.image));
     return Array.from(new Set(arr)).slice(0, 10);
   }, [item.image, item.images]);
 
@@ -173,7 +174,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [onClose]);
 
-  const image = images[activeIdx] || images[0] || "/catalog/decor.jpg";
+  const image = images[activeIdx] || images[0] || "/catalog/5.-dekor-furnitura/50007.webp";
   const [leadOpen, setLeadOpen] = useState(false);
 
   const thumbsVisibleCount = 4;
@@ -189,32 +190,32 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4">
       <div
         ref={wrapRef}
-        className="w-full max-w-7xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-7xl border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ←
           </button>
-          <h2 className="text-xl font-semibold sm:text-2xl">{item.title || "Вид штор"}</h2>
+          <h2 className="text-xl font-medium sm:text-2xl">{item.title || "Вид штор"}</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ✕
           </button>
         </div>
 
-        <div className="my-4 h-px w-full bg-black/10 dark:bg-white/10" />
+        <div className="my-4 h-px w-full bg-[color:var(--gray-lines)]" />
 
         <div className="grid gap-4 lg:grid-cols-12">
           <div className="relative lg:col-span-8">
@@ -228,8 +229,8 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                     aria-label="Вверх"
                     className={
                       canThumbUp
-                        ? "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                        : "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                        ? "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--card)]"
+                        : "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-sm font-medium text-[color:var(--muted)] opacity-50"
                     }
                   >
                     ↑
@@ -247,8 +248,8 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                           aria-label={`Фото ${realIdx + 1}`}
                           className={
                             isActive
-                              ? "overflow-hidden rounded-2xl border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
-                              : "overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                              ? "overflow-hidden border border-[color:var(--fg)] bg-[color:var(--card)]"
+                              : "overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition hover:bg-[color:var(--bg)]"
                           }
                         >
                           <div className="relative aspect-square">
@@ -266,8 +267,8 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                     aria-label="Вниз"
                     className={
                       canThumbDown
-                        ? "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                        : "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                        ? "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--card)]"
+                        : "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-sm font-medium text-[color:var(--muted)] opacity-50"
                     }
                   >
                     ↓
@@ -276,9 +277,9 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
               </div>
 
               <div className="relative">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
+                <div className="relative aspect-[16/10] w-full overflow-hidden border border-[color:var(--gray-lines)]">
                   <img alt={item.title || ""} className="h-full w-full object-cover object-center" src={image} />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0.28))]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)]" />
                 </div>
 
                 {images.length > 1 ? (
@@ -293,8 +294,8 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                           aria-label={`Фото ${idx + 1}`}
                           className={
                             isActive
-                              ? "h-16 w-16 flex-none overflow-hidden rounded-2xl border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
-                              : "h-16 w-16 flex-none overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                              ? "h-16 w-16 flex-none overflow-hidden border border-[color:var(--fg)]"
+                              : "h-16 w-16 flex-none overflow-hidden border border-[color:var(--gray-lines)] transition hover:bg-[color:var(--bg)]"
                           }
                         >
                           <img alt="" src={src} className="h-full w-full object-cover" />
@@ -308,7 +309,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
           </div>
 
           <div className="lg:col-span-4">
-            <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+            <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-5">
               <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
               <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
                 {item.description ||
@@ -320,35 +321,23 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                   <button
                     type="button"
                     onClick={() => setLeadOpen(true)}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
                   >
-                    <span className="inline-flex items-center gap-2">
-                      <IconTelegram className="h-5 w-5" />
-                      Написать нам
-                    </span>
+                    Связаться
                   </button>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                    className="inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                   >
                     Закрыть
                   </button>
                 </div>
 
                 {leadOpen ? (
-                  <LeadRequestModal
-                    context={{
-                      productType: "curtain_type",
-                      source: item.source,
-                      kind: item.kind,
-                      url: item.url,
-                      title: item.title,
-                      category: item.group,
-                      image,
-                      images,
-                    }}
+                  <ContactModal
                     onClose={() => setLeadOpen(false)}
+                    imageSrc="/foto-na-knopku-1-.webp"
                   />
                 ) : null}
               </div>
@@ -550,9 +539,26 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
       result = [...result].sort((a, b) => {
         const aTitle = normTitle(a.title).toLowerCase();
         const bTitle = normTitle(b.title).toLowerCase();
-        const aExact = aTitle === pendingType ? 2 : aTitle.includes(pendingType) ? 1 : 0;
-        const bExact = bTitle === pendingType ? 2 : bTitle.includes(pendingType) ? 1 : 0;
-        return bExact - aExact;
+        const aDesc = String(a.description || "").toLowerCase();
+        const bDesc = String(b.description || "").toLowerCase();
+        const aGroup = String(a.group || "").toLowerCase();
+        const bGroup = String(b.group || "").toLowerCase();
+        
+        // Check title match
+        const aTitleExact = aTitle === pendingType ? 3 : aTitle.includes(pendingType) ? 2 : 0;
+        const bTitleExact = bTitle === pendingType ? 3 : bTitle.includes(pendingType) ? 2 : 0;
+        
+        // Check description match
+        const aDescMatch = aDesc.includes(pendingType) ? 1 : 0;
+        const bDescMatch = bDesc.includes(pendingType) ? 1 : 0;
+        
+        // Check group match
+        const aGroupMatch = aGroup.includes(pendingType) ? 1 : 0;
+        const bGroupMatch = bGroup.includes(pendingType) ? 1 : 0;
+        
+        const aScore = aTitleExact + aDescMatch + aGroupMatch;
+        const bScore = bTitleExact + bDescMatch + bGroupMatch;
+        return bScore - aScore;
       });
     }
     
@@ -594,7 +600,7 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
   }, [typesForGroup]);
 
   return (
-    <div className="rounded-3xl border border-black/10 bg-white/60 p-8 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+    <div className="border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6 sm:p-8">
       <div className="grid gap-3 lg:grid-cols-[1fr,auto] lg:items-center">
         <div className="grid gap-4 lg:grid-cols-[1fr,1fr,auto] lg:items-end">
           <div>
@@ -622,8 +628,8 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
             }}
             className={
               canReset
-                ? "inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                : "inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] px-4 text-sm font-semibold text-[color:var(--muted)] opacity-70 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                ? "inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
+                : "inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm font-medium text-[color:var(--muted)] opacity-50"
             }
           >
             Сбросить
@@ -633,44 +639,29 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
 
       <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((it, idx) => {
-          const img = it.image || (it.images && it.images[0]) || "/catalog/curtains.jpg";
+          const img = normalizeClientImageUrl(it.image || (it.images && it.images[0]) || "/catalog/1.shtory-i-tkani/1.1.avstriyskie/avstriyskie-na-ikonku.webp");
           return (
             <button
               key={it.url}
               ref={idx === 0 ? firstCardRef : undefined}
               type="button"
               onClick={() => setActive(it)}
-              className="group block overflow-hidden rounded-3xl border border-black/10 bg-white/60 text-left shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-white/70 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+              className="group block overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-left transition duration-300 hover:bg-[color:var(--bg)]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   src={img}
                   alt={it.title || ""}
-                  className="h-full w-full object-cover object-center transition-transform duration-300 ease-in-out group-hover:scale-[1.04]"
+                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.18),rgba(0,0,0,0.52))]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)]" />
               </div>
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">
-                      {normTitle(it.title) || it.url}
-                    </div>
-                    <div className="mt-1 text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">
-                      {it.group}
-                    </div>
-                  </div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
-                    <span
-                      aria-hidden="true"
-                      className="text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
-                    >
-                      →
-                    </span>
-                  </div>
+              <div className="p-5">
+                <div className="text-lg font-medium text-[color:var(--fg)]">
+                  {normTitle(it.title) || it.url}
                 </div>
-                <div className="mt-3 line-clamp-2 text-sm leading-6 text-[color:var(--muted)]">
-                  {it.description || "Откройте подробности и примеры, чтобы подобрать решение под ваш интерьер."}
+                <div className="mt-1 text-xs text-[color:var(--muted)]">
+                  {it.group}
                 </div>
               </div>
             </button>

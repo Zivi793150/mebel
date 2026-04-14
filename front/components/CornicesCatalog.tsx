@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 
-import { LeadRequestModal } from "@/components/LeadRequestModal";
+import { ContactButton } from "@/components/ContactButton";
 import { IconTelegram } from "@/components/icons";
 import { CONTACTS } from "@/lib/constants";
 
@@ -84,10 +84,10 @@ function FilterSelect({
         disabled={isDisabled}
         onClick={() => setOpen((v) => !v)}
         className={
-          "mt-2 flex h-11 w-full items-center justify-between rounded-2xl border px-3 text-left text-sm shadow-sm outline-none transition " +
+          "mt-2 flex h-11 w-full items-center justify-between border px-3 text-left text-sm outline-none transition " +
           (isDisabled
-            ? "cursor-not-allowed border-black/10 bg-black/[0.02] text-[color:var(--muted)]/50 dark:border-white/10 dark:bg-white/[0.03]"
-            : "border-black/10 bg-white/70 text-[color:var(--fg)] hover:bg-white/90 focus:ring-2 focus:ring-[color:var(--accent)]/30 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10")
+            ? "cursor-not-allowed border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--muted)]/50"
+            : "border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] hover:bg-[color:var(--bg)] focus:ring-1 focus:ring-[color:var(--accent)]")
         }
       >
         <span className="truncate pr-3">{selectedLabel}</span>
@@ -98,7 +98,7 @@ function FilterSelect({
       </button>
 
       {open ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border border-black/10 bg-white/90 shadow-xl backdrop-blur dark:border-white/10 dark:bg-black/50">
+        <div className="absolute left-0 right-0 top-[calc(100%+4px)] z-50 overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] shadow-lg">
           <div className="max-h-72 overflow-auto p-1">
             {options.map((o) => {
               const active = o.value === value;
@@ -113,12 +113,12 @@ function FilterSelect({
                     setOpen(false);
                   }}
                   className={
-                    "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition " +
+                    "flex w-full items-center justify-between px-3 py-2 text-left text-sm transition " +
                     (disabled
                       ? "cursor-not-allowed text-[color:var(--muted)]/40"
                       : active
                         ? "bg-[color:var(--accent)]/12 text-[color:var(--fg)]"
-                        : "text-[color:var(--fg)] hover:bg-black/[0.04] dark:hover:bg-white/[0.06]")
+                        : "text-[color:var(--fg)] hover:bg-[color:var(--bg)]")
                   }
                 >
                   <span className="truncate">{o.label}</span>
@@ -154,6 +154,7 @@ type CorniceCollection = {
   collectionSlug: string;
   title?: string;
   description?: string;
+  url?: string;
   image?: string;
   images?: string[];
 };
@@ -166,6 +167,7 @@ type CorniceLeafItem = {
   collectionTitle?: string;
   title?: string;
   description?: string;
+  url?: string;
   image?: string;
   images?: string[];
 };
@@ -183,7 +185,7 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
     const arr = [...(item.images || [])].filter(Boolean);
     if (item.image) arr.unshift(item.image);
     const uniq = Array.from(new Set(arr));
-    return (uniq.length ? uniq : ["/catalog/rails.jpg"]).slice(0, 12);
+    return (uniq.length ? uniq : ["/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp"]).slice(0, 12);
   }, [item.image, item.images]);
 
   const collectionDescription = useMemo(() => {
@@ -202,10 +204,8 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
     setThumbStart(0);
   }, [item.url, item.image]);
 
-  const activeImage = images[activeIdx] || images[0] || "/catalog/rails.jpg";
+  const activeImage = images[activeIdx] || images[0] || "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp";
   const activeIsVideo = isVideoSrc(activeImage);
-
-  const [leadOpen, setLeadOpen] = useState(false);
 
   const thumbsVisibleCount = 4;
   const canThumbUp = thumbStart > 0;
@@ -229,8 +229,8 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
                 type="button"
                 onClick={() => canThumbUp && setThumbStart((s) => Math.max(0, s - thumbsVisibleCount))}
                 className={
-                  "inline-flex h-9 items-center justify-center rounded-2xl border border-black/10 bg-white/70 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 " +
-                  (canThumbUp ? "opacity-100" : "opacity-40")
+                  "inline-flex h-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--card)] " +
+                  (canThumbUp ? "opacity-100" : "opacity-50")
                 }
                 aria-label="Prev thumbnails"
                 disabled={!canThumbUp}
@@ -247,10 +247,10 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
                       key={`${src}-${idx}`}
                       onClick={() => setActiveFromVisible(i)}
                       className={
-                        "relative aspect-square overflow-hidden rounded-2xl border transition " +
+                        "relative aspect-square overflow-hidden border transition " +
                         (isActive
-                          ? "border-[color:var(--accent)] ring-2 ring-[color:var(--accent)]"
-                          : "border-black/10 hover:border-black/20 dark:border-white/10")
+                          ? "border-[color:var(--fg)]"
+                          : "border-[color:var(--gray-lines)] hover:bg-[color:var(--bg)]")
                       }
                     >
                       {isVideoSrc(src) ? (
@@ -266,8 +266,8 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
                 type="button"
                 onClick={() => canThumbDown && setThumbStart((s) => Math.min(images.length - thumbsVisibleCount, s + thumbsVisibleCount))}
                 className={
-                  "inline-flex h-9 items-center justify-center rounded-2xl border border-black/10 bg-white/70 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 " +
-                  (canThumbDown ? "opacity-100" : "opacity-40")
+                  "inline-flex h-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--card)] " +
+                  (canThumbDown ? "opacity-100" : "opacity-50")
                 }
                 aria-label="Next thumbnails"
                 disabled={!canThumbDown}
@@ -277,53 +277,32 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
             </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/50 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="relative overflow-hidden border border-[color:var(--gray-lines)]">
+            <div className="relative aspect-square overflow-hidden">
               {activeIsVideo ? (
                 <video className="h-full w-full object-cover" src={activeImage} controls playsInline />
               ) : (
                 <img alt={title} src={activeImage} className="h-full w-full object-cover" />
               )}
-              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.08),rgba(0,0,0,0.20))]" />
             </div>
           </div>
         </div>
       </div>
 
       <div className="lg:col-span-5">
-        <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+        <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-5">
           <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ПОДРОБНЕЕ</div>
           <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
             {displayDescription}
           </div>
 
           <div className="mt-5 grid gap-2">
-            <button
-              type="button"
-              onClick={() => setLeadOpen(true)}
-              className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+            <ContactButton
+              className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
+              imageSrc="/foto-na-knopku-1-.webp"
             >
-              <span className="inline-flex items-center gap-2">
-                <IconTelegram className="h-5 w-5" />
-                Написать нам
-              </span>
-            </button>
-
-            {leadOpen ? (
-              <LeadRequestModal
-                context={{
-                  productType: "cornice",
-                  source: item.source,
-                  kind: item.kind,
-                  url: item.url,
-                  title,
-                  category: "Карнизы",
-                  image: activeImage,
-                  images,
-                }}
-                onClose={() => setLeadOpen(false)}
-              />
-            ) : null}
+              Связаться
+            </ContactButton>
           </div>
         </div>
       </div>
@@ -354,14 +333,14 @@ export function CornicesModal({ item, collections, onClose }: { item: CorniceIte
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-5xl bg-white p-6 shadow-2xl dark:border-white/10 dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
             ←
           </button>
@@ -370,7 +349,7 @@ export function CornicesModal({ item, collections, onClose }: { item: CorniceIte
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
             ✕
           </button>
@@ -430,14 +409,14 @@ export function CorniceCollectionModal({
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <div
         ref={wrapRef}
-        className="w-full max-w-6xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-6xl bg-white/80 p-6 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
             ←
           </button>
@@ -446,7 +425,7 @@ export function CorniceCollectionModal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
             ✕
           </button>
@@ -457,11 +436,11 @@ export function CorniceCollectionModal({
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-7">
             {activeItem ? (
-              <div className="rounded-3xl border border-black/10 bg-white/60 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+              <div className="border border-black/10 bg-white/60 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
                 <CorniceViewer item={activeItem} />
               </div>
             ) : (
-              <div className="rounded-3xl border border-black/10 bg-white/60 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+              <div className="border border-black/10 bg-white/60 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
                 <div className="text-sm leading-6 text-[color:var(--muted)]">
                   Выберите вариант карниза справа.
                 </div>
@@ -470,23 +449,23 @@ export function CorniceCollectionModal({
           </div>
 
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+            <div className="border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
               {description ? <div className="text-sm leading-6 text-[color:var(--muted)]">{description}</div> : null}
 
               <div className="mt-5 grid gap-3">
                 <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ВАРИАНТЫ</div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {derivedItems.map((it, idx) => {
-                    const img = it.image || it.images?.[0] || "/catalog/rails.jpg";
+                    const img = it.image || it.images?.[0] || "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp";
                     const t = String(it.title || "").trim() || `Вариант ${idx + 1}`;
                     return (
                       <button
                         key={`${it.collectionSlug}-${t}-${idx}`}
                         type="button"
                         onClick={() => setActiveItem(it)}
-                        className="group overflow-hidden rounded-2xl border border-black/10 bg-white/70 text-left shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                        className="group overflow-hidden border border-black/10 bg-white/70 text-left shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                       >
-                        <div className="relative aspect-[4/3] overflow-hidden">
+                        <div className="relative aspect-square overflow-hidden">
                           {isVideoSrc(img) ? (
                             <video className="h-full w-full object-cover" src={img} muted playsInline preload="metadata" />
                           ) : (
@@ -501,15 +480,9 @@ export function CorniceCollectionModal({
                   })}
                 </div>
 
-                <a
-                  href={CONTACTS.telegramHref}
-                  className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <IconTelegram className="h-5 w-5" />
-                    Написать нам
-                  </span>
-                </a>
+                <ContactButton className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-8 text-xs font-normal uppercase tracking-[0.15em] text-white transition hover:bg-[color:var(--dark-gray)]">
+                  Связаться
+                </ContactButton>
               </div>
             </div>
           </div>
@@ -520,10 +493,12 @@ export function CorniceCollectionModal({
   );
 }
 
+const DEFAULT_CORNICE_IMAGE = "/catalog/4.karnizy/elektrokarnizy/8d5895d5a388b3482a148445333db28f-optimized.webp";
+
 export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
   const cleaned = useMemo<CorniceItem[]>(() => {
     return (items || [])
-      .filter((i): i is CorniceItem => Boolean(i) && Boolean(i.image || (i.images && i.images.length)))
+      .filter((i): i is CorniceItem => Boolean(i))
       .map((i) => ({
         ...i,
         title: normalizeLabel(i.title) || buildTitle(i),
@@ -534,8 +509,8 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
         subtypeTitle: normalizeLabel(i.subtypeTitle),
         collectionSlug: normalizeLabel(i.collectionSlug),
         collectionTitle: normalizeLabel(i.collectionTitle),
-        image: normalizeLabel(i.image),
-        images: Array.isArray(i.images) ? i.images.map(normalizeLabel).filter(Boolean) : [],
+        image: normalizeLabel(i.image) || DEFAULT_CORNICE_IMAGE,
+        images: Array.isArray(i.images) && i.images.length ? i.images.map(normalizeLabel).filter(Boolean) : [DEFAULT_CORNICE_IMAGE],
         url: normalizeLabel(i.url),
         source: normalizeLabel(i.source),
         kind: normalizeLabel(i.kind),
@@ -582,13 +557,13 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
     const realTypes = types.filter((t) => t !== "ВСЕ");
     return realTypes.map((t) => {
       const first = collections.find((c) => c.type === t);
-      const img = first?.image || first?.images?.[0] || "/catalog/rails.jpg";
+      const img = first?.image || first?.images?.[0] || DEFAULT_CORNICE_IMAGE;
       return { type: t, image: img };
     });
   }, [collections, types]);
 
   return (
-    <div className="rounded-3xl border border-black/10 bg-white/60 p-8 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+    <div className="rounded-3xl border border-black/10 p-8 dark:border-white/10">
       {viewMode === 'items' && activeCollection ? (
         <div className="mb-6">
           <button
@@ -641,9 +616,9 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
                 setType(t.type);
                 setViewMode('collections');
               }}
-              className="group text-left overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+              className="group text-left overflow-hidden bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:bg-white/5 dark:hover:bg-white/10"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-square overflow-hidden">
                 {isVideoSrc(t.image) ? (
                   <video className="h-full w-full object-cover" src={t.image} muted playsInline preload="metadata" />
                 ) : (
@@ -695,8 +670,8 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
                 }}
                 className={
                   type !== "ВСЕ" || viewMode === 'items'
-                    ? "inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                    : "inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] px-4 text-sm font-semibold text-[color:var(--muted)] opacity-70 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                    ? "inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
+                    : "inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm font-medium text-[color:var(--muted)] opacity-50"
                 }
               >
                 Сбросить
@@ -709,7 +684,7 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {viewMode === 'collections' ? (
               (filteredCollections.length ? filteredCollections : collections).map((it, idx) => {
-                const img = it.image || it.images?.[0] || "/catalog/rails.jpg";
+                const img = it.image || it.images?.[0] || "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp";
                 const title = String(it.title || "").trim() || `Коллекция ${idx + 1}`;
                 const collectionItems = leafItems.filter((item) => item.collectionSlug === it.collectionSlug);
                 return (
@@ -728,29 +703,24 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
                         setViewMode('items');
                       }
                     }}
-                    className="group text-left overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                    className="group overflow-hidden border border-black/10 bg-white/70 text-left shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="relative aspect-square overflow-hidden">
                       {isVideoSrc(img) ? (
                         <video className="h-full w-full object-cover" src={img} muted playsInline preload="metadata" />
                       ) : (
                         <img
-                          alt={title}
+                          alt={it.title || it.collectionSlug || it.url || ""}
                           src={img}
-                          className="h-full w-full object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
                         />
                       )}
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
                     </div>
-                    <div className="p-6">
-                      <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{title}</div>
-                      {it.type ? (
-                        <div className="mt-1 text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">
-                          {it.type}
-                        </div>
-                      ) : null}
-                      <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
-                        Смотреть варианты →
+                    <div className="p-4">
+                      <div className="text-sm font-semibold tracking-tight text-[color:var(--fg)]">{title}</div>
+                      <div className="mt-2 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
+                        Открыть →
                       </div>
                     </div>
                   </button>
@@ -758,32 +728,29 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
               })
             ) : (
               activeItems.map((it, idx) => {
-                const img = it.image || it.images?.[0] || "/catalog/rails.jpg";
+                const img = it.image || it.images?.[0] || "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp";
                 const title = String(it.title || "").trim() || `Вариант ${idx + 1}`;
                 return (
                   <button
                     key={`${it.collectionSlug}-${title}-${idx}`}
                     type="button"
                     onClick={() => setActiveItem(it)}
-                    className="group text-left overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                    className="group overflow-hidden border border-black/10 bg-white/70 text-left shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="relative aspect-square overflow-hidden">
                       {isVideoSrc(img) ? (
                         <video className="h-full w-full object-cover" src={img} muted playsInline preload="metadata" />
                       ) : (
                         <img
-                          alt={title}
+                          alt={it.title || it.collectionSlug || it.url || ""}
                           src={img}
-                          className="h-full w-full object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
                         />
                       )}
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
                     </div>
-                    <div className="p-6">
-                      <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{title}</div>
-                      <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
-                        Подробнее →
-                      </div>
+                    <div className="p-4">
+                      <div className="text-sm font-semibold tracking-tight text-[color:var(--fg)]">{title}</div>
                     </div>
                   </button>
                 );

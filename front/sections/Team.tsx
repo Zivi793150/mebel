@@ -1,6 +1,7 @@
 "use client";
 
 import { Container } from "@/components/Container";
+import { ContactButton } from "@/components/ContactButton";
 
 export function Team() {
   return (
@@ -16,12 +17,9 @@ export function Team() {
                 дизайнеров
               </span>
             </div>
-            <a
-              href="#cta"
-              className="inline-flex h-12 items-center justify-center border border-[color:var(--fg)] bg-transparent px-8 text-xs font-normal uppercase tracking-[0.15em] text-[color:var(--fg)] transition hover:bg-[color:var(--fg)] hover:text-[color:var(--bg)]"
-            >
+            <ContactButton className="inline-flex h-12 items-center justify-center border border-[color:var(--fg)] bg-transparent px-8 text-xs font-normal uppercase tracking-[0.15em] text-[color:var(--fg)] transition hover:bg-[color:var(--fg)] hover:text-[color:var(--bg)]" imageSrc="/devochka-dizayneram.webp">
               Пригласить дизайнера
-            </a>
+            </ContactButton>
           </div>
           <div className="lg:col-span-6">
             <div className="text-sm leading-7 text-[color:var(--muted)] sm:text-base">

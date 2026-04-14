@@ -5,19 +5,19 @@ import { useMemo, useState } from "react";
 import { Container } from "@/components/Container";
 
 const CATALOG_REVIEW_PHOTOS = [
-  "/catalog/1.Шторы и ткани/1.1.Австрийские/photo_2026-03-02_16-21-17.jpg",
-  "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1426-HDR.jpg",
-  "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1500-HDR.jpg",
-  "/catalog/1.Шторы и ткани/1.14 Шторы на люверсах/1.webp",
-  "/catalog/1.Шторы и ткани/1.15 Шторы в ванную/photo_2026-03-12_17-12-04.jpg",
-  "/catalog/1.Шторы и ткани/1.11. Шторы  кабинет/photo_2025-10-07_15-26-09.jpg",
+  "/catalog/1.shtory-i-tkani/1.1.avstriyskie/photo_2026-03-02_16-21-17.webp",
+  "/catalog/1.shtory-i-tkani/1.13.shtory-v-spalnyu/IMG_1426-HDR.webp",
+  "/catalog/1.shtory-i-tkani/1.13.shtory-v-spalnyu/IMG_1500-HDR.webp",
+  "/catalog/1.shtory-i-tkani/1.14-shtory-na-lyuversah/1.webp",
+  "/catalog/1.shtory-i-tkani/1.15-shtory-v-vannuyu/photo_2026-03-12_17-12-04.webp",
+  "/catalog/1.shtory-i-tkani/1.11.-shtory-kabinet/photo_2025-10-07_15-26-09.webp",
 ];
 
 const REVIEWS = [
   {
     name: "Анна Медведева",
     text: "Хочу выразить благодарность всему коллективу за ваш труд! Я в восторге от штор. Заказывала шторы в три комнаты, результатом довольна на все 100%. В Центре шикарный выбор тканей на любой вкус.",
-    photos: ["/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1426-HDR.jpg", "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1500-HDR.jpg"],
+    photos: ["/catalog/1.shtory-i-tkani/1.13.shtory-v-spalnyu/IMG_1426-HDR.webp", "/catalog/1.shtory-i-tkani/1.13.shtory-v-spalnyu/IMG_1500-HDR.webp"],
   },
   {
     name: "Александр И.",
@@ -27,7 +27,7 @@ const REVIEWS = [
   {
     name: "Екатерина",
     text: "Я стала счастливой обладательницей прекрасных штор. Устроил их подход к подбору штор. Когда я покупаю, предварительно посмотрев смонтированный ролик с примерами - я просто влюбилась в их сервис.",
-    photos: ["/catalog/1.Шторы и ткани/1.14 Шторы на люверсах/1.webp"],
+    photos: ["/catalog/1.shtory-i-tkani/1.14-shtory-na-lyuversah/1.webp"],
   },
   {
     name: "Марина Кутовая",
@@ -37,7 +37,7 @@ const REVIEWS = [
   {
     name: "Рамиль Ш.",
     text: "Все супер, качество штор отличное, все сроки соблюдены, сервис на высшем уровне. Отдельно хочется поблагодарить менеджера Татьяну.",
-    photos: ["/catalog/1.Шторы и ткани/1.15 Шторы в ванную/photo_2026-03-12_17-12-04.jpg"],
+    photos: ["/catalog/1.shtory-i-tkani/1.15-shtory-v-vannuyu/photo_2026-03-12_17-12-04.webp"],
   },
   {
     name: "Анна Коровина",
@@ -47,7 +47,7 @@ const REVIEWS = [
   {
     name: "Ольга",
     text: "Заказывали в салоне римские шторы на электроприводе на балкон. Огромное спасибо дизайнеру Анастасии за помощь в подборе идеальной ткани.",
-    photos: ["/catalog/1.Шторы и ткани/1.1.Австрийские/photo_2026-03-02_16-21-17.jpg"],
+    photos: ["/catalog/1.shtory-i-tkani/1.1.avstriyskie/photo_2026-03-02_16-21-17.webp"],
   },
   {
     name: "Александр",

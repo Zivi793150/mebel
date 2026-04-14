@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { CONTACTS } from "@/lib/constants";
 
@@ -13,38 +14,33 @@ type AdvantageItem = {
 const ADVANTAGES: AdvantageItem[] = [
   {
     number: "01",
-    title: "Шоу-рум в центре города",
-    description: "С удобной парковкой. Официальные дилеры 27-ми фабрик. 50 000 образцов тканей в наличии и под заказ.",
-    videoUrl: "https://rutube.ru/video/67d4a1d297c6c7988a4c34192c1be7de/",
+    title: "Салон недалеко от центра города",
+    description: "Просторная парковка рядом. 30 000 образцов тканей в наличии и под заказ.",
   },
   {
     number: "02",
     title: "Собственный цех и производство",
-    description: "Профессиональное оборудование, производство профильных и электрокарнизов, мастера высокой квалификации.",
-    videoUrl: "https://rutube.ru/video/f50bcd07d207de852ff7a4f9bfc9c847/",
+    description: "Профессиональное оборудование, профиля и электрокарнизы под заказ, мастера высокой квалификации.",
   },
   {
     number: "03",
     title: "Премиум качество пошива",
-    description: "Немецкие нитки и фурнитура, идеальные складки, строчки, швы и первозданный вид на долгие годы.",
-    videoUrl: "https://rutube.ru/video/8ae0485435c118469caa715f1c37ddab/",
+    description: "Качественные нитки и фурнитура, идеальные складки, строчки, швы и идеальный вид на долгие годы.",
   },
   {
     number: "04",
-    title: "Гарантия 5 лет",
-    description: "Только безопасные ткани, современные технологии и постгарантийное обслуживание.",
+    title: "Гарантия 1 год",
+    description: "Мы уверены в качестве наших тканей и пошива, и предоставляем гарантию на готовые изделия сроком 1 год.",
   },
   {
     number: "05",
     title: "Всё берем на себя",
-    description: "Визуализация эскизов и дизайн проект, производство и пошив, вывешивание.",
-    videoUrl: "https://rutube.ru/video/003460a0bac0489befcae6eef6515e54/",
+    description: "Подготовка эскизов, производство, пошив и оформление.",
   },
   {
     number: "06",
     title: "Химчистка текстиля",
     description: "Выезд и снятие штор на объекте, чистка, стирка и утюжка, обратный монтаж, вывешивание и отпаривание.",
-    videoUrl: "https://rutube.ru/video/b718b8d6e76a10b758af9e9f9507b2a9/",
   },
 ];
 
@@ -53,12 +49,18 @@ export function Advantages() {
     <section className="bg-[color:var(--bg)] py-16 sm:py-20">
       <Container>
         <div className="mb-8">
-          <span className="inline-block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
-            Koenigroom
+          <span className="inline-block text-2xl font-light tracking-[0.01em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-4xl">
+            Салон интерьерного текстиля
           </span>
-          <span className="ml-2 inline-block font-['Rozovii_Chulok',cursive] text-xl tracking-normal text-[color:var(--green)] sm:ml-4 sm:text-3xl lg:text-4xl" style={{ transform: 'rotate(-6deg)' }}>
-            для вас
-          </span>
+          <Image
+            src="/logo.webp"
+            alt="Koenig Room"
+            width={320}
+            height={200}
+            className="ml-2 inline-block sm:ml-4"
+            loading="eager"
+            priority
+          />
         </div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

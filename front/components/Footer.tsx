@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { CONTACTS, CATALOG_CATEGORIES } from "@/lib/constants";
 import { Container } from "@/components/Container";
+import { ContactButton } from "@/components/ContactButton";
 import { IconInstagram, IconMax, IconRuTube, IconTelegram, IconTwoGis, IconVK } from "@/components/icons";
 import { ThemeToggle } from "@/components/ThemeToggle";
+
 
 const catalogGroups = [
   {
@@ -16,7 +18,7 @@ const catalogGroups = [
       { label: "Шторы для спальни", href: "/catalog/curtains?t=%D1%81%D0%BF%D0%B0%D0%BB%D1%8C%D0%BD%D0%B8&scroll=1" },
       { label: "Шторы для гостиной", href: "/catalog/curtains?t=%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9&scroll=1" },
       { label: "Шторы для кухни", href: "/catalog/curtains?t=%D0%BA%D1%83%D1%85%D0%BD%D0%B8&scroll=1" },
-      { label: "Римские шторы", href: "/catalog/blinds/roman" },
+      { label: "Римские шторы", href: "/catalog/roman" },
     ],
   },
   {
@@ -25,7 +27,7 @@ const catalogGroups = [
       { label: "Жалюзи", href: "/catalog/blinds" },
       { label: "Рулонные шторы", href: "/catalog/blinds" },
       { label: "Декоративные карнизы", href: "/catalog/rails" },
-      { label: "Электрокарнизы", href: "/catalog/blinds/roman?t=%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE&scroll=1&open=1" },
+      { label: "Электрокарнизы", href: "/catalog/blinds/roman?t=%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE&scroll=1" },
     ],
   },
   {
@@ -50,13 +52,13 @@ function AccordionSection({ title, items, defaultOpen = false }: { title: string
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-black/5 dark:border-white/10">
+    <div className="border-b border-[color:var(--gray-lines)]">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center justify-between py-3 text-left"
         aria-expanded={isOpen}
       >
-        <span className="text-xs font-semibold tracking-wider text-[color:var(--fg)]">{title}</span>
+        <span className="text-xs font-medium tracking-wider text-[color:var(--fg)]">{title}</span>
         <span className={`text-[color:var(--muted)] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
           <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M6 9l6 6 6-6" />
@@ -85,7 +87,7 @@ function AccordionSection({ title, items, defaultOpen = false }: { title: string
 
 export function Footer() {
   return (
-    <footer id="contacts" className="border-t border-black/5 dark:border-white/10">
+    <footer id="contacts" className="border-t border-[color:var(--gray-lines)]">
       <Container>
         {/* Аккордеон категорий - мобильный вид */}
         <div className="py-6 md:hidden">
@@ -98,7 +100,7 @@ export function Footer() {
         <div className="hidden gap-8 py-12 md:grid md:grid-cols-12">
           {/* О компании */}
           <div className="md:col-span-4">
-            <div className="text-lg font-semibold text-[color:var(--fg)]">
+            <div className="text-lg font-medium text-[color:var(--fg)]">
               Koenig Room
             </div>
             <p className="mt-3 max-w-md text-sm leading-6 text-[color:var(--muted)]">
@@ -107,12 +109,12 @@ export function Footer() {
             </p>
 
             <div className="mt-6">
-              <a
-                href={CONTACTS.telegramHref}
-                className="inline-flex h-12 items-center justify-center rounded-xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+              <ContactButton
+                className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-medium text-[color:var(--accent-contrast)] transition hover:opacity-90"
+                imageSrc="/foto-na-knopku-1-.webp"
               >
-                Написать в Telegram
-              </a>
+                Написать нам
+              </ContactButton>
               <div className="mt-2 text-xs text-[color:var(--muted)]">
                 Ответим и предложим 2–3 решения под ваш интерьер
               </div>
@@ -121,7 +123,7 @@ export function Footer() {
             <div className="mt-6 flex flex-wrap items-center gap-2">
               <a
                 href={CONTACTS.telegramHref}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                className="inline-flex h-10 w-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                 aria-label="Telegram"
               >
                 <IconTelegram className="h-5 w-5" />
@@ -130,7 +132,7 @@ export function Footer() {
                 href={CONTACTS.vkHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                className="inline-flex h-10 w-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                 aria-label="VK"
               >
                 <IconVK className="h-5 w-5" />
@@ -139,7 +141,7 @@ export function Footer() {
                 href={CONTACTS.rutubeHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                className="inline-flex h-10 w-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                 aria-label="RuTube"
               >
                 <IconRuTube className="h-5 w-5" />
@@ -148,7 +150,7 @@ export function Footer() {
                 href={CONTACTS.twoGisHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                className="inline-flex h-10 w-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                 aria-label="2ГИС"
               >
                 <IconTwoGis className="h-5 w-5" />
@@ -158,7 +160,7 @@ export function Footer() {
                   href={CONTACTS.instagramHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                  className="inline-flex h-10 w-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                   aria-label="Instagram"
                 >
                   <IconInstagram className="h-5 w-5" />
@@ -169,7 +171,7 @@ export function Footer() {
                   href={CONTACTS.maxHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                  className="inline-flex h-10 w-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
                   aria-label="MAX"
                 >
                   <IconMax className="h-5 w-5" />
@@ -177,7 +179,7 @@ export function Footer() {
               ) : null}
               <a
                 href={CONTACTS.phoneHref}
-                className="inline-flex h-10 items-center justify-center rounded-xl border border-black/10 bg-white/70 px-3 text-sm text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5"
+                className="inline-flex h-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-3 text-sm text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
               >
                 {CONTACTS.phoneDisplay}
               </a>
@@ -191,7 +193,7 @@ export function Footer() {
 
           {/* Каталог штор */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-wider text-[color:var(--fg)]">КАТАЛОГ ШТОР</h3>
+            <h3 className="text-xs font-medium tracking-wider text-[color:var(--fg)]">КАТАЛОГ ШТОР</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {catalogGroups[0].items.map((item) => (
                 <li key={item.label}>
@@ -205,7 +207,7 @@ export function Footer() {
 
           {/* Жалюзи и системы */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-wider text-[color:var(--fg)]">ЖАЛЮЗИ И СИСТЕМЫ</h3>
+            <h3 className="text-xs font-medium tracking-wider text-[color:var(--fg)]">ЖАЛЮЗИ И СИСТЕМЫ</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {catalogGroups[1].items.map((item) => (
                 <li key={item.label}>
@@ -219,7 +221,7 @@ export function Footer() {
 
           {/* Товары */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-wider text-[color:var(--fg)]">ТОВАРЫ</h3>
+            <h3 className="text-xs font-medium tracking-wider text-[color:var(--fg)]">ТОВАРЫ</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {catalogGroups[2].items.map((item) => (
                 <li key={item.label}>
@@ -233,7 +235,7 @@ export function Footer() {
 
           {/* Навигация */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-wider text-[color:var(--fg)]">НАВИГАЦИЯ</h3>
+            <h3 className="text-xs font-medium tracking-wider text-[color:var(--fg)]">НАВИГАЦИЯ</h3>
             <ul className="mt-3 space-y-2 text-sm">
               <li><Link href="/" className="text-[color:var(--muted)] hover:text-[color:var(--fg)] transition">Главная</Link></li>
               <li><Link href="/catalog" className="text-[color:var(--muted)] hover:text-[color:var(--fg)] transition">Каталог</Link></li>
@@ -245,8 +247,8 @@ export function Footer() {
         </div>
 
         {/* Мобильная навигация под аккордеоном */}
-        <div className="border-t border-black/5 py-6 md:hidden">
-          <h3 className="mb-4 text-xs font-semibold tracking-wider text-[color:var(--fg)]">НАВИГАЦИЯ</h3>
+        <div className="border-t border-[color:var(--gray-lines)] py-6 md:hidden">
+          <h3 className="mb-4 text-xs font-medium tracking-wider text-[color:var(--fg)]">НАВИГАЦИЯ</h3>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <Link href="/" className="text-[color:var(--muted)]">Главная</Link>
             <Link href="/catalog" className="text-[color:var(--muted)]">Каталог</Link>
@@ -256,29 +258,29 @@ export function Footer() {
           </div>
 
           <div className="mt-6 flex items-center gap-3">
-            <a href={CONTACTS.telegramHref} className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+            <a href={CONTACTS.telegramHref} className="inline-flex h-11 w-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
               <IconTelegram className="h-5 w-5" />
             </a>
-            <a href={CONTACTS.vkHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+            <a href={CONTACTS.vkHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
               <IconVK className="h-5 w-5" />
             </a>
-            <a href={CONTACTS.rutubeHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+            <a href={CONTACTS.rutubeHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
               <IconRuTube className="h-5 w-5" />
             </a>
-            <a href={CONTACTS.twoGisHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+            <a href={CONTACTS.twoGisHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
               <IconTwoGis className="h-5 w-5" />
             </a>
             {CONTACTS.instagramHref ? (
-              <a href={CONTACTS.instagramHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+              <a href={CONTACTS.instagramHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
                 <IconInstagram className="h-5 w-5" />
               </a>
             ) : null}
             {CONTACTS.maxHref ? (
-              <a href={CONTACTS.maxHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 dark:border-white/10 dark:bg-white/5">
+              <a href={CONTACTS.maxHref} target="_blank" rel="noreferrer" className="inline-flex h-11 w-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
                 <IconMax className="h-5 w-5" />
               </a>
             ) : null}
-            <a href={CONTACTS.phoneHref} className="inline-flex h-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 px-4 text-sm dark:border-white/10 dark:bg-white/5">
+            <a href={CONTACTS.phoneHref} className="inline-flex h-11 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-sm">
               {CONTACTS.phoneDisplay}
             </a>
           </div>
@@ -290,7 +292,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="flex flex-col gap-2 border-t border-black/5 py-6 text-xs text-[color:var(--muted)] dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 border-t border-[color:var(--gray-lines)] py-6 text-xs text-[color:var(--muted)] sm:flex-row sm:items-center sm:justify-between">
           <div>© {new Date().getFullYear()} Koenig Room</div>
           <div className="flex gap-4">
             <a href="#" className="hover:text-[color:var(--fg)]">

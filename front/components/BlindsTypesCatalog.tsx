@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 
-import { LeadRequestModal } from "@/components/LeadRequestModal";
+import { ContactModal } from "@/components/ContactModal";
 import { IconTelegram } from "@/components/icons";
+import { normalizeClientImageUrl } from "@/lib/clientUtils";
 
 export type BlindsTypeItem = {
   source?: string;
@@ -47,10 +48,10 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
   }, []);
 
   const images = useMemo(() => {
-    const arr = [...(item.images || [])].filter(Boolean);
-    if (item.image) arr.unshift(item.image);
+    const arr = [...(item.images || [])].filter(Boolean).map(normalizeClientImageUrl);
+    if (item.image) arr.unshift(normalizeClientImageUrl(item.image));
     const uniq = Array.from(new Set(arr));
-    return (uniq.length ? uniq : ["/catalog/blinds.jpg"]).slice(0, 12).map(encodeURI);
+    return (uniq.length ? uniq : ["/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp"]).slice(0, 12);
   }, [item.image, item.images]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -69,7 +70,7 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [onClose]);
 
-  const activeImage = images[activeIdx] || images[0] || "/catalog/blinds.jpg";
+  const activeImage = images[activeIdx] || images[0] || "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp";
   const activeIsVideo = isVideoSrc(activeImage);
   const [leadOpen, setLeadOpen] = useState(false);
 
@@ -106,32 +107,32 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
   if (!mounted) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-5xl border border-[color:var(--gray-lines)] bg-white p-6 dark:bg-zinc-900"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ←
           </button>
-          <h2 className="text-xl font-semibold sm:text-2xl">{item.title || "Жалюзи"}</h2>
+          <h2 className="text-xl font-medium sm:text-2xl">{item.title || "Жалюзи"}</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ✕
           </button>
         </div>
 
-        <div className="my-4 h-px w-full bg-black/10 dark:bg-white/10" />
+        <div className="my-4 h-px w-full bg-[color:var(--gray-lines)]" />
 
         <div className="grid gap-4 lg:grid-cols-12">
           <div className="relative lg:col-span-7">
@@ -145,8 +146,8 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                     aria-label="Вверх"
                     className={
                       canThumbUp
-                        ? "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                        : "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                        ? "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--card)]"
+                        : "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-sm font-medium text-[color:var(--muted)] opacity-50"
                     }
                   >
                     ↑
@@ -165,8 +166,8 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                           aria-label={`Фото ${realIdx + 1}`}
                           className={
                             isActive
-                              ? "overflow-hidden rounded-2xl border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
-                              : "overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                              ? "overflow-hidden border border-[color:var(--fg)] bg-[color:var(--card)]"
+                              : "overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition hover:bg-[color:var(--bg)]"
                           }
                         >
                           <div className="relative aspect-square">
@@ -197,15 +198,13 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
 
                   <button
                     type="button"
-                    onClick={() =>
-                      setThumbStart((v) => Math.min(Math.max(0, images.length - thumbsVisibleCount), v + 1))
-                    }
+                    onClick={() => setThumbStart((v) => Math.min(Math.max(0, images.length - thumbsVisibleCount), v + 1))}
                     disabled={!canThumbDown}
                     aria-label="Вниз"
                     className={
                       canThumbDown
-                        ? "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                        : "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                        ? "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--card)]"
+                        : "inline-flex h-9 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-sm font-medium text-[color:var(--muted)] opacity-50"
                     }
                   >
                     ↓
@@ -213,7 +212,7 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                 </div>
               </div>
               <div className="relative">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
+                <div className="relative aspect-[4/3] w-full overflow-hidden border border-[color:var(--gray-lines)]">
                   {activeIsVideo ? (
                     <video
                       className="h-full w-full object-cover"
@@ -308,7 +307,7 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
           </div>
 
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+            <div className="rounded-2xl border border-black/10 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-zinc-800/80">
               <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
               <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
                 {item.description ||
@@ -320,35 +319,23 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                   <button
                     type="button"
                     onClick={() => setLeadOpen(true)}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
                   >
-                    <span className="inline-flex items-center gap-2">
-                      <IconTelegram className="h-5 w-5" />
-                      Написать нам
-                    </span>
+                    Связаться
                   </button>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                    className="inline-flex h-11 items-center justify-center border border-black/10 bg-white/70 px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                   >
                     Закрыть
                   </button>
                 </div>
 
                 {leadOpen ? (
-                  <LeadRequestModal
-                    context={{
-                      productType: "blinds_type",
-                      source: item.source,
-                      kind: item.kind,
-                      url: item.url,
-                      title: item.title,
-                      category: item.kind,
-                      image: activeImage,
-                      images,
-                    }}
+                  <ContactModal
                     onClose={() => setLeadOpen(false)}
+                    imageSrc="/catalog/2.zhalyuzi/derevyannye/zhalyuzi-derevyan-1.webp"
                   />
                 ) : null}
               </div>
@@ -382,41 +369,36 @@ export function BlindsTypesCatalog({
   const [active, setActive] = useState<BlindsTypeItem | null>(null);
 
   return (
-    <div className="rounded-3xl border border-black/10 bg-white/60 p-8 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {cleaned.map((it) => {
-          const rawImg = it.image || it.images?.[0] || "/catalog/blinds.jpg";
-          const img = encodeURI(rawImg);
-          return (
-            <button
-              key={it.url}
-              type="button"
-              onClick={() => setActive(it)}
-              className="group text-left overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  alt={it.title || ""}
-                  src={img}
-                  className="h-full w-full object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {cleaned.map((it) => {
+        const rawImg = normalizeClientImageUrl(it.image || it.images?.[0] || "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp");
+        const img = encodeURI(rawImg);
+        return (
+          <button
+            key={it.url}
+            type="button"
+            onClick={() => setActive(it)}
+            className="group text-left overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+          >
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <img
+                alt={it.title || ""}
+                src={img}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)]" />
+            </div>
+            <div className="p-5">
+              <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">
+                {it.title || "Тип жалюзи"}
               </div>
-              <div className="p-6">
-                <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">
-                  {it.title || "Тип жалюзи"}
-                </div>
-                {showDescriptions && it.description ? (
-                  <div className="mt-2 text-sm leading-6 text-[color:var(--muted)] line-clamp-3">{it.description}</div>
-                ) : null}
-                <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
-                  Смотреть фото →
-                </div>
-              </div>
-            </button>
-          );
-        })}
-      </div>
+              {showDescriptions && it.description ? (
+                <div className="mt-2 text-sm leading-6 text-[color:var(--muted)] line-clamp-2">{it.description}</div>
+              ) : null}
+            </div>
+          </button>
+        );
+      })}
 
       {active ? <BlindsTypeModal item={active} onClose={() => setActive(null)} /> : null}
     </div>

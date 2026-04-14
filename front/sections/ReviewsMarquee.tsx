@@ -67,23 +67,22 @@ function Column({
         {doubled.map((t, idx) => (
           <li key={(t.kind === "photo" ? t.id : t.t.name) + idx} className="max-w-xs w-full">
             {t.kind === "photo" ? (
-              <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-lg shadow-black/5 transition-all duration-300 dark:border-neutral-800 dark:bg-neutral-900">
+              <div className="relative overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image alt="" src={t.imageSrc} fill sizes="320px" className="object-cover" />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.10),rgba(0,0,0,0.30))]" />
                 </div>
               </div>
             ) : (
               <div
                 tabIndex={0}
-                className="cursor-default select-none rounded-3xl border border-neutral-200 bg-white p-10 shadow-lg shadow-black/5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/30 dark:border-neutral-800 dark:bg-neutral-900"
+                className="cursor-default select-none border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6 focus:outline-none focus:ring-2 focus:ring-[color:var(--accent)]/30"
               >
                 <blockquote className="m-0 p-0">
-                  <p className="m-0 font-normal leading-relaxed text-neutral-600 transition-colors duration-300 dark:text-neutral-400">
+                  <p className="m-0 text-sm leading-relaxed text-[color:var(--muted)]">
                     {t.t.quote}
                   </p>
-                  <footer className="mt-6 flex items-center gap-3">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-neutral-100 transition-all duration-300 dark:ring-neutral-800">
+                  <footer className="mt-4 flex items-center gap-3">
+                    <div className="relative h-10 w-10 overflow-hidden border border-[color:var(--gray-lines)]">
                       {t.t.avatarSrc ? (
                         <Image
                           alt={"Avatar of " + t.t.name}
@@ -93,7 +92,7 @@ function Column({
                           className="object-cover"
                         />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-neutral-100 text-xs font-semibold text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+                        <div className="flex h-full w-full items-center justify-center bg-[color:var(--card)] text-xs font-semibold text-[color:var(--muted)]">
                           {t.t.name
                             .split(" ")
                             .slice(0, 2)
@@ -104,10 +103,10 @@ function Column({
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <cite className="not-italic font-semibold leading-5 tracking-tight text-neutral-900 transition-colors duration-300 dark:text-white">
+                      <cite className="not-italic text-sm font-medium leading-5 text-[color:var(--fg)]">
                         {t.t.name}
                       </cite>
-                      <span className="mt-0.5 text-sm leading-5 tracking-tight text-neutral-500 transition-colors duration-300 dark:text-neutral-500">
+                      <span className="mt-0.5 text-xs leading-5 text-[color:var(--muted)]">
                         {t.t.role}
                       </span>
                     </div>

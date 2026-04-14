@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 
-import { LeadRequestModal } from "@/components/LeadRequestModal";
+import { ContactModal } from "@/components/ContactModal";
 import { IconTelegram } from "@/components/icons";
 
 type BeddingCard = {
@@ -84,7 +84,7 @@ function BeddingModal({
     if (idx >= 0 && idx < allImages.length) setActiveIdx(idx);
   }
 
-  const image = allImages[activeIdx] || allImages[0] || "/catalog/bed.jpg";
+  const image = allImages[activeIdx] || allImages[0] || "/2foto_dark.webp";
 
   if (!mounted) return null;
 
@@ -92,14 +92,14 @@ function BeddingModal({
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl max-h-[calc(100vh-2rem)] overflow-y-auto overscroll-contain rounded-3xl border border-black/10 bg-white/80 p-4 shadow-2xl backdrop-blur dark:border-white/10 dark:bg-black/55"
+        className="w-full max-w-6xl border border-black/10 bg-white p-6 shadow-2xl dark:border-white/10 dark:bg-black"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
             ←
           </button>
@@ -108,7 +108,7 @@ function BeddingModal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+            className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/70 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
             ✕
           </button>
@@ -128,8 +128,8 @@ function BeddingModal({
                     aria-label="Вверх"
                     className={
                       canThumbUp
-                        ? "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                        : "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                        ? "inline-flex h-9 w-full items-center justify-center border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                        : "inline-flex h-9 w-full items-center justify-center border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
                     }
                   >
                     ↑
@@ -147,8 +147,8 @@ function BeddingModal({
                           aria-label={`Фото ${realIdx + 1}`}
                           className={
                             isActive
-                              ? "overflow-hidden rounded-2xl border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
-                              : "overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                              ? "overflow-hidden border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
+                              : "overflow-hidden border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                           }
                         >
                           <div className="relative aspect-square">
@@ -166,8 +166,8 @@ function BeddingModal({
                     aria-label="Вниз"
                     className={
                       canThumbDown
-                        ? "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                        : "inline-flex h-9 w-full items-center justify-center rounded-2xl border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
+                        ? "inline-flex h-9 w-full items-center justify-center border border-black/10 bg-black/[0.03] text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                        : "inline-flex h-9 w-full items-center justify-center border border-black/10 bg-black/[0.02] text-sm font-semibold text-[color:var(--muted)] opacity-60 shadow-sm dark:border-white/10 dark:bg-white/[0.04]"
                     }
                   >
                     ↓
@@ -176,7 +176,7 @@ function BeddingModal({
               </div>
 
               <div className="relative">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-black/[0.03] dark:bg-white/[0.04]">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/[0.03] dark:bg-white/[0.04]">
                   <img alt="" className="h-full w-full object-cover" src={image} />
                   <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0.28))]" />
                 </div>
@@ -193,8 +193,8 @@ function BeddingModal({
                           aria-label={`Фото ${idx + 1}`}
                           className={
                             isActive
-                              ? "h-16 w-16 flex-none overflow-hidden rounded-2xl border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
-                              : "h-16 w-16 flex-none overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                              ? "h-16 w-16 flex-none overflow-hidden border border-black/20 bg-white/70 shadow-sm dark:border-white/20 dark:bg-white/10"
+                              : "h-16 w-16 flex-none overflow-hidden border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                           }
                         >
                           <img alt="" src={src} className="h-full w-full object-cover" />
@@ -208,7 +208,7 @@ function BeddingModal({
           </div>
 
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+            <div className="border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
               <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ИНФОРМАЦИЯ</div>
               <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
                 {card.description
@@ -221,35 +221,23 @@ function BeddingModal({
                   <button
                     type="button"
                     onClick={() => setLeadOpen(true)}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-4 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                    className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
                   >
-                    <span className="inline-flex items-center gap-2">
-                      <IconTelegram className="h-5 w-5" />
-                      Написать нам
-                    </span>
+                    Связаться
                   </button>
                   <button
                     type="button"
                     onClick={onClose}
-                    className="inline-flex h-11 items-center justify-center rounded-2xl border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
+                    className="inline-flex h-11 items-center justify-center border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
                   >
                     Закрыть
                   </button>
                 </div>
 
                 {leadOpen ? (
-                  <LeadRequestModal
-                    context={{
-                      productType,
-                      source: contextBase.source,
-                      kind: contextBase.kind,
-                      url: contextBase.url,
-                      title: contextBase.title,
-                      category: contextBase.category,
-                      image: image,
-                      images: allImages,
-                    }}
+                  <ContactModal
                     onClose={() => setLeadOpen(false)}
+                    imageSrc="/foto-na-knopku-1-.webp"
                   />
                 ) : null}
               </div>
@@ -310,7 +298,7 @@ export function BeddingCatalog({
             className="block text-left"
             aria-label={`Вариант ${idx + 1}`}
           >
-            <div className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-px hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+            <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-px hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={c.imageSrc}
@@ -318,13 +306,15 @@ export function BeddingCatalog({
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.08]"
+                  loading="eager"
+                  priority
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
               </div>
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">Вариант {idx + 1}</div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
+                  <div className="flex h-10 w-10 items-center justify-center border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
                     <span
                       aria-hidden="true"
                       className="text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"

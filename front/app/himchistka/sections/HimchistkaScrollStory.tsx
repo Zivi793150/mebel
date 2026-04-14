@@ -38,9 +38,9 @@ export function HimchistkaScrollStory() {
 
   const visuals = useMemo(
     () => [
-      { src: encodeURI("/химчистка/1. Выезд и осмотр .jpg"), alt: "Выезд и осмотр" },
-      { src: encodeURI("/химчистка/Чистка и восстановление .jpg"), alt: "Чистка и восстановление" },
-      { src: encodeURI("/химчистка/3. Установка на объекте .jpg"), alt: "Монтаж обратно" },
+      { src: encodeURI("/himchistka/1.-vyezd-i-osmotr-.webp"), alt: "Выезд и осмотр" },
+      { src: encodeURI("/himchistka/chistka-i-vosstanovlenie-.webp"), alt: "Чистка и восстановление" },
+      { src: encodeURI("/himchistka/3.-ustanovka-na-obekte-.webp"), alt: "Монтаж обратно" },
     ],
     [],
   );
@@ -205,7 +205,7 @@ export function HimchistkaScrollStory() {
 
           <div className="lg:col-span-6">
             <div className="lg:sticky lg:top-24">
-              <div className="relative overflow-hidden rounded-[28px] border border-black/10 bg-white/60 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
+              <div className="relative overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)]">
                 <div className="relative aspect-[4/3]">
                   <div className="absolute inset-0">
                     {visuals.map((v, idx) => (
@@ -221,6 +221,7 @@ export function HimchistkaScrollStory() {
                           fill
                           sizes="(min-width: 1024px) 50vw, 100vw"
                           className="object-cover"
+                          loading="eager"
                           priority={false}
                         />
                       </div>
@@ -235,7 +236,7 @@ export function HimchistkaScrollStory() {
 
                   <div className="absolute inset-0 bg-[radial-gradient(1000px_circle_at_30%_20%,rgba(0,0,0,0.05),transparent_60%),radial-gradient(900px_circle_at_70%_70%,rgba(0,0,0,0.07),transparent_62%)] dark:bg-[radial-gradient(1000px_circle_at_30%_20%,rgba(255,255,255,0.06),transparent_60%),radial-gradient(900px_circle_at_70%_70%,rgba(255,255,255,0.04),transparent_62%)]" />
 
-                  <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold tracking-wide text-[color:var(--muted)] shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-white/70">
+                  <div className="absolute left-5 top-5 inline-flex items-center gap-2 border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-3 py-1 text-xs font-semibold tracking-wide text-[color:var(--muted)]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
                     {steps[active]?.label}
                   </div>

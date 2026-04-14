@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 type Item = {
   label: string;
-  kicker: string;
   quote: string;
   authorTitle: string;
   authorSubtitle: string;
@@ -16,27 +15,24 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
     () => [
       {
         label: "Сценарий",
-        kicker: "СВЕТ",
         quote: "Блики исчезают. Свет ровный. Комната спокойнее.",
         authorTitle: "Подбор под задачу",
         authorSubtitle: "кухня / кабинет / ТВ",
-        imageSrc: "/catalog/blinds.jpg",
+        imageSrc: "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp",
       },
       {
         label: "Сценарий",
-        kicker: "ПРИВАТНОСТЬ",
         quote: "Вечером — приватно. Днём — светло и легко.",
         authorTitle: "Тонкая настройка",
         authorSubtitle: "без тяжёлых тканей",
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/catalog/5.-dekor-furnitura/50007.webp",
       },
       {
         label: "Сценарий",
-        kicker: "МОНТАЖ",
         quote: "“Дорого” начинается с геометрии и чистой посадки.",
         authorTitle: "Чистый монтаж",
         authorSubtitle: "ровно и без шума",
-        imageSrc: "/catalog/rails.jpg",
+        imageSrc: "/catalog/4.karnizy/bagetnye-karnizy/1.webp",
       },
     ],
     [],
@@ -54,8 +50,8 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
   const current = derivedItems[active];
   const quoteWords = useMemo(() => current.quote.split(" "), [current.quote]);
 
-  const [bgFrom, setBgFrom] = useState(derivedItems[0]?.imageSrc ?? "/blinds-window.jpg");
-  const [bgTo, setBgTo] = useState(derivedItems[0]?.imageSrc ?? "/blinds-window.jpg");
+  const [bgFrom, setBgFrom] = useState(derivedItems[0]?.imageSrc ?? "/blinds-window.webp");
+  const [bgTo, setBgTo] = useState(derivedItems[0]?.imageSrc ?? "/blinds-window.webp");
   const [bgMix, setBgMix] = useState(1);
   const prevActiveRef = useRef(0);
   const [transitionKey, setTransitionKey] = useState(0);
@@ -93,7 +89,7 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
   }, [derivedItems.length]);
 
   useEffect(() => {
-    const nextSrc = derivedItems[active]?.imageSrc ?? "/blinds-window.jpg";
+    const nextSrc = derivedItems[active]?.imageSrc ?? "/blinds-window.webp";
     const prevIdx = prevActiveRef.current;
     const prevSrc = derivedItems[prevIdx]?.imageSrc ?? bgTo;
     prevActiveRef.current = active;
@@ -192,16 +188,6 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
             </div>
 
             <div className="lg:col-span-10 lg:pl-8">
-              <div className="flex items-center justify-between gap-6">
-                <div
-                  key={`kicker-${active}`}
-                  className="kr-blinds-kicker inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs font-mono text-[color:var(--muted)] shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
-                  {current.kicker}
-                </div>
-              </div>
-
               <div className="mt-10 max-w-3xl">
                 <blockquote
                 key={`quote-${active}`}

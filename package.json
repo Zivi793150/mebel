@@ -16,5 +16,8 @@
     "bot": "npm --workspace back run bot",
     "trim:carpets:json": "node back/trim-collection.mjs carpet_items 100 --inplace",
     "trim:rugs:public": "node front/scripts/trim-rugs-json.mjs 50 --inplace"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   }
 }

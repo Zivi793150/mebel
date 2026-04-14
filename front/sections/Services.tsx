@@ -13,32 +13,32 @@ const SERVICES: ServiceItem[] = [
   {
     title: "Дизайн штор",
     description: "Визуализация эскизов, подбор материалов и фурнитуры под Ваш бюджет",
-    imageSrc: "/catalog/1.Шторы и ткани/1.1.Австрийские/photo_2026-03-02_16-21-17.jpg",
+    imageSrc: "/predlagaem/dizayn-shtor_1238.webp",
   },
   {
     title: "Оформление текстилем",
     description: "Все виды текстиля, интерьерный и брендированный текстиль",
-    imageSrc: "/catalog/1.Шторы и ткани/1.13.Шторы в спальню/IMG_1426-HDR.jpg",
+    imageSrc: "/predlagaem/oformlenie-tekstilem-11.webp",
   },
   {
     title: "Электрокарнизы",
     description: "Устройства для дистанционного управления шторами и жалюзями",
-    imageSrc: "/catalog/1.Шторы и ткани/1.14 Шторы на люверсах/1.webp",
+    imageSrc: "/predlagaem/elektrokarnizy-.webp",
   },
   {
     title: "Солнцезащитные системы",
     description: "Рулонные шторы, Шторы-плиссе, Деревянные и Алюминиевые жалюзи",
-    imageSrc: "/catalog/1.Шторы и ткани/1.15 Шторы в ванную/photo_2026-03-12_17-12-04.jpg",
+    imageSrc: "/predlagaem/solnczaschit-sist7390.webp",
   },
   {
     title: "Навеска и отпаривание штор",
     description: "Развесим и отпарим шторы в рамках оформления Ваших окон текстилем",
-    imageSrc: "/химчистка/3. Установка на объекте .jpg",
+    imageSrc: "/himchistka/3.-ustanovka-na-obekte-.webp",
   },
   {
     title: "Химчистка штор",
     description: "Профессиональная бережная чистка текстиля и штор под ключ",
-    imageSrc: "/химчистка/Чистка и восстановление .jpg",
+    imageSrc: "/himchistka/chistka-i-vosstanovlenie-1-.webp",
   },
 ];
 
@@ -68,6 +68,8 @@ export function Services() {
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition duration-500 group-hover:scale-105"
+                  loading="eager"
+                  priority
                 />
               </div>
               <div className="p-6">

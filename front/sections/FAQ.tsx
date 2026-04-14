@@ -49,7 +49,7 @@ export function FAQ() {
           {FAQ_ITEMS.map((i) => (
             <details
               key={i.q}
-              className="group rounded-2xl border border-black/5 bg-white/60 p-5 shadow-sm backdrop-blur open:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:open:bg-white/10"
+              className="group border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-5 open:bg-[color:var(--card)]"
             >
               <summary className="cursor-pointer list-none text-sm font-semibold text-[color:var(--fg)] outline-none">
                 <div className="flex items-start gap-3">
@@ -57,7 +57,7 @@ export function FAQ() {
                     {i.q}
                     <div className="mt-3 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-open:grid-rows-[1fr]">
                       <div className="overflow-hidden">
-                        <div className="text-sm font-normal leading-6 text-[color:var(--muted)] opacity-0 transition-[opacity,transform] duration-300 ease-out -translate-y-1 group-open:opacity-100 group-open:translate-y-0">
+                        <div className="text-sm font-normal leading-6 text-[color:var(--muted)] opacity-0 transition-all duration-300 ease-out -translate-y-1 group-open:opacity-100 group-open:translate-y-0">
                           {i.a}
                         </div>
                       </div>

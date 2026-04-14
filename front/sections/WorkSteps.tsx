@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Container } from "@/components/Container";
+import { ContactButton } from "@/components/ContactButton";
+
 
 type Step = {
   number: string;
@@ -11,27 +13,27 @@ type Step = {
 const STEPS: Step[] = [
   {
     number: "01",
-    description: "Встретимся в шоу-руме или приедем к вам домой с образцами и визуалами коллекций, расскажем и покажем свойства тканей, поможем с выбором и сделаем точные замеры",
+    description: "Встретимся в салоне или приедем к вам домой с образцами материалов, расскажем и покажем свойства тканей, поможем с выбором и сами сделаем точные замеры",
   },
   {
     number: "02",
-    description: "Профессиональные дизайнеры создадут для Вас уникальный проект и 3D-модель",
+    description: "Наши дизайнеры создадут для Вас уникальное коммерческое предложение",
   },
   {
     number: "03",
-    description: "Сделаем расчет и предложим два варианта комплектации под Ваш бюджет",
+    description: "Сделаем расчет и предложим несколько вариантов комплектации под Ваш бюджет",
   },
   {
     number: "04",
-    description: "Проверим вашу ткань на световом оборудовании, чтобы исключить все дефекты",
+    description: "Проверим вашу ткань, чтобы исключить все дефекты",
   },
   {
     number: "05",
-    description: "Наши мастера отошьют шторы и текстиль в технологичном цехе с применением немецкой фурнитуры и проверкой качества на каждом этапе по 30 параметрам",
+    description: "Наши мастера отошьют шторы и текстиль в технологичном цехе с применением немецкой фурнитуры и проверкой качества на каждом этапе по 20 параметрам",
   },
   {
     number: "06",
-    description: "Дизайнеры сами повесят шторы, выровняют каждую складочку и расскажут, как ухаживать за текстилем, чтобы сохранить его первозданный вид в течение 10 лет",
+    description: "Дизайнеры сами повесят шторы, выровняют каждую складочку и расскажут, как ухаживать за текстилем, чтобы сохранить его первозданный вид надолго",
   },
   {
     number: "07",
@@ -39,7 +41,7 @@ const STEPS: Step[] = [
   },
   {
     number: "08",
-    description: "Все комплектующие мы храним на собственном складе, и в случае обнаружения каких-то дефектов – приедем, заберем и всё бесплатно исправим",
+    description: "Все комплектующие мы храним на собственном складе, и в случае обнаружения каких-то дефектов – приедем, заберем и всё исправим",
   },
   {
     number: "09",
@@ -67,18 +69,20 @@ export function WorkSteps() {
 
             <div className="relative mt-8 aspect-[4/5] overflow-hidden">
               <Image
-                src="/gray_hero.jpg"
+                src="/poryadok-raboty-.webp"
                 alt="Порядок работы"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
+                loading="eager"
+                priority
               />
-              <a
-                href="#cta"
+              <ContactButton
                 className="absolute bottom-6 left-6 inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-8 text-xs font-normal uppercase tracking-[0.15em] text-white transition hover:bg-[color:var(--dark-gray)]"
+                imageSrc="/foto-na-knopku-1-.webp"
               >
                 Получить консультацию
-              </a>
+              </ContactButton>
             </div>
           </div>
 

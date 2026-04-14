@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 
 import { Container } from "@/components/Container";
 
+
 type PortfolioItem = {
   title: string;
   cover: string;
@@ -33,64 +34,104 @@ function useOnClickOutside(ref: RefObject<HTMLElement | null>, handler: () => vo
   }, [handler, ref]);
 }
 
+function usePreloadPortfolioImages() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const allImages = PORTFOLIO_ITEMS.flatMap((item) => [item.cover, ...item.images]);
+    allImages.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+  }, []);
+}
+
 const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
-    title: "Аппартаменты",
-    cover: enc("/for_designers/Аппартаменты/SVM04783-1.jpg"),
+    title: "ЖК Белинского",
+    cover: enc("/for_designers/zhk-belinskogo/DSCF0361.webp"),
     images: [
-      enc("/for_designers/Аппартаменты/SVM04783-1.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04800.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04809.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04819.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04848.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04860.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04877.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04890.jpg"),
+      enc("/for_designers/zhk-belinskogo/DSCF0361.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0370.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0379.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0381-1.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0387.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0390.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0394.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0399.webp"),
+      enc("/for_designers/zhk-belinskogo/DSCF0443.webp"),
+    ],
+  },
+  {
+    title: "Аппартаменты",
+    cover: enc("/for_designers/appartamenty/SVM04783-1.webp"),
+    images: [
+      enc("/for_designers/appartamenty/SVM04783-1.webp"),
+      enc("/for_designers/appartamenty/SVM04800.webp"),
+      enc("/for_designers/appartamenty/SVM04809.webp"),
+      enc("/for_designers/appartamenty/SVM04819.webp"),
+      enc("/for_designers/appartamenty/SVM04848.webp"),
+      enc("/for_designers/appartamenty/SVM04860.webp"),
+      enc("/for_designers/appartamenty/SVM04877.webp"),
+      enc("/for_designers/appartamenty/SVM04890.webp"),
     ],
   },
   {
     title: "Литовский вал",
-    cover: enc("/for_designers/Литовский вал/RED_1170.jfif"),
+    cover: enc("/for_designers/litovskiy-val/RED_1170.webp"),
     images: [
-      enc("/for_designers/Литовский вал/RED_1170.jfif"),
-      enc("/for_designers/Литовский вал/RED_1190.jfif"),
-      enc("/for_designers/Литовский вал/RED_1198.jfif"),
-      enc("/for_designers/Литовский вал/RED_1202.jfif"),
-      enc("/for_designers/Литовский вал/RED_1220.jfif"),
-      enc("/for_designers/Литовский вал/RED_1231.jfif"),
-      enc("/for_designers/Литовский вал/RED_1238.jfif"),
-      enc("/for_designers/Литовский вал/RED_1246.jfif"),
-      enc("/for_designers/Литовский вал/RED_1280.jfif"),
-      enc("/for_designers/Литовский вал/RED_1291.jfif"),
+      enc("/for_designers/litovskiy-val/RED_1170.webp"),
+      enc("/for_designers/litovskiy-val/RED_1190.webp"),
+      enc("/for_designers/litovskiy-val/RED_1198.webp"),
+      enc("/for_designers/litovskiy-val/RED_1202.webp"),
+      enc("/for_designers/litovskiy-val/RED_1220.webp"),
+      enc("/for_designers/litovskiy-val/RED_1231.webp"),
+      enc("/for_designers/litovskiy-val/RED_1238.webp"),
+      enc("/for_designers/litovskiy-val/RED_1246.webp"),
+      enc("/for_designers/litovskiy-val/RED_1280.webp"),
+      enc("/for_designers/litovskiy-val/RED_1291.webp"),
+      enc("/for_designers/litovskiy-val/42ef1b33-15d3-4342-811a-88e0db258022.webp"),
     ],
   },
   {
     title: "Немецкий фонд",
-    cover: enc("/for_designers/Немецкий фонд/RED_0437_2_01.jpg"),
+    cover: enc("/for_designers/nemeckiy-fond/RED_0437_2_01.webp"),
     images: [
-      enc("/for_designers/Немецкий фонд/RED_0437_2_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0467_1_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0479_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0521_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0644_2.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0671_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0958_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0973_01.jpg"),
+      enc("/for_designers/nemeckiy-fond/RED_0437_2_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0467_1_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0479_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0521_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0644_2.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0671_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0958_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0973_01.webp"),
     ],
   },
   {
     title: "Тихая роскошь",
-    cover: enc("/for_designers/Тихая роскошь/730c9e63-1901-4cb9-857b-87778cc05ed3.jpg"),
+    cover: enc("/for_designers/tihaya-roskosh/002f9e6b-c6f5-4326-93d5-b3f80b0959da.webp"),
     images: [
-      enc("/for_designers/Тихая роскошь/730c9e63-1901-4cb9-857b-87778cc05ed3.jpg"),
-      enc("/for_designers/Тихая роскошь/2776e08a-d7b8-46bf-a631-9543e4d1245c.jfif"),
-      enc("/for_designers/Тихая роскошь/339f3802-8a1c-46da-b454-b27337dea6f5.jfif"),
-      enc("/for_designers/Тихая роскошь/42ef1b33-15d3-4342-811a-88e0db258022.jfif"),
-      enc("/for_designers/Тихая роскошь/730c9e63-1901-4cb9-857b-87778cc05ed3.jfif"),
-      enc("/for_designers/Тихая роскошь/735cbb9d-663b-461c-bc28-d90c691e0ab8.jfif"),
-      enc("/for_designers/Тихая роскошь/891c27ad-557b-4a95-ae45-26a329b6e1d2.jfif"),
-      enc("/for_designers/Тихая роскошь/e6d5b49c-e1b5-41a8-acb6-fc71337a29e8.jpg"),
-      enc("/for_designers/Тихая роскошь/fad65c85-32b2-4861-b41c-664bb564caf1.jfif"),
+      enc("/for_designers/tihaya-roskosh/002f9e6b-c6f5-4326-93d5-b3f80b0959da.webp"),
+      enc("/for_designers/tihaya-roskosh/730c9e63-1901-4cb9-857b-87778cc05ed3.webp"),
+      enc("/for_designers/tihaya-roskosh/2776e08a-d7b8-46bf-a631-9543e4d1245c.webp"),
+      enc("/for_designers/tihaya-roskosh/339f3802-8a1c-46da-b454-b27337dea6f5.webp"),
+      enc("/for_designers/tihaya-roskosh/42ef1b33-15d3-4342-811a-88e0db258022.webp"),
+      enc("/for_designers/tihaya-roskosh/29853c59-3648-4ab6-aff2-0bac3a204eca.webp"),
+      enc("/for_designers/tihaya-roskosh/735cbb9d-663b-461c-bc28-d90c691e0ab8.webp"),
+      enc("/for_designers/tihaya-roskosh/891c27ad-557b-4a95-ae45-26a329b6e1d2.webp"),
+      enc("/for_designers/tihaya-roskosh/e6d5b49c-e1b5-41a8-acb6-fc71337a29e8.webp"),
+      enc("/for_designers/tihaya-roskosh/fad65c85-32b2-4861-b41c-664bb564caf1.webp"),
+    ],
+  },
+  {
+    title: "Гармония",
+    cover: enc("/for_designers/garmoniya/25JulY_LazarevaInt2-min.webp"),
+    images: [
+      enc("/for_designers/garmoniya/25JulY_LazarevaInt2-min.webp"),
+      enc("/for_designers/garmoniya/25JulY_LazarevaInt6-min.webp"),
+      enc("/for_designers/garmoniya/25JulY_LazarevaInt3-min.webp"),
+      enc("/for_designers/garmoniya/25JulY_LazarevaInt4-min.webp"),
+      enc("/for_designers/garmoniya/25JulY_LazarevaInt5-min.webp"),
+      enc("/for_designers/garmoniya/{AC6044AC-BC50-787C-3638-E7CE8A166BEE}.webp"),
     ],
   },
 ];
@@ -121,7 +162,7 @@ function ProjectModal({
     setThumbStart(0);
   }, [project]);
 
-  const image = images[activeIdx] || images[0] || project?.cover || "/hero.jpg";
+  const image = images[activeIdx] || images[0] || project?.cover || "/hero.webp";
   const thumbsVisibleCount = 5;
   const canThumbUp = thumbStart > 0;
   const canThumbDown = thumbStart + thumbsVisibleCount < images.length;
@@ -243,7 +284,6 @@ function ProjectModal({
                   fill
                   sizes="(min-width: 1024px) 66vw, 100vw"
                   className="object-cover"
-                  priority
                 />
               </div>
             </div>
@@ -276,6 +316,8 @@ export function PortfolioSlider() {
   const [current, setCurrent] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
+  usePreloadPortfolioImages();
+
   const next = () => setCurrent((c) => (c + 1) % PORTFOLIO_ITEMS.length);
   const prev = () => setCurrent((c) => (c - 1 + PORTFOLIO_ITEMS.length) % PORTFOLIO_ITEMS.length);
 
@@ -301,8 +343,10 @@ export function PortfolioSlider() {
               alt={item.title}
               fill
               sizes="100vw"
-              className="object-cover transition-opacity duration-500"
               priority
+              loading="eager"
+              fetchPriority="high"
+              className="object-cover transition-opacity duration-500"
             />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0.3)_40%,transparent_70%)]" />
             

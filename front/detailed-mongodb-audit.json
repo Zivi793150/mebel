@@ -1,0 +1,101 @@
+{
+  "totalCollections": 11,
+  "totalDocs": 452,
+  "totalImagePaths": 2009,
+  "existingFiles": 2008,
+  "missingFiles": 1,
+  "byCollection": {
+    "catalog_items": {
+      "docs": 17,
+      "imagePaths": 952,
+      "existing": 952,
+      "missing": 0,
+      "missingList": []
+    },
+    "bedding_items": {
+      "docs": 16,
+      "imagePaths": 16,
+      "existing": 16,
+      "missing": 0,
+      "missingList": []
+    },
+    "leads": {
+      "docs": 9,
+      "imagePaths": 114,
+      "existing": 114,
+      "missing": 0,
+      "missingList": []
+    },
+    "decor_items": {
+      "docs": 30,
+      "imagePaths": 30,
+      "existing": 30,
+      "missing": 0,
+      "missingList": []
+    },
+    "curtain_types": {
+      "docs": 15,
+      "imagePaths": 112,
+      "existing": 112,
+      "missing": 0,
+      "missingList": []
+    },
+    "blinds_subcatalogs": {
+      "docs": 1,
+      "imagePaths": 16,
+      "existing": 16,
+      "missing": 0,
+      "missingList": []
+    },
+    "cornices": {
+      "docs": 110,
+      "imagePaths": 226,
+      "existing": 226,
+      "missing": 0,
+      "missingList": []
+    },
+    "blinds_types": {
+      "docs": 6,
+      "imagePaths": 50,
+      "existing": 49,
+      "missing": 1,
+      "missingList": [
+        {
+          "collection": "blinds_types",
+          "docId": "69bd6473b5a191f2559e91cb",
+          "path": "/catalog/2.Жалюзи/Деревянные/Жалюзи  деревянные 1 .webp",
+          "field": "images[13]"
+        }
+      ]
+    },
+    "bedspreads_and_pillows": {
+      "docs": 23,
+      "imagePaths": 20,
+      "existing": 20,
+      "missing": 0,
+      "missingList": []
+    },
+    "lead_contexts": {
+      "docs": 4,
+      "imagePaths": 40,
+      "existing": 40,
+      "missing": 0,
+      "missingList": []
+    },
+    "carpet_items": {
+      "docs": 221,
+      "imagePaths": 433,
+      "existing": 433,
+      "missing": 0,
+      "missingList": []
+    }
+  },
+  "missingDetails": [
+    {
+      "collection": "blinds_types",
+      "docId": "69bd6473b5a191f2559e91cb",
+      "path": "/catalog/2.Жалюзи/Деревянные/Жалюзи  деревянные 1 .webp",
+      "field": "images[13]"
+    }
+  ]
+}

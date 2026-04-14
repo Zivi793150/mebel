@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 
+
 const benefits = [
   {
     title: "Европейские ткани",
@@ -22,6 +23,12 @@ const benefits = [
     description: "Полный контроль качества на всех этапах изготовления",
     stat: "100%",
     statLabel: "контроль",
+  },
+  {
+    title: "Постобслуживание текстиля",
+    description: "Поможем придать вашим шторам первоначальный вид",
+    stat: "П.4",
+    statLabel: "",
   },
 ];
 
@@ -50,65 +57,94 @@ export function DesignersBenefits() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-20 lg:py-24"
+      className="py-16 sm:py-20"
     >
       <Container>
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <span className="inline-block text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)] uppercase">
-              Преимущества
+        {/* Header - full width */}
+        <div className="mb-12">
+          <div className="mb-4">
+            <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+              Почему
             </span>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
-              Почему дизайнеры выбирают Koenig Room
-            </h2>
-            <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
-              Мы работаем с профессионалами более 20 лет. Знаем, что важно для дизайнеров: скорость, качество и надёжность.
-            </p>
+            <span className="block text-2xl font-medium tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+              выбирают нас
+            </span>
+          </div>
+          <p className="max-w-2xl text-base leading-7 text-[color:var(--muted)]">
+            Мы работаем с профессионалами более 20 лет. Знаем, что важно для дизайнеров: скорость, качество и надёжность.
+          </p>
+        </div>
 
-            <div className="mt-8 grid gap-6">
-              {benefits.map((benefit, idx) => (
-                <div
-                  key={benefit.title}
-                  className={`flex items-center gap-6 rounded-2xl border border-[color:var(--divider)] bg-[color:var(--card)] p-5 transition-all duration-500 hover:bg-[color:var(--card)]/80 ${
-                    inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-                  }`}
-                  style={{ transitionDelay: `${idx * 120}ms` }}
-                >
-                  <div className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-[color:var(--accent-soft)]">
-                    <span className="text-xl font-bold text-[color:var(--fg)]">
-                      {benefit.stat}
-                    </span>
-                    <span className="text-[10px] uppercase tracking-wider text-[color:var(--muted)]">
-                      {benefit.statLabel}
-                    </span>
+        {/* 3 columns: left benefits, center photo, right benefits */}
+        <div className="grid gap-8 lg:grid-cols-[1fr,380px,1fr] lg:gap-8 items-start">
+          {/* Left column - benefits 1-2 */}
+          <div className="space-y-6">
+            {benefits.slice(0, 2).map((benefit, idx) => (
+              <article
+                key={benefit.title}
+                className={`group relative bg-[color:var(--bg)] p-6 transition hover:bg-[color:var(--sand)] ${
+                  inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                }`}
+                style={{ transitionDelay: `${idx * 120}ms` }}
+              >
+                <div className="flex items-start justify-between border-b border-[color:var(--gray-lines)] pb-4">
+                  <div className="text-xl font-medium text-[color:var(--fg)]">
+                    {String(idx + 1).padStart(2, "0")}
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-[color:var(--fg)]">
-                      {benefit.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-[color:var(--muted)]">
-                      {benefit.description}
-                    </p>
+                  <div className="text-sm font-medium text-[color:var(--green)]">
+                    {benefit.stat} {benefit.statLabel}
                   </div>
                 </div>
-              ))}
-            </div>
+                <h3 className="mt-4 text-lg font-medium text-[color:var(--fg)]">
+                  {benefit.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                  {benefit.description}
+                </p>
+              </article>
+            ))}
           </div>
 
-          <div className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl sm:aspect-square lg:aspect-[4/5]">
+          {/* Center column - photo */}
+          <div className="relative order-first lg:order-none">
+            <div className="relative aspect-[4/5] overflow-hidden">
               <Image
-                src="/about_us.jpg"
-                alt="Ткани Koenig Room"
+                src="/foto-na-zamenu-salon-.webp"
+                alt="Татьяна Наумова"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 380px, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
+          </div>
 
-            <div className="absolute -right-4 -top-4 hidden h-24 w-24 rounded-2xl bg-[color:var(--accent)]/20 backdrop-blur-sm lg:block" />
-            <div className="absolute -bottom-4 -left-4 hidden h-16 w-16 rounded-full bg-white/10 backdrop-blur-sm lg:block" />
+          {/* Right column - benefits 3-4 */}
+          <div className="space-y-6">
+            {benefits.slice(2, 4).map((benefit, idx) => (
+              <article
+                key={benefit.title}
+                className={`group relative bg-[color:var(--bg)] p-6 transition hover:bg-[color:var(--sand)] ${
+                  inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                }`}
+                style={{ transitionDelay: `${(idx + 2) * 120}ms` }}
+              >
+                <div className="flex items-start justify-between border-b border-[color:var(--gray-lines)] pb-4">
+                  <div className="text-xl font-medium text-[color:var(--fg)]">
+                    {String(idx + 3).padStart(2, "0")}
+                  </div>
+                  <div className="text-sm font-medium text-[color:var(--green)]">
+                    {benefit.stat} {benefit.statLabel}
+                  </div>
+                </div>
+                <h3 className="mt-4 text-lg font-medium text-[color:var(--fg)]">
+                  {benefit.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                  {benefit.description}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </Container>

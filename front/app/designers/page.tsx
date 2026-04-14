@@ -16,11 +16,11 @@ export default function DesignersPage() {
 
       <main>
         <DesignersHero />
-        <div className="bg-[#ede6de] dark:bg-white/[0.06]">
+        <div className="bg-[color:var(--sand)]">
           <DesignersServices />
         </div>
         <DesignersBenefits />
-        <div className="bg-[#ede6de] dark:bg-white/[0.06]">
+        <div className="bg-[color:var(--sand)]">
           <DesignersPortfolio />
         </div>
         <DesignersContact />

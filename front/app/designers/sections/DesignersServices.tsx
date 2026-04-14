@@ -117,64 +117,45 @@ export function DesignersServices() {
     <section
       id="services"
       ref={sectionRef}
-      className="py-16 sm:py-20 lg:py-24"
+      className="py-16 sm:py-20"
     >
       <Container>
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-block text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)] uppercase">
-            Что мы предлагаем
+        <div className="mb-8">
+          <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+            Что мы
           </span>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
-            Комплексное сопровождение проекта
-          </h2>
-          <p className="mt-4 text-base leading-7 text-[color:var(--muted)] sm:text-lg">
-            Берём на себя все этапы работы с текстилем — от выбора ткани до финального монтажа
-          </p>
+          <span className="block text-2xl font-medium tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+            предлагаем
+          </span>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:mt-16">
+        <p className="max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+          Берём на себя все этапы работы с текстилем — от выбора ткани до финального монтажа
+        </p>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, idx) => (
-            <div
+            <article
               key={service.title}
-              className={`group relative rounded-2xl border border-[color:var(--divider)] bg-[color:var(--card)] p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-[color:var(--accent)]/30 ${
+              className={`group relative bg-[color:var(--bg)] p-6 transition hover:bg-[color:var(--sand)] ${
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{ transitionDelay: `${idx * 80}ms` }}
               onMouseEnter={() => setHovered(idx)}
               onMouseLeave={() => setHovered(null)}
             >
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[color:var(--accent-soft)] text-[color:var(--accent)] transition-colors group-hover:bg-[color:var(--accent)] group-hover:text-[color:var(--accent-contrast)]">
-                  {service.icon}
+              <div className="flex items-start justify-between border-b border-[color:var(--gray-lines)] pb-4">
+                <div className="text-xl font-medium text-[color:var(--fg)]">
+                  {String(idx + 1).padStart(2, "0")}
                 </div>
-                <h3 className="text-lg font-semibold text-[color:var(--fg)]">
-                  {service.title}
-                </h3>
               </div>
-
-              <p className="mt-4 text-sm leading-6 text-[color:var(--muted)]">
+              <h3 className="mt-4 text-lg font-medium text-[color:var(--fg)]">
+                {service.title}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
                 {service.description}
               </p>
-
-              {service.features.length ? (
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {service.features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="inline-flex items-center rounded-full bg-[color:var(--accent-soft)] px-3 py-1 text-xs font-medium text-[color:var(--accent)]"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-
-              <div
-                className={`absolute bottom-0 left-0 h-1 rounded-b-2xl bg-[color:var(--accent)] transition-all duration-500 ${
-                  hovered === idx ? "w-full" : "w-0"
-                }`}
-              />
-            </div>
+            </article>
           ))}
         </div>
       </Container>

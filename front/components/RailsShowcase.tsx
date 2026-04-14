@@ -20,7 +20,7 @@ export function RailsShowcase({ images }: { images?: string[] }) {
         label: "Современный",
         title: "Чистая линия и минимальный металл",
         text: "Для светлых интерьеров и спокойной архитектуры окна. Делаем ровную линию, аккуратные кронштейны и правильный вылет под ткань.",
-        imageSrc: "/catalog/carnis.jpg",
+        imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
         chips: ["тонкий профиль", "ровная линия", "сдержанный блеск"],
       },
       {
@@ -28,7 +28,7 @@ export function RailsShowcase({ images }: { images?: string[] }) {
         label: "Классика",
         title: "Наконечники и пропорции — чтобы выглядело “дорого”",
         text: "Не перебор, а точная деталь: форма наконечника, цвет металла, высота установки. Подбираем под фурнитуру и светильники.",
-        imageSrc: "/catalog/rails.jpg",
+        imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
         chips: ["наконечники", "латунь/бронза", "визуальный акцент"],
       },
       {
@@ -36,7 +36,7 @@ export function RailsShowcase({ images }: { images?: string[] }) {
         label: "Сложные окна",
         title: "Эркеры, углы, ниши — всё собираем в одну геометрию",
         text: "Подбираем решение под стену/потолок и сценарий ткани, чтобы линия не “ломалась”, а монтаж был крепким и аккуратным.",
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
         chips: ["эркер", "углы", "крепёж под стену"],
       },
     ],
@@ -111,6 +111,7 @@ export function RailsShowcase({ images }: { images?: string[] }) {
                     fill
                     sizes="(min-width: 1024px) 40vw, 100vw"
                     className="object-cover"
+                    loading="eager"
                     priority={false}
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.0),rgba(0,0,0,0.18),rgba(0,0,0,0.48))]" />

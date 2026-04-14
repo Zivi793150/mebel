@@ -1,11 +1,11 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import path from "path";
 import { readdir } from "fs/promises";
+import { normalizeImageUrl } from "@/lib/encodeUrl";
 import { Container } from "@/components/Container";
-import { BlindsCarousel } from "@/components/BlindsCarousel";
 import { BlindsShowcase } from "@/components/BlindsShowcase";
 import { BeddingWhyShowcase } from "@/components/BeddingWhyShowcase";
 import { Footer } from "@/components/Footer";
@@ -19,12 +19,11 @@ import { RailsVariantsCatalog } from "@/components/RailsVariantsCatalog";
 import { RugsStyleCatalog } from "@/components/RugsStyleCatalog";
 import { RugsWhyShowcase } from "@/components/RugsWhyShowcase";
 import { CurtainTypesCatalog, CurtainTypesList, type CurtainTypeItem } from "@/components/CurtainTypesList";
-import { CornicesCatalog } from "@/components/CornicesCatalog";
-import type { BlindsTypeItem } from "@/components/BlindsTypesCatalog";
+import { CornicesCatalog, type CorniceItem } from "@/components/CornicesCatalog";
+import { ContactButton } from "@/components/ContactButton";
 import { CONTACTS, CATALOG_CATEGORIES } from "@/lib/constants";
 import { getMongoClient } from "@/lib/mongo";
 
-export const dynamic = "force-dynamic";
 
 type Params = {
   params: Promise<{
@@ -36,13 +35,37 @@ export function generateStaticParams() {
   return CATALOG_CATEGORIES.map((c) => ({ slug: c.slug }));
 }
 
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  curtains: ["шторы Калининград", "пошив штор", "ткани для штор", "австрийские шторы", "французские шторы", "дизайн штор", "шторы на заказ"],
+  blinds: ["жалюзи Калининград", "алюминиевые жалюзи", "деревянные жалюзи", "пластиковые жалюзи", "вертикальные жалюзи", "горизонтальные жалюзи"],
+  rails: ["карнизы Калининград", "багетные карнизы", "профильные карнизы", "карнизы для штор", "металлические карнизы"],
+  decor: ["декор интерьера", "фурнитура для штор", "подхваты для штор", "кисти для штор", "декор окна"],
+  pillows: ["декоративные подушки", "подушки интерьерные", "подушки на диван", "дизайнерские подушки"],
+  bedding: ["постельное бельё", "сатиновое бельё", "лен постельное бельё", "бельё на заказ"],
+  rugs: ["ковры Калининград", "шерстяные ковры", "современные ковры", "ковры в интерьер"],
+};
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const category = CATALOG_CATEGORIES.find((c) => c.slug === slug);
   if (!category) return {};
+
+  const keywords = CATEGORY_KEYWORDS[slug] || [];
+  const url = `https://koenigroom.ru/catalog/${slug}`;
+
   return {
     title: `${category.title} — Koenig Room (Калининград)`,
     description: `${category.description}. Подбор и монтаж под ключ — Koenig Room, Калининград.`,
+    keywords: [...keywords, "Koenig Room", "интерьер Калининград", "текстиль"],
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `${category.title} — Koenig Room`,
+      description: category.description,
+      url,
+      type: "website",
+    },
   };
 }
 
@@ -161,6 +184,18 @@ async function getDecorItems(): Promise<DecorItemDoc[]> {
   }
 }
 
+function dedupePathSegments(url: string): string {
+  if (!url || url.startsWith("http")) return url;
+  const parts = url.split("/");
+  const deduped: string[] = [];
+  for (const part of parts) {
+    if (part !== deduped[deduped.length - 1]) {
+      deduped.push(part);
+    }
+  }
+  return deduped.join("/");
+}
+
 async function getCurtainTypes(): Promise<CurtainTypeItem[]> {
   try {
     const client = await getMongoClient();
@@ -168,7 +203,20 @@ async function getCurtainTypes(): Promise<CurtainTypeItem[]> {
     const docs = await col
       .find({ source: "koenig_room", kind: "curtain_type" }, { projection: { _id: 0 } })
       .toArray();
-    return docs ?? [];
+    // Clean duplicated path segments from MongoDB data
+    const cleaned = (docs ?? []).map((doc) => {
+      const originalImage = doc.image;
+      const cleanedImage = doc.image ? dedupePathSegments(doc.image) : doc.image;
+      if (originalImage && originalImage !== cleanedImage) {
+        console.log(`[DEDUPE] ${originalImage} -> ${cleanedImage}`);
+      }
+      return {
+        ...doc,
+        image: cleanedImage,
+        images: doc.images?.map(dedupePathSegments),
+      };
+    });
+    return cleaned;
   } catch {
     return [];
   }
@@ -181,7 +229,12 @@ async function getBlindsTypes(): Promise<BlindsTypeItem[]> {
     const docs = await col
       .find({ source: "koenig_room", kind: "blinds_type" }, { projection: { _id: 0 } })
       .toArray();
-    return docs ?? [];
+    // Clean duplicated path segments from MongoDB data
+    return (docs ?? []).map((doc) => ({
+      ...doc,
+      image: doc.image ? dedupePathSegments(doc.image) : doc.image,
+      images: doc.images?.map(dedupePathSegments),
+    }));
   } catch {
     return [];
   }
@@ -198,7 +251,12 @@ async function getCornicesItems(): Promise<CorniceItem[]> {
       )
       .limit(500)
       .toArray();
-    return docs ?? [];
+    // Clean duplicated path segments from MongoDB data
+    return (docs ?? []).map((doc) => ({
+      ...doc,
+      image: doc.image ? dedupePathSegments(doc.image) : doc.image,
+      images: doc.images?.map(dedupePathSegments),
+    }));
   } catch {
     return [];
   }
@@ -240,8 +298,8 @@ function pickKoenigImages(doc: KoenigCatalogDoc | null): string[] {
   return items
     .slice()
     .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-    .map((it) => it.large_url)
-    .filter(Boolean);
+    .map((it) => dedupePathSegments(normalizeImageUrl(it.large_url)))
+    .filter((url) => url.length > 0);
 }
 
 function injectImages<T extends { imageSrc: string }>(cards: T[], images: string[]): T[] {
@@ -271,27 +329,30 @@ function injectCaseImages(cases: PageCopy["cases"], images: string[]): PageCopy[
 }
 
 async function pickPublicCatalogCover(appSlug: string): Promise<string | null> {
+  // Map slugs to actual folder names in public/catalog/
   const folderBySlug: Record<string, string> = {
-    curtains: "Шторы и ткани",
-    blinds: "Жалюзи",
-    roman: "Римские",
+    curtains: "1.shtory-i-tkani",
+    blinds: "2.zhalyuzi",
+    roman: "3.rimskie",
+    rails: "4.karnizy",
+    decor: "5.-dekor-furnitura",
+    rugs: "6.-kovry",
+    bedding: "7.postelnoe-bele",
+    pillows: "8.dekorativnye-podushki-pokryvala",
   };
-
-  if (appSlug === "blinds") {
-    return encodeURI(`/catalog/${folderBySlug.blinds}/SVM05621.jpg`);
-  }
 
   const folder = folderBySlug[appSlug] ?? appSlug;
   const absDir = path.join(process.cwd(), "public", "catalog", folder);
   try {
     const entries = await readdir(absDir, { withFileTypes: true });
     const files = entries
-      .filter((e) => e.isFile())
+      .filter((e) => e.isFile() && e.name.endsWith('.webp'))
       .map((e) => e.name)
-      .sort((a, b) => a.localeCompare(b, "ru"));
-    const picked = files[1] ?? files[0];
+      .filter((name) => !name.match(/^\d{3,5}\.webp$/)); // Skip small numbered thumbnails
+    files.sort((a, b) => b.length - a.length); // Prefer longer names (likely real photos vs thumbnails)
+    const picked = files[0];
     if (!picked) return null;
-    return encodeURI(`/catalog/${folder}/${picked}`);
+    return `/catalog/${folder}/${picked}`;
   } catch {
     return null;
   }
@@ -310,42 +371,55 @@ const CURTAINS_VALUES = [
   "Чистый монтаж",
 ];
 
+const BLINDS_VALUES = [
+  "Геометрия",
+  "Свет",
+  "Приватность",
+  "Блики",
+  "Blackout",
+  "Кухня",
+  "Кабинет",
+  "Тихий ход",
+  "Монтаж",
+  "Аккуратно",
+];
+
 const CURTAINS_CATALOG = [
   {
     title: "Портьеры",
     subtitle: "Фактура и объём",
     text: "Дают глубину и “собирают” комнату. Подбираем плотность и посадку под мебель и свет.",
-    imageSrc: "/catalog/curtains.jpg",
+    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
   },
   {
     title: "Тюль и вуаль",
     subtitle: "Мягкий дневной свет",
     text: "Снимают контраст и делают свет спокойнее — без ощущения “витрины”.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "Blackout",
     subtitle: "Сон без бликов",
     text: "Для спальни и гостевых: затемнение, приватность, ровные вертикали на стене.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
   {
     title: "Лён и натуральные фактуры",
     subtitle: "Чистый премиум",
     text: "Смотрятся дороже в естественном свете. Хороши для спокойных интерьеров.",
-    imageSrc: "/hero.jpg",
+    imageSrc: "/hero.webp",
   },
   {
     title: "Два слоя",
     subtitle: "Сценарии дня",
     text: "Днём — лёгкость и воздух, вечером — приватность. Управление светом без компромиссов.",
-    imageSrc: "/hero2.jpg",
+    imageSrc: "/hero2.webp",
   },
   {
     title: "Карнизы и фурнитура",
     subtitle: "Детали решают",
     text: "Наконечники, подхваты, ленты — собираем комплект так, чтобы выглядело “дорого”.",
-    imageSrc: "/catalog/rails.jpg",
+    imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
   },
 ];
 
@@ -367,37 +441,37 @@ const PILLOWS_CATALOG = [
     title: "Подушки",
     subtitle: "Композиция",
     text: "Подбираем размеры и количество: чтобы диван/кровать выглядели как в шоуруме — без перегруза.",
-    imageSrc: "/catalog/pillows.jpg",
+    imageSrc: "/catalog/8.\u0414\u0435\u043a\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u044b\u0435 \u043f\u043e\u0434\u0443\u0448\u043a\u0438-\u043f\u043e\u043a\u0440\u044b\u0432\u0430\u043b\u0430/00509_089_\u0434\u043e\u043f_@maxiimov.webp",
   },
   {
     title: "Покрывала",
     subtitle: "Собранный вид",
     text: "Один слой, который моментально делает спальню “дороже” и аккуратнее.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
   {
     title: "Пледы",
     subtitle: "Тепло и фактура",
     text: "Добавляем тактильность и уют, но держим стиль — чтобы выглядело современно.",
-    imageSrc: "/catalog/rugs.jpg",
+    imageSrc: "/hero.webp",
   },
   {
     title: "Нейтральная палитра",
     subtitle: "Цвет без риска",
     text: "Спокойные оттенки + разные фактуры дают “тихий премиум” без ярких принтов.",
-    imageSrc: "/catalog/curtains.jpg",
+    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
   },
   {
     title: "Акцент",
     subtitle: "Один сильный",
     text: "Добавляем один акцентный цвет и повторяем его 2 раза — так выглядит дорого и логично.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "В связке",
     subtitle: "Со шторами/ковром",
     text: "Собираем текстиль как комплект: чтобы всё “разговаривало” между собой.",
-    imageSrc: "/catalog/rails.jpg",
+    imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
   },
 ];
 
@@ -419,37 +493,37 @@ const BEDDING_CATALOG = [
     title: "Сатин / гладкие",
     subtitle: "Свежо и чисто",
     text: "Когда важно “не жарко” и хочется гостиничного ощущения: гладко, аккуратно, спокойно.",
-    imageSrc: "/2foto_dark.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
   {
     title: "Мягкие фактуры",
     subtitle: "Уют и расслабление",
     text: "Если хочется мягче и спокойнее: фактура, которая визуально и тактильно делает спальню дороже.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
   {
     title: "Практичные",
     subtitle: "Без лишней возни",
     text: "Под регулярную стирку, детей/питомцев и быстрый порядок — чтобы красиво каждый день.",
-    imageSrc: "/catalog/pillows.jpg",
+    imageSrc: "/catalog/8.\u0414\u0435\u043a\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u044b\u0435 \u043f\u043e\u0434\u0443\u0448\u043a\u0438-\u043f\u043e\u043a\u0440\u044b\u0432\u0430\u043b\u0430/00509_089_\u0434\u043e\u043f_@maxiimov.webp",
   },
   {
     title: "Нейтральная палитра",
     subtitle: "Цвет без риска",
     text: "Подбираем спокойные оттенки под стены/шторы — спальня выглядит цельно и “дорого”.",
-    imageSrc: "/catalog/curtains.jpg",
+    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
   },
   {
     title: "Комплект",
     subtitle: "Собранный вид",
     text: "Наволочки, пододеяльник, простынь — чтобы всё выглядело как единая композиция.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "В подарок",
     subtitle: "Беспроигрышно",
     text: "Собираем универсальный премиум: приятная фактура, спокойный цвет, понятный уход.",
-    imageSrc: "/catalog/rugs.jpg",
+    imageSrc: "/hero.webp",
   },
 ];
 
@@ -471,37 +545,37 @@ const RUGS_CATALOG = [
     title: "Гостиная",
     subtitle: "Собрать зону",
     text: "Правильный размер и посадка под мебель: комната выглядит цельной и спокойной.",
-    imageSrc: "/catalog/rugs.jpg",
+    imageSrc: "/hero.webp",
   },
   {
     title: "Спальня",
     subtitle: "Тепло утром",
     text: "Тактильность, мягкость и тишина — чтобы день начинался комфортнее.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
   {
     title: "Детская",
     subtitle: "Безопасно и практично",
     text: "Подбираем ворс и состав под игры, уборку и ежедневную нагрузку.",
-    imageSrc: "/catalog/pillows.jpg",
+    imageSrc: "/catalog/8.\u0414\u0435\u043a\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u044b\u0435 \u043f\u043e\u0434\u0443\u0448\u043a\u0438-\u043f\u043e\u043a\u0440\u044b\u0432\u0430\u043b\u0430/00509_089_\u0434\u043e\u043f_@maxiimov.webp",
   },
   {
     title: "Фактура",
     subtitle: "Материальность",
     text: "Букле, шерсть, короткий ворс — чтобы “дорого” читалось в вашем свете.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "Нейтральная палитра",
     subtitle: "Цвет без риска",
     text: "Подбираем оттенок так, чтобы он связал мебель и текстиль, а не спорил с ними.",
-    imageSrc: "/catalog/curtains.jpg",
+    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
   },
   {
     title: "Уход",
     subtitle: "Под ваш ритм",
     text: "Сразу учитываем детей/питомцев и объясняем, как ухаживать — без сюрпризов.",
-    imageSrc: "/catalog/rails.jpg",
+    imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
   },
 ];
 
@@ -523,37 +597,37 @@ const DECOR_CATALOG = [
     title: "Подхваты",
     subtitle: "Аккуратная форма",
     text: "Дают композицию и “держат” складку. Подбираем под металл и стиль комнаты.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "Кисти и бахрома",
     subtitle: "Тактильный премиум",
     text: "Когда нужен мягкий, но дорогой акцент. Главное — пропорции и один сильный штрих.",
-    imageSrc: "/catalog/curtains.jpg",
+    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
   },
   {
     title: "Ленты и тесьма",
     subtitle: "Сборка складки",
     text: "Форма складки и высота посадки: то, что отличает “просто шторы” от комплекта.",
-    imageSrc: "/hero2.jpg",
+    imageSrc: "/hero2.webp",
   },
   {
     title: "Наконечники",
     subtitle: "Ювелирная деталь",
     text: "Металл и форма связывают карниз с интерьерной фурнитурой — смотрится как комплект.",
-    imageSrc: "/catalog/rails.jpg",
+    imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
   },
   {
     title: "Кольца / крючки",
     subtitle: "Тихий ход",
     text: "Чтобы ткань двигалась легко, а линия выглядела ровной. Подбираем под систему.",
-    imageSrc: "/catalog/rugs.jpg",
+    imageSrc: "/hero.webp",
   },
   {
     title: "Комплект под интерьер",
     subtitle: "Цельность",
     text: "Собираем металл, цвет, фактуры и карниз под вашу мебель и светильники.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
 ];
 
@@ -575,37 +649,37 @@ const ROMAN_CATALOG = [
     title: "Light filtering",
     subtitle: "Мягкий дневной свет",
     text: "Снимают контраст и блики, оставляя воздух. Идеально для кухни и гостиной.",
-    imageSrc: "/catalog/roman.jpg",
+    imageSrc: "/catalog/3.\u0420\u0438\u043c\u0441\u043a\u0438\u0435/\u041d\u0430 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043f\u0440\u0438\u0432\u043e\u0434\u0435/\u0424\u043e\u0442\u043e \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443 .webp",
   },
   {
     title: "Screen / anti-glare",
     subtitle: "Комфорт для экрана",
     text: "Для кабинета и ТВ: меньше бликов, стабильнее свет, интерьер выглядит спокойнее.",
-    imageSrc: "/catalog/blinds.jpg",
+    imageSrc: "/catalog/2.\u0416\u0430\u043b\u044e\u0437\u0438/\u0410\u043b\u043b\u044e\u043c\u0438\u043d\u0438\u0435\u0432\u044b\u0435/\u0424\u043e\u0442\u043e \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443 1 .webp",
   },
   {
     title: "Blackout",
     subtitle: "Сон без света",
     text: "Для спальни и детской: затемнение, приватность, аккуратная геометрия без тяжёлых штор.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
   {
     title: "Натуральные фактуры",
     subtitle: "Чистый премиум",
     text: "Лён, хлопок, спокойные оттенки. Ровный объём и тактильность — без перегруза.",
-    imageSrc: "/hero2.jpg",
+    imageSrc: "/hero2.webp",
   },
   {
     title: "Кассетные системы",
     subtitle: "Аккуратно на раме",
     text: "Когда важно, чтобы всё выглядело встроенным и максимально чистым по линии окна.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "Управление",
     subtitle: "Цепь / мотор",
     text: "Подберём механику под сценарий: удобно каждый день, тихий ход, стабильная посадка.",
-    imageSrc: "/catalog/rugs.jpg",
+    imageSrc: "/hero.webp",
   },
 ];
 
@@ -627,37 +701,37 @@ const RAILS_CATALOG = [
     title: "Однорядные",
     subtitle: "Минимализм",
     text: "Чистая линия и аккуратный вылет под вашу ткань. Хорошо смотрится в современных интерьерах.",
-    imageSrc: "/catalog/carnis.jpg",
+    imageSrc: "/catalog/4.karnizy/bagetnye-karnizy/1.webp",
   },
   {
     title: "Двухрядные",
     subtitle: "Тюль + портьера",
     text: "Правильная глубина и расстояние между рядами, чтобы слои не спорили и всё двигалось легко.",
-    imageSrc: "/catalog/curtains.jpg",
+    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
   },
   {
     title: "Потолочные",
     subtitle: "Визуальная высота",
     text: "Поднимают пропорции стены и помогают “вытянуть” окно. Подбираем крепёж под потолок.",
-    imageSrc: "/catalog/rails.jpg",
+    imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
   },
   {
     title: "С наконечниками",
     subtitle: "Акцент",
     text: "Металл, форма, пропорции — под стиль комнаты и вашу фурнитуру. Дают эффект “дорого”.",
-    imageSrc: "/catalog/decor.jpg",
+    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
   },
   {
     title: "Эркеры и углы",
     subtitle: "Сложная геометрия",
     text: "Собираем линию без “ломаного” вида: повороты, соединители, крепёж — всё заранее просчитываем.",
-    imageSrc: "/catalog/rugs.jpg",
+    imageSrc: "/hero.webp",
   },
   {
     title: "Комбо-комплект",
     subtitle: "Сразу под ткань",
     text: "Подбираем карниз, ленту/крючки и ткань вместе, чтобы посадка и линия совпали.",
-    imageSrc: "/catalog/bed.jpg",
+    imageSrc: "/2foto_dark.webp",
   },
 ];
 
@@ -667,7 +741,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Шторы, которые гармонично сочетаются с интерьером как визуально, так и функционально",
     heroSubtitle:
       "Подберём ткань под комнату и окна, рассчитаем посадку, сошьём и установим. Аккуратно, без лишних слоёв и случайных решений.",
-    heroImage: "/hero2.jpg",
+    heroImage: "/main_page.webp",
     bullets: [
       { title: "Свет", text: "Плотность и подкладка — чтобы было комфортно днём и вечером." },
       { title: "Высота", text: "Правильная длина и складка дают ощущение “дорого”." },
@@ -675,22 +749,22 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     ],
     cases: [
       {
-        title: "Спальня / blackout",
-        goal: "Сон без бликов и света с улицы.",
-        result: "Тишина, затемнение и визуально лёгкая стена — без тяжёлых штор.",
-        imageSrc: "/catalog/bed.jpg",
-      },
-      {
         title: "Гостиная / панорамные окна",
         goal: "Сохранить воздух и сделать красиво в кадре.",
         result: "Мягкий свет, ровная геометрия, интерьер смотрится собранно.",
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/primery/gostinaya-panoramnye-okna.webp",
       },
       {
         title: "Кухня-гостиная",
         goal: "Чтобы не пачкалось и легко управлялось.",
         result: "Практичная ткань + понятная механика — без лишней “декорации”.",
-        imageSrc: "/catalog/roman.jpg",
+        imageSrc: "/primery/kuhnya-gostinaya-.webp",
+      },
+      {
+        title: "Спальня",
+        goal: "Сон без бликов и света с улицы.",
+        result: "Тишина, затемнение и визуально лёгкая стена — без тяжёлых штор.",
+        imageSrc: "/primery/spalnya-.webp",
       },
     ],
     faq: [
@@ -717,7 +791,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Свет под контролем — без тяжёлых штор",
     heroSubtitle:
       "Подберём жалюзи под сценарий комнаты: блики, приватность, перегрев. Тихий ход, чистый монтаж, точная геометрия.",
-    heroImage: "/catalog/blinds.jpg",
+    heroImage: "/catalog/2.zhalyuzi/derevyannye/SVM05621.webp",
     bullets: [
       {
         title: "Снять блики",
@@ -737,19 +811,19 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         title: "Кухня / южная сторона",
         goal: "Убрать перегрев и блики на столешнице — без ощущения темноты.",
         result: "Глаза не устают, комната выглядит спокойнее и дороже.",
-        imageSrc: "/catalog/roman.jpg",
+        imageSrc: "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp",
       },
       {
         title: "Кабинет / рабочее место",
         goal: "Сделать свет комфортным для монитора и встреч.",
         result: "Стабильный свет, аккуратные линии, ощущение порядка.",
-        imageSrc: "/catalog/blinds.jpg",
+        imageSrc: "/catalog/2.zhalyuzi/rimskie/3072x2304_0xac120003_10276485311610530759.webp",
       },
       {
         title: "Первый этаж",
         goal: "Приватность вечером, но без плотных штор.",
         result: "Комфорт и безопасность — визуально минималистично.",
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/catalog/2.zhalyuzi/rimskie/IMG_20251121_172456_846.webp",
       },
     ],
     faq: [
@@ -776,7 +850,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Римские шторы — аккуратная геометрия без перегруза",
     heroSubtitle:
       "Идеальны для кухни, кабинета и минималистичных интерьеров. Подберём ткань, уровень прозрачности и посадку на окно.",
-    heroImage: "/catalog/roman.jpg",
+    heroImage: "/catalog/roman.webp",
     bullets: [
       { title: "Чисто", text: "Собирают окно в аккуратный объём — без “слоёв ради слоёв”." },
       { title: "Практично", text: "Удобно на кухне: ткань проще обслуживать, ничего не мешает." },
@@ -787,19 +861,19 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         title: "Кухня",
         goal: "Снять блики и оставить дневной свет.",
         result: "Комфортно готовить, интерьер смотрится дороже и спокойнее.",
-        imageSrc: "/catalog/roman.jpg",
+        imageSrc: "/catalog/3.rimskie/na-elektroprivode/foto-na-ikonku-.webp",
       },
       {
         title: "Кабинет",
         goal: "Стабильный свет для монитора.",
         result: "Нет бликов — работать проще, вид окна остаётся чистым.",
-        imageSrc: "/catalog/blinds.jpg",
+        imageSrc: "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp",
       },
       {
         title: "Детская",
         goal: "Уют и мягкое затемнение.",
-        result: "Теплее по ощущению, чем жалюзи, и проще в управлении.",
-        imageSrc: "/catalog/bed.jpg",
+        result: "Тёплее по ощущению, чем жалюзи, и проще в управлении.",
+        imageSrc: "/2foto_dark.webp",
       },
     ],
     faq: [
@@ -826,7 +900,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Декоративный карниз — тот самый “акцент”, который собирает окно",
     heroSubtitle:
       "Подберём карниз и наконечники под стиль комнаты: от спокойной классики до современного минимализма. С монтажом и чистой геометрией.",
-    heroImage: "/catalog/carnis.jpg",
+    heroImage: "/catalog/carnis.webp",
     bullets: [
       { title: "Линия", text: "Карниз задаёт архитектуру окна и делает композицию цельной." },
       { title: "Детали", text: "Наконечники и крепёж — мелочи, которые дают “дорого”." },
@@ -837,19 +911,19 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         title: "Гостиная",
         goal: "Сделать окно главным элементом стены.",
         result: "Карниз подчёркивает высоту и собирает интерьер.",
-        imageSrc: "/catalog/rails.jpg",
+        imageSrc: "/catalog/4.karnizy/bagetnye-karnizy/1.webp",
       },
       {
         title: "Спальня",
         goal: "Спокойная геометрия без лишнего декора.",
         result: "Чистая линия, “дорого” без заметности.",
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/2foto_dark.webp",
       },
       {
         title: "Классика / неоклассика",
         goal: "Поддержать стиль и фурнитуру.",
         result: "Наконечники и крепёж попадают в тон и материал.",
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/catalog/5.-dekor-furnitura/50007.webp",
       },
     ],
     faq: [
@@ -876,7 +950,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Декор и фурнитура - финальный штрих, который показывает премиум",
     heroSubtitle:
       "Декор и фурнитура создают ощущение целостности и завершенности, а порой и сами становятся главными героями в интерьере.",
-    heroImage: "/catalog/decor.jpg",
+    heroImage: "/glavnaya_dizayneram.webp",
     bullets: [
       { title: "Цельность", text: "Фурнитура связывает ткань, карниз и мебель в один тон." },
       { title: "Тактильность", text: "Фактура и материал ощущаются “дорого” даже без слов." },
@@ -884,22 +958,16 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     ],
     cases: [
       {
-        title: "Гостиная",
-        goal: "Нужен аккуратный акцент на шторах.",
-        result: "Подхваты и лента добавляют объём и стиль, не утяжеляя.",
-        imageSrc: "/catalog/decor.jpg",
-      },
-      {
-        title: "Спальня",
+        title: "Кисточки",
         goal: "Сделать мягче и спокойнее.",
         result: "Тёплые фактуры и тактильные детали “успокаивают” интерьер.",
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/catalog/5.-dekor-furnitura/80003.png",
       },
       {
-        title: "Комбинация с карнизом",
+        title: "Наконечники",
         goal: "Чтобы всё выглядело как комплект.",
         result: "Подбираем металл/цвета — чтобы попадало “в тон”.",
-        imageSrc: "/catalog/rails.jpg",
+        imageSrc: "/catalog/4.karnizy/latunnye-karnizy/kristallo/3-.webp",
       },
     ],
     faq: [
@@ -926,7 +994,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Ковер — самый быстрый способ сделать комнату тише, теплее и дороже",
     heroSubtitle:
       "Подберём размер, фактуру и цвет под мебель и свет. Чтобы ковер не спорил с интерьером, а собирал его.",
-    heroImage: "/catalog/rugs.jpg",
+    heroImage: "/image1.webp",
     bullets: [
       { title: "Тепло", text: "По ощущениям и по акустике: меньше эха, больше уюта." },
       { title: "Масштаб", text: "Правильный размер делает пространство пропорциональным." },
@@ -937,19 +1005,19 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         title: "Гостиная",
         goal: "Собрать зону дивана.",
         result: "Комната выглядит цельной, визуально “дороже”.",
-        imageSrc: "/catalog/rugs.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_53FB6520-08C9-8BB8-2CD4-6316E6624070_.webp",
       },
       {
         title: "Спальня",
         goal: "Тепло под ногами утром.",
         result: "Комфорт каждый день + мягкая акустика.",
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_9C7954D1-CAA3-9A8A-5959-DF339E4CAEA5_.webp",
       },
       {
         title: "Детская",
         goal: "Практично и безопасно.",
         result: "Фактура приятная, уход понятный.",
-        imageSrc: "/catalog/pillows.jpg",
+        imageSrc: "/vendor/koenigroom/kovry/large/_D49124E5-525A-1054-FB45-58D61F79DFCE_.webp",
       },
     ],
     faq: [
@@ -976,7 +1044,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Постельное бельё, которое дарит нежность и комфорт каждый день",
     heroSubtitle:
       "Подберём состав, плотность и цвет под спальню. Комфорт, тактильность и спокойный премиум без логотипов.",
-    heroImage: "/2foto_dark.jpg",
+    heroImage: "/catalog/7.postelnoe-bele/SVM05681.webp",
     bullets: [
       { title: "Тактильность", text: "Материал, который хочется трогать — и который “дышит”." },
       { title: "Цвет", text: "Спокойные оттенки, которые поддерживают интерьер." },
@@ -987,19 +1055,19 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         title: "Спальня",
         goal: "Комфорт без компромиссов.",
         result: "Сон спокойнее, ощущение “дорого” каждый день.",
-        imageSrc: "/catalog/bedding/var6.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/SVM05681.webp",
       },
       {
         title: "Гостевая",
         goal: "Чтобы гостям было приятно.",
         result: "Впечатление как в хорошем отеле.",
-        imageSrc: "/catalog/покрывала и подушки/var3.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/144a5631-.webp",
       },
       {
         title: "Комплект под интерьер",
         goal: "Попасть в цвет и фактуру комнаты.",
         result: "Спальня выглядит собранно и спокойно.",
-        imageSrc: "/catalog/bedding/var12_1.jpg",
+        imageSrc: "/catalog/7.postelnoe-bele/dsc08092-.webp",
       },
     ],
     faq: [
@@ -1022,7 +1090,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Подушки и покрывала — быстрый апгрейд интерьера без ремонта",
     heroSubtitle:
       "Соберём фактуры и цвета под диван, шторы и ковёр. Чтобы выглядело как комплект, а не набор случайных покупок.",
-    heroImage: "/catalog/pillows.jpg",
+    heroImage: "/ikonki-katalog/podushki-.webp",
     bullets: [
       { title: "Цвет", text: "Связываем палитру комнаты: 2–3 оттенка вместо хаоса." },
       { title: "Фактура", text: "Добавляем глубину: букле, лен, велюр — по стилю интерьера." },
@@ -1033,19 +1101,19 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         title: "Диван",
         goal: "Сделать зону живой и “дорогой”.",
         result: "Интерьер выглядит продуманно, как в шоуруме.",
-        imageSrc: "/catalog/pillows.jpg",
+        imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A0592.webp",
       },
       {
         title: "Спальня",
         goal: "Дать ощущение отеля.",
         result: "Покрывало + подушки собирают кровать как композицию.",
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A4918.webp",
       },
       {
         title: "В связке с шторами",
         goal: "Чтобы текстиль “разговаривал” друг с другом.",
         result: "Один стиль, одна палитра — без перегруза.",
-        imageSrc: "/catalog/curtains.jpg",
+        imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_dop_-maxiimov.webp",
       },
     ],
     faq: [
@@ -1127,6 +1195,9 @@ function getCopy(slug: string, fallbackTitle: string, fallbackImage: string): Pa
 
 export default async function CategoryPage({ params }: Params) {
   const { slug } = await params;
+  if (slug === "roman") {
+    redirect("/catalog/curtains?t=римские");
+  }
   const category = CATALOG_CATEGORIES.find((c) => c.slug === slug);
   if (!category) notFound();
 
@@ -1160,13 +1231,13 @@ export default async function CategoryPage({ params }: Params) {
   const decorVariantCards = decorItems.length
     ? decorItems.map((item) => ({
         title: item.title || "Вариант",
-        imageSrc: item.image || "/catalog/decor.jpg",
-        images: item.images || [],
+        imageSrc: normalizeImageUrl(item.image) || "/catalog/5.-dekor-furnitura/50007.webp",
+        images: item.images?.map(normalizeImageUrl).filter((s) => s.length > 0) || [],
         description: item.description || "",
       }))
     : Array.from({ length: 24 }).map((_, idx) => ({
         title: `Вариант ${idx + 1}`,
-        imageSrc: "/catalog/decor.jpg",
+        imageSrc: "/catalog/5.-dekor-furnitura/50007.webp",
         images: [] as string[],
         description: "",
       }));
@@ -1181,32 +1252,32 @@ export default async function CategoryPage({ params }: Params) {
 
   const beddingVariantCards = beddingItems.length
     ? beddingItems.map((item) => ({
-        imageSrc: item.image || "/catalog/bed.jpg",
-        images: item.images || [],
+        imageSrc: normalizeImageUrl(item.image) || "/2foto_dark.webp",
+        images: item.images?.map(normalizeImageUrl).filter((s) => s.length > 0) || [],
         description: item.description || "",
       }))
     : Array.from({ length: 6 }).map(() => ({
-        imageSrc: "/catalog/bed.jpg",
+        imageSrc: "/2foto_dark.webp",
         images: [],
         description: "",
       }));
 
   const bedspreadsAndPillowsVariantCards = bedspreadsAndPillowsItems.length
     ? bedspreadsAndPillowsItems.map((item) => ({
-        imageSrc: item.image || "/catalog/pillows.jpg",
-        images: item.images || [],
+        imageSrc: normalizeImageUrl(item.image) || "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_dop_-maxiimov.webp",
+        images: item.images?.map(normalizeImageUrl).filter((s) => s.length > 0) || [],
         description: item.description || "",
       }))
     : [];
 
   const pillowsVariantCards = (koenigImages.length
     ? koenigImages
-    : Array.from({ length: 24 }).map(() => "/catalog/pillows.jpg")
+    : Array.from({ length: 24 }).map(() => "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_dop_-maxiimov.webp")
   )
     .slice(0, 72)
     .map((src, idx) => ({
       title: `Вариант ${idx + 1}`,
-      imageSrc: src || "/catalog/pillows.jpg",
+      imageSrc: src || "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_dop_-maxiimov.webp",
     }));
 
   const railsCatalogCards = RAILS_CATALOG;
@@ -1220,7 +1291,11 @@ export default async function CategoryPage({ params }: Params) {
             .find({ source: "koenigcarpet.ru", kind: "rug" }, { projection: { _id: 0 } })
             .limit(180)
             .toArray();
-          return docs ?? [];
+          // Fix image URLs: replace .webp with .jpg
+          return (docs ?? []).map((d) => ({
+            ...d,
+            image: d.image?.replace(/\.webp$/i, ".jpg") || d.image,
+          }));
         } catch {
           return [];
         }
@@ -1233,11 +1308,17 @@ export default async function CategoryPage({ params }: Params) {
 
   const heroImageFromDb = pickHeroImageFromDb(slug, koenigImages, railsSubcatDocs, copy.heroImage);
   const publicHeroCover = await pickPublicCatalogCover(slug);
-  const heroImage = publicHeroCover || heroImageFromDb;
+  // Prioritize explicitly set heroImage from COPY, fallback to auto-selected
+  const heroImage = copy.heroImage || publicHeroCover || heroImageFromDb;
+
+  const examplesImages = isCurtains
+    ? ["/primery/spalnya-.webp", "/primery/gostinaya-panoramnye-okna.webp", "/primery/kuhnya-gostinaya-.webp"]
+    : koenigImages.map(dedupePathSegments);
+
   const derivedCopy: PageCopy = {
     ...copy,
     heroImage,
-    cases: isBedding ? copy.cases : injectCaseImages(copy.cases, koenigImages),
+    cases: isBedding ? copy.cases : injectCaseImages(copy.cases, examplesImages),
   };
 
   return (
@@ -1253,48 +1334,23 @@ export default async function CategoryPage({ params }: Params) {
                 alt={category.title}
                 fill
                 sizes="100vw"
+                quality={100}
                 className={
                   isBlinds
-                    ? "object-cover brightness-[0.98] contrast-[1.06] saturate-[1.02]"
-                    : "object-cover brightness-[0.58]"
+                    ? "object-cover object-center brightness-[0.98] contrast-[1.06] saturate-[1.02]"
+                    : "object-cover object-center brightness-[0.95]"
                 }
                 priority
               />
             </div>
 
-            {isCurtains ? (
-              <>
-                <div className="absolute inset-0 hidden sm:block">
-                  <Image
-                    src="/left_hero.png"
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    className="object-contain object-left opacity-80 brightness-[0.78] contrast-[1.05] saturate-[0.95]"
-                    priority
-                  />
-                </div>
-                <div className="absolute inset-0 hidden sm:block">
-                  <Image
-                    src="/right_hero.png"
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    className="object-contain object-right opacity-80 brightness-[0.78] contrast-[1.05] saturate-[0.95]"
-                    priority
-                  />
-                </div>
-              </>
-            ) : null}
             <div
               className={
                 isBlinds
-                  ? "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.92),rgba(255,255,255,0.22))] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.78),rgba(0,0,0,0.16))]"
-                  : "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.78),rgba(0,0,0,0.14))]"
+                  ? "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.88),rgba(255,255,255,0.18))] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.72),rgba(0,0,0,0.12))]"
+                  : "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.72),rgba(0,0,0,0.08))]"
               }
             />
-
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.16),transparent_52%),radial-gradient(circle_at_72%_64%,rgba(255,255,255,0.12),transparent_55%)]" />
           </div>
 
           <Container>
@@ -1305,8 +1361,8 @@ export default async function CategoryPage({ params }: Params) {
                     href="/#catalog"
                     className={
                       isBlinds
-                        ? "inline-flex h-10 items-center justify-center rounded-full border border-black/12 bg-white/70 px-4 text-xs font-semibold tracking-wide text-black/70 shadow-sm backdrop-blur transition hover:bg-white/85 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10 dark:border-white/20 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white dark:focus-visible:ring-white/30"
-                        : "inline-flex h-10 items-center justify-center rounded-full border border-white/25 bg-white/0 px-4 text-xs font-semibold tracking-wide text-white/80 shadow-sm backdrop-blur transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                        ? "inline-flex h-10 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 text-xs font-medium tracking-wide text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
+                        : "inline-flex h-10 items-center justify-center border border-white/25 bg-transparent px-4 text-xs font-medium tracking-wide text-white/80 transition hover:bg-white/10 hover:text-white"
                     }
                   >
                     <span aria-hidden="true">←</span>
@@ -1317,8 +1373,8 @@ export default async function CategoryPage({ params }: Params) {
                 <div
                   className={
                     isBlinds
-                      ? "text-xs font-semibold tracking-[0.34em] text-black/55 dark:text-white/70"
-                      : "text-xs font-semibold tracking-[0.34em] text-white/70"
+                      ? "text-xs font-medium tracking-[0.34em] text-black/55 dark:text-white/70"
+                      : "text-xs font-medium tracking-[0.34em] text-white/70"
                   }
                 >
                   {derivedCopy.kicker}
@@ -1326,8 +1382,8 @@ export default async function CategoryPage({ params }: Params) {
                 <h1
                   className={
                     isBlinds
-                      ? "mt-4 text-balance text-4xl font-semibold tracking-tight text-black dark:text-white sm:text-6xl"
-                      : "mt-4 text-balance text-4xl font-semibold tracking-tight text-white sm:text-6xl"
+                      ? "mt-4 text-balance text-4xl font-medium tracking-tight text-black dark:text-white sm:text-6xl"
+                      : "mt-4 text-balance text-4xl font-medium tracking-tight text-white sm:text-6xl"
                   }
                 >
                   {derivedCopy.heroTitle}
@@ -1344,20 +1400,20 @@ export default async function CategoryPage({ params }: Params) {
 
                 {isBlinds ? (
                   <div className="mt-7 grid max-w-2xl grid-cols-1 gap-2 sm:grid-cols-3">
-                    <div className="rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-black shadow-sm backdrop-blur dark:border-white/15 dark:bg-white/5 dark:text-white">
-                      <div className="text-sm font-semibold">от 3 900 ₽</div>
+                    <div className="border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 py-3 text-black dark:text-white">
+                      <div className="text-sm font-medium">от 3 900 ₽</div>
                       <div className="mt-0.5 text-xs text-black/55 dark:text-white/65">
                         за окно (ориентир)
                       </div>
                     </div>
-                    <div className="rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-black shadow-sm backdrop-blur dark:border-white/15 dark:bg-white/5 dark:text-white">
-                      <div className="text-sm font-semibold">срок от 3 дней</div>
+                    <div className="border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 py-3 text-black dark:text-white">
+                      <div className="text-sm font-medium">срок от 3 дней</div>
                       <div className="mt-0.5 text-xs text-black/55 dark:text-white/65">
                         по наличию / ткани
                       </div>
                     </div>
-                    <div className="rounded-2xl border border-black/10 bg-white/70 px-4 py-3 text-black shadow-sm backdrop-blur dark:border-white/15 dark:bg-white/5 dark:text-white">
-                      <div className="text-sm font-semibold">монтаж — 1 визит</div>
+                    <div className="border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-4 py-3 text-black dark:text-white">
+                      <div className="text-sm font-medium">монтаж — 1 визит</div>
                       <div className="mt-0.5 text-xs text-black/55 dark:text-white/65">
                         чисто и аккуратно
                       </div>
@@ -1366,81 +1422,29 @@ export default async function CategoryPage({ params }: Params) {
                 ) : null}
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                  >
-                    Написать в Telegram
-                  </a>
+                  <ContactButton className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-5 text-sm font-medium text-white transition hover:opacity-90">
+                    Связаться
+                  </ContactButton>
                   <a
                     href="#cases"
                     className={
                       isBlinds
-                        ? "inline-flex h-12 items-center justify-center rounded-2xl border border-black/12 bg-white/70 px-5 text-sm font-semibold text-black shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/10 dark:border-white/25 dark:bg-white/0 dark:text-white dark:hover:bg-white/10 dark:focus-visible:ring-white/30"
-                        : "inline-flex h-12 items-center justify-center rounded-2xl border border-white/25 bg-white/0 px-5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                        ? "inline-flex h-12 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-5 text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
+                        : "inline-flex h-12 items-center justify-center border border-white/25 bg-transparent px-5 text-sm font-medium text-white transition hover:bg-white/10"
                     }
                   >
                     {isBlinds ? "Смотреть примеры" : "Смотреть примеры"}
                   </a>
                 </div>
-
-                {isBlinds ? (
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    <a
-                      href="#highlights"
-                      className="inline-flex h-9 items-center justify-center rounded-full border border-black/10 bg-white/70 px-4 text-xs font-semibold tracking-wide text-black/70 shadow-sm backdrop-blur transition hover:bg-white/80 dark:border-white/20 dark:bg-white/5 dark:text-white/85 dark:hover:bg-white/10"
-                    >
-                      Сценарии
-                    </a>
-                    <a
-                      href="#cases"
-                      className="inline-flex h-9 items-center justify-center rounded-full border border-black/10 bg-white/70 px-4 text-xs font-semibold tracking-wide text-black/70 shadow-sm backdrop-blur transition hover:bg-white/80 dark:border-white/20 dark:bg-white/5 dark:text-white/85 dark:hover:bg-white/10"
-                    >
-                      Примеры
-                    </a>
-                    <a
-                      href="#faq"
-                      className="inline-flex h-9 items-center justify-center rounded-full border border-black/10 bg-white/70 px-4 text-xs font-semibold tracking-wide text-black/70 shadow-sm backdrop-blur transition hover:bg-white/80 dark:border-white/20 dark:bg-white/5 dark:text-white/85 dark:hover:bg-white/10"
-                    >
-                      FAQ
-                    </a>
-                  </div>
-                ) : null}
               </div>
             </div>
           </Container>
         </section>
 
-        {isRails ? (
-          <section aria-label="Преимущества" className="bg-[color:var(--bg)]">
-            <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-              <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                {[...RAILS_VALUES, ...RAILS_VALUES].map((v, i) => (
-                  <div key={`${v}-${i}`} className="flex items-center gap-12">
-                    <span className="whitespace-nowrap uppercase">{v}</span>
-                    <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
+        {isRails ? null : null}
 
         {isPillows ? (
           <section id="pillows-catalog" className="py-14 sm:py-18">
-            <div className="bg-[color:var(--bg)]">
-              <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-                <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                  {[...PILLOWS_VALUES, ...PILLOWS_VALUES].map((v, i) => (
-                    <div key={`${v}-${i}`} className="flex items-center gap-12">
-                      <span className="whitespace-nowrap uppercase">{v}</span>
-                      <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             <Container>
               <div className="mt-12 grid gap-6 text-center">
                 <div>
@@ -1451,23 +1455,15 @@ export default async function CategoryPage({ params }: Params) {
                 </div>
 
                 <div className="flex justify-center">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
+                  <ContactButton className="inline-flex h-12 items-center justify-center border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     Собрать под мой интерьер
-                  </a>
+                  </ContactButton>
                 </div>
               </div>
 
-              <div className="mx-auto mt-6 max-w-4xl text-center text-lg leading-8 text-[color:var(--muted)] sm:text-xl">
-                <p>
-                  Мастера "Koenig Room" изготовят для вас покрывала и  желаемое количество декоративных  подушек — мебельных, диванных, любых форм и размеров.
-                </p>
-                <p className="mt-5">
-                  У нас работают настоящие профессионалы своего дела, которые могут изготовить вариант от простого до эксклюзивного.
-                </p>
-              </div>
+              <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+                Покрывала и декоративные подушки любых форм и размеров — от простых до эксклюзивных вариантов.
+              </p>
 
               <BeddingCatalog
                 cards={bedspreadsAndPillowsVariantCards}
@@ -1486,59 +1482,64 @@ export default async function CategoryPage({ params }: Params) {
 
         {isRugs ? (
           <section id="rugs-all" className="py-14 sm:py-18">
-            <Container>
-              {/* Partner block about koenigcarpet.ru */}
-              <div className="mb-12 rounded-3xl border border-black/10 bg-gradient-to-br from-white/70 to-white/40 p-6 shadow-lg backdrop-blur dark:border-white/10 dark:from-black/30 dark:to-black/20 sm:p-8 lg:p-10">
-                <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-                  <div className="lg:col-span-8">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent)]/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-[color:var(--accent)]">
-                      НАШ САЙТ
+            {/* Partner block about koenigcarpet.ru - full width */}
+            <div className="bg-[color:var(--card)]">
+              <Container>
+                <div className="py-12 lg:py-16">
+                  <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+                    <div className="lg:col-span-8">
+                      <div className="inline-flex items-center gap-2 bg-[color:var(--accent)]/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-[color:var(--accent)]">
+                        НАШ САЙТ
+                      </div>
+                      <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
+                        Koenig Carpet — ковры премиум-класса
+                      </h2>
+                      <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+                        Наш специализированный сайт для покупки качественных ковров. Koenig Room — основной зал со всей продукцией, а здесь — исключительно ковры.
+                      </p>
+                      <div className="mt-6 flex flex-wrap gap-4 text-sm">
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-8 w-8 items-center justify-center bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
+                          <span className="text-[color:var(--fg)]">Доставка по Калининграду</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-8 w-8 items-center justify-center bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
+                          <span className="text-[color:var(--fg)]">Подбор по фото интерьера</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-8 w-8 items-center justify-center bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
+                          <span className="text-[color:var(--fg)]">Гарантия качества</span>
+                        </div>
+                      </div>
                     </div>
-                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
-                      Koenig Carpet — ковры премиум-класса
-                    </h2>
-                    <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
-                      Наш специализированный сайт для покупки качественных ковров. Koenig Room — основной зал со всей продукцией, а здесь — исключительно ковры.
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-4 text-sm">
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
-                        <span className="text-[color:var(--fg)]">Доставка по Калининграду</span>
+                    <div className="lg:col-span-4 lg:flex lg:justify-end">
+                      <div className="flex flex-col gap-3">
+                        <a
+                          href="https://koenigcarpet.ru"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex h-14 items-center justify-center bg-[color:var(--accent)] px-6 text-base font-semibold text-[color:var(--accent-contrast)] transition hover:opacity-95"
+                        >
+                          Перейти в каталог →
+                        </a>
+                        <a
+                          href="https://koenigcarpet.ru/ru/all-rugs"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex h-12 items-center justify-center border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                        >
+                          Все ковры на сайте
+                        </a>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
-                        <span className="text-[color:var(--fg)]">Подбор по фото интерьера</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[color:var(--accent)]/10 text-[color:var(--accent)]">✓</span>
-                        <span className="text-[color:var(--fg)]">Гарантия качества</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="lg:col-span-4 lg:flex lg:justify-end">
-                    <div className="flex flex-col gap-3">
-                      <a
-                        href="https://koenigcarpet.ru"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex h-14 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-6 text-base font-semibold text-[color:var(--accent-contrast)] shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition hover:opacity-95"
-                      >
-                        Перейти в каталог →
-                      </a>
-                      <a
-                        href="https://koenigcarpet.ru/ru/all-rugs"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                      >
-                        Все ковры на сайте
-                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Container>
+            </div>
 
-              <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+            <div className="mt-12">
+              <Container>
+                <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
                 <div className="lg:col-span-8">
                   <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ВСЕ КОВРЫ</div>
                   <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
@@ -1554,7 +1555,7 @@ export default async function CategoryPage({ params }: Params) {
                       href="https://koenigcarpet.ru"
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
+                      className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
                     >
                       Еще больше наших ковров
                     </a>
@@ -1567,7 +1568,7 @@ export default async function CategoryPage({ params }: Params) {
                   items={carpetItems.map((d) => ({
                     title: d.title,
                     priceText: d.priceText,
-                    image: d.image,
+                    image: d.image?.startsWith("http") ? d.image : `https://koenigcarpet.ru${d.image}`,
                     url: d.url,
                     style: d.style,
                     collection: d.collection,
@@ -1576,24 +1577,12 @@ export default async function CategoryPage({ params }: Params) {
                 />
               </div>
             </Container>
+            </div>
           </section>
         ) : null}
 
         {isBedding ? (
           <section id="bedding-catalog" className="py-14 sm:py-18">
-            <div className="bg-[color:var(--bg)]">
-              <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-                <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                  {[...BEDDING_VALUES, ...BEDDING_VALUES].map((v, i) => (
-                    <div key={`${v}-${i}`} className="flex items-center gap-12">
-                      <span className="whitespace-nowrap uppercase">{v}</span>
-                      <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             <Container>
               <div className="mt-12 grid gap-6 text-center">
                 <div>
@@ -1604,12 +1593,9 @@ export default async function CategoryPage({ params }: Params) {
                 </div>
 
                 <div className="flex justify-center">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
+                  <ContactButton className="inline-flex h-12 items-center justify-center border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     Подобрать по ощущениям
-                  </a>
+                  </ContactButton>
                 </div>
               </div>
 
@@ -1622,130 +1608,21 @@ export default async function CategoryPage({ params }: Params) {
                   category: "Постельное бельё",
                   title: "Постельное бельё",
                 }}
-                intro={`Постельное белье - значительно улучшает качество сна, что очень важно для полноценной активной жизни.
- Но если кровать нестандартной формы или большого размера, то на нее сложно найти подходящую простыню и пододеяльник. А стандартный комплект может не устраивать по качеству пошива или материала. Что же тогда делать ?
-Индивидуальный пошив постельного белья у нас  дает возможность получить пододеяльник, простынь и наволочки нужного качества по индивидуальным размерам! 
- Для пошива мы используем  только натуральные и смесовые ткани!`}
+                intro="Индивидуальный пошив постельного белья по вашим размерам. Используем только натуральные и смесовые ткани."
               />
             </Container>
           </section>
         ) : null}
 
-        {isRugs ? (
-          <section id="rugs-catalog" className="py-14 sm:py-18">
-            <div className="bg-[color:var(--bg)]">
-              <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-                <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                  {[...RUGS_VALUES, ...RUGS_VALUES].map((v, i) => (
-                    <div key={`${v}-${i}`} className="flex items-center gap-12">
-                      <span className="whitespace-nowrap uppercase">{v}</span>
-                      <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <Container>
-              <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-end">
-                <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">КАТАЛОГ КОВРОВ</div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Варианты под задачу
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Подбираем размер, фактуру и цвет под мебель и свет — чтобы ковёр собирал интерьер и был удобен в жизни.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    Подобрать по фото
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {rugsCatalog.map((it) => (
-                  <a key={it.title} href="#cta" className="block" aria-label={it.title}>
-                    <div className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={it.imageSrc}
-                          alt={it.title}
-                          fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
-                        />
-                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{it.title}</div>
-                            <div className="mt-1 text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">
-                              {it.subtitle}
-                            </div>
-                          </div>
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
-                            <span
-                              aria-hidden="true"
-                              className="text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
-                            >
-                              →
-                            </span>
-                          </div>
-                        </div>
-                        <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">{it.text}</div>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </Container>
-          </section>
-        ) : null}
-
-        {isRoman ? (
-          <section aria-label="Преимущества" className="bg-[color:var(--bg)]">
-            <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-              <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                {[...ROMAN_VALUES, ...ROMAN_VALUES].map((v, i) => (
-                  <div key={`${v}-${i}`} className="flex items-center gap-12">
-                    <span className="whitespace-nowrap uppercase">{v}</span>
-                    <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
+        {isRoman ? null : null}
 
         {isBlinds ? (
           <section id="blinds-catalog" className="py-14 sm:py-18">
             <Container>
-              <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-                <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    КАТАЛОГ ЖАЛЮЗИ
-                  </div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Выберите тип
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Быстро сориентируем по ощущениям, свету и приватности. Дальше — примеры и варианты в каждой категории.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    Подобрать по фото
-                  </a>
-                </div>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Каталог жалюзи
+                </span>
               </div>
 
               <div className="mt-10">
@@ -1755,48 +1632,17 @@ export default async function CategoryPage({ params }: Params) {
           </section>
         ) : null}
 
-        {isBlinds ? <BlindsCarousel images={koenigImages} /> : null}
-
         {isBlinds ? <BlindsShowcase images={koenigImages} /> : null}
 
         {isRails ? <RailsShowcase images={koenigImages} /> : null}
 
         {isDecor ? (
           <section id="decor-catalog" className="py-14 sm:py-18">
-            <div className="bg-[color:var(--bg)]">
-              <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-                <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                  {[...DECOR_VALUES, ...DECOR_VALUES].map((v, i) => (
-                    <div key={`${v}-${i}`} className="flex items-center gap-12">
-                      <span className="whitespace-nowrap uppercase">{v}</span>
-                      <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             <Container>
-              <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-end">
-                <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    КАТАЛОГ ДЕТАЛЕЙ
-                  </div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Финальный штрих
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Не добавляем “ещё немного декора”. Подбираем один сильный акцент и собираем всё в цельный комплект.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    Собрать комплект
-                  </a>
-                </div>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Декор и фурнитура
+                </span>
               </div>
 
               <RailsVariantsCatalog
@@ -1816,62 +1662,31 @@ export default async function CategoryPage({ params }: Params) {
         {isRoman ? (
           <section id="roman-catalog" className="py-14 sm:py-18">
             <Container>
-              <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-end">
-                <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    КАТАЛОГ РИМСКИХ
-                  </div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Варианты по задаче
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Подбираем ткань и механику под сценарий света. Всё должно быть чисто по линии окна и удобно каждый день.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    Подобрать под мой интерьер
-                  </a>
-                </div>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Римские шторы
+                </span>
               </div>
 
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {romanCatalog.map((it) => (
                   <a key={it.title} href="#cta" className="block" aria-label={it.title}>
-                    <div className="group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+                    <div className="group h-full overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition duration-300 hover:bg-[color:var(--bg)]">
                       <div className="relative aspect-[4/3] overflow-hidden">
                         <Image
                           src={it.imageSrc}
                           alt={it.title}
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                          className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                          loading="eager"
                         />
-                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
+                        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)]" />
                       </div>
-                      <div className="p-6">
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">
-                              {it.title}
-                            </div>
-                            <div className="mt-1 text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">
-                              {it.subtitle}
-                            </div>
-                          </div>
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
-                            <span
-                              aria-hidden="true"
-                              className="text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
-                            >
-                              →
-                            </span>
-                          </div>
-                        </div>
-                        <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">{it.text}</div>
+                      <div className="p-5">
+                        <div className="text-lg font-medium text-[color:var(--fg)]">{it.title}</div>
+                        <div className="mt-1 text-xs text-[color:var(--muted)]">{it.subtitle}</div>
+                        <div className="mt-2 text-sm text-[color:var(--muted)]">{it.text}</div>
                       </div>
                     </div>
                   </a>
@@ -1883,40 +1698,11 @@ export default async function CategoryPage({ params }: Params) {
 
         {isCurtains ? (
           <section id="curtains-catalog" className="py-14 sm:py-18">
-            <div className="bg-[color:var(--bg)]">
-              <div className="kr-ticker bg-black/[0.015] py-4 dark:bg-white/[0.02]">
-                <div className="kr-ticker-track gap-12 px-4 text-sm font-semibold tracking-[0.22em] text-[color:var(--fg)]/65 sm:px-6 sm:text-base lg:px-8">
-                  {[...CURTAINS_VALUES, ...CURTAINS_VALUES].map((v, i) => (
-                    <div key={`${v}-${i}`} className="flex items-center gap-12">
-                      <span className="whitespace-nowrap uppercase">{v}</span>
-                      <span className="h-[7px] w-[7px] rotate-45 bg-black/15 dark:bg-white/20" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             <Container>
-              <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-end">
-                <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    КАТАЛОГ ШТОР
-                  </div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Примерный ассортимент
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Не “список тканей”, а варианты по задаче. Подскажем, что даст нужный эффект именно в вашей комнате.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    Составить комплект
-                  </a>
-                </div>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Каталог штор
+                </span>
               </div>
 
               <div className="mt-10">
@@ -1929,26 +1715,10 @@ export default async function CategoryPage({ params }: Params) {
         {isRails ? (
           <section id="rails-catalog" className="py-14 sm:py-18">
             <Container>
-              <div className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-end">
-                <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    КАТАЛОГ
-                  </div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Виды карнизов
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Выберите вид и производителя — откроются карточки с фото и описанием.
-                  </p>
-                </div>
-                <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    Подобрать комплект
-                  </a>
-                </div>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Карнизы
+                </span>
               </div>
 
               <div className="mt-10">
@@ -1961,185 +1731,172 @@ export default async function CategoryPage({ params }: Params) {
         {isCurtains ? (
           <section
             id="why"
-            className="relative w-full overflow-hidden bg-[color:var(--bg)] py-18 text-[color:var(--fg)] sm:py-24"
+            className="w-full bg-[color:var(--bg)] py-16 text-[color:var(--fg)] sm:py-20"
           >
-            <div
-              aria-hidden="true"
-              className="kr-curtains-float-a pointer-events-none absolute left-10 top-20 h-64 w-64 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]"
-            />
-            <div
-              aria-hidden="true"
-              className="kr-curtains-float-b pointer-events-none absolute bottom-20 right-10 h-80 w-80 rounded-full bg-black/[0.025] blur-3xl dark:bg-white/[0.035]"
-            />
-            <div
-              aria-hidden="true"
-              className="kr-curtains-float-c pointer-events-none absolute left-1/4 top-1/2 h-3 w-3 rounded-full bg-black/15 dark:bg-white/20"
-            />
-            <div
-              aria-hidden="true"
-              className="kr-curtains-float-c pointer-events-none absolute bottom-1/3 right-1/4 h-5 w-5 rounded-full bg-black/10 dark:bg-white/15"
-            />
-
             <Container>
-              <div className="relative z-10">
-                <div className="flex flex-col items-center">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ЗАЧЕМ</div>
-                  <h2 className="mt-4 text-center text-4xl font-light tracking-tight sm:text-5xl">
-                    “Дорого” в шторах — это посадка и свет
-                  </h2>
-                  <div className="mt-5 h-1 w-24 bg-[color:var(--accent)]" />
-                  <p className="mt-8 max-w-2xl text-center text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Мы собираем комплект под интерьер: как падает свет, какая нужна приватность, где добавить фактуру —
-                    и как сделать линию штор идеально ровной.
-                  </p>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Почему важно
+                </span>
+                <span className="block text-2xl font-medium tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  качество посадки
+                </span>
+              </div>
+
+              <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+                <div className="lg:col-span-6">
+                  <div className="grid gap-6">
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">01</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Свет и приватность
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Подбираем прозрачность и слойность, чтобы днём было светло, а вечером — комфортно.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">02</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Высота и пропорции
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Рассчитываем длину, ширину и складку — чтобы шторы «держали» стену и выглядели собранно.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">03</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Фактура и цвет
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Ткань должна читаться в вашем свете. Подбираем так, чтобы интерьер становился теплее и глубже.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">04</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Пошив и монтаж
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Важно не только выбрать ткань, но и сделать финальный вид: ровная линия, чистые узлы, аккуратная установка.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <div className="lg:col-span-6">
+                  <div className="relative aspect-[4/3] overflow-hidden border border-[color:var(--gray-lines)]">
+                    <Image
+                      src="/posadka-1-.webp"
+                      alt="Шторы в интерьере"
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover"
+                      loading="eager"
+                    />
+                  </div>
+                </div>
+              </div>
+            </Container>
+          </section>
+        ) : isBlinds ? (
+          <section
+            id="why"
+            className="w-full bg-[color:var(--bg)] py-16 text-[color:var(--fg)] sm:py-20"
+          >
+            <Container>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Почему важно
+                </span>
+                <span className="block text-2xl font-medium tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  качество жалюзи
+                </span>
+              </div>
 
-                <div className="mt-14 grid items-stretch gap-8 md:grid-cols-3">
-                  <div className="space-y-12">
-                    <div className="group">
-                      <div className="flex items-center gap-3">
-                        <div className="relative rounded-xl bg-[#88734C]/10 p-3 text-[#88734C] transition-colors duration-300 group-hover:bg-[#88734C]/20">
-                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M12 2v2" />
-                            <path d="M12 20v2" />
-                            <path d="M4.93 4.93l1.41 1.41" />
-                            <path d="M17.66 17.66l1.41 1.41" />
-                            <path d="M2 12h2" />
-                            <path d="M20 12h2" />
-                            <path d="M4.93 19.07l1.41-1.41" />
-                            <path d="M17.66 6.34l1.41-1.41" />
-                            <circle cx="12" cy="12" r="4" />
-                          </svg>
-                          <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#A9BBC8]" />
+              <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+                <div className="lg:col-span-6">
+                  <div className="grid gap-6">
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">01</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Контроль света
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Точная настройка угла наклона ламелей — комфорт для кухни, кабинета и ТВ без бликов.
+                          </p>
                         </div>
-                        <h3 className="text-xl font-medium transition-colors duration-300 group-hover:text-[#88734C]">
-                          Свет и приватность
-                        </h3>
-                      </div>
-                      <p className="mt-3 pl-12 text-sm leading-relaxed text-[#202e44]/80">
-                        Подбираем прозрачность и слойность, чтобы днём было светло, а вечером — комфортно.
-                      </p>
-                      <div className="mt-3 pl-12 text-xs font-medium text-[#88734C] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        Смотреть примеры →
                       </div>
                     </div>
-
-                    <div className="group">
-                      <div className="flex items-center gap-3">
-                        <div className="relative rounded-xl bg-[#88734C]/10 p-3 text-[#88734C] transition-colors duration-300 group-hover:bg-[#88734C]/20">
-                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M3 21h6" />
-                            <path d="M7 21V3" />
-                            <path d="M21 21h-6" />
-                            <path d="M17 21V6" />
-                            <path d="M7 7h10" />
-                            <path d="M7 12h10" />
-                            <path d="M7 17h10" />
-                          </svg>
-                          <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#A9BBC8]" />
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">02</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Приватность
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Закрыто от взглядов вечером — при этом днём сохраняется свет и ощущение воздуха.
+                          </p>
                         </div>
-                        <h3 className="text-xl font-medium transition-colors duration-300 group-hover:text-[#88734C]">
-                          Высота и пропорции
-                        </h3>
                       </div>
-                      <p className="mt-3 pl-12 text-sm leading-relaxed text-[#202e44]/80">
-                        Рассчитываем длину, ширину и складку — чтобы шторы «держали» стену и выглядели собранно.
-                      </p>
-                      <div className="mt-3 pl-12 text-xs font-medium text-[#88734C] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        Составить комплект →
+                    </div>
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">03</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Аккуратный монтаж
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Ровные линии, чистые крепления и точные размеры — премиум-ощущение без офисного вида.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pb-6">
+                      <div className="flex items-start gap-4">
+                        <span className="text-2xl font-light text-[color:var(--muted)]">04</span>
+                        <div>
+                          <h3 className="text-lg font-medium text-[color:var(--fg)]">
+                            Быстрый старт
+                          </h3>
+                          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                            Напишите: комната + цель (блики/приватность/blackout) и 1–2 фото окна. Мы предложим 2–3 варианта.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                  <div className="order-first flex items-center justify-center md:order-none">
-                    <div className="relative w-full max-w-xs">
-                      <div className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[transform,box-shadow] duration-500 [transform-style:preserve-3d] hover:-translate-y-1 hover:[transform:perspective(900px)_rotateX(2deg)_rotateY(-3deg)] hover:shadow-[0_24px_70px_rgba(0,0,0,0.20)] dark:border-white/10 dark:bg-white/5 dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.55)]">
-                        <Image
-                          src="/catalog/rails.jpg"
-                          alt="Шторы в интерьере"
-                          width={640}
-                          height={760}
-                          className="h-auto w-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent dark:from-black/65" />
-                        <div className="absolute inset-x-0 bottom-0 p-4">
-                          <a
-                            href="#curtains-catalog"
-                            className="inline-flex w-full items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-medium text-black shadow-sm transition group-hover:shadow-md dark:bg-white/90"
-                          >
-                            Каталог штор <span aria-hidden="true" className="ml-2">→</span>
-                          </a>
-                        </div>
-                      </div>
-
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 -m-3 -z-10 rounded-2xl border-2 border-black/10 transition-[transform,opacity] duration-500 [transform:translate3d(0,0,0)] group-hover:[transform:translate3d(2px,-2px,0)] dark:border-white/10"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="kr-curtains-float-c pointer-events-none absolute -right-8 -top-4 h-16 w-16 rounded-full bg-black/[0.03] dark:bg-white/[0.04]"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="kr-curtains-float-c pointer-events-none absolute -bottom-6 -left-10 h-20 w-20 rounded-full bg-black/[0.035] dark:bg-white/[0.05]"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="kr-curtains-float-c pointer-events-none absolute -top-8 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-black/20 dark:bg-white/25"
-                      />
-                      <div
-                        aria-hidden="true"
-                        className="kr-curtains-float-c pointer-events-none absolute -bottom-10 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-black/15 dark:bg-white/20"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-12">
-                    <div className="group">
-                      <div className="flex items-center gap-3">
-                        <div className="relative rounded-xl bg-[#88734C]/10 p-3 text-[#88734C] transition-colors duration-300 group-hover:bg-[#88734C]/20">
-                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" />
-                          </svg>
-                          <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#A9BBC8]" />
-                        </div>
-                        <h3 className="text-xl font-medium transition-colors duration-300 group-hover:text-[#88734C]">
-                          Фактура и цвет
-                        </h3>
-                      </div>
-                      <p className="mt-3 pl-12 text-sm leading-relaxed text-[#202e44]/80">
-                        Ткань должна читаться в вашем свете. Подбираем так, чтобы интерьер становился теплее и глубже.
-                      </p>
-                      <div className="mt-3 pl-12 text-xs font-medium text-[#88734C] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        Подобрать ткань →
-                      </div>
-                    </div>
-
-                    <div className="group">
-                      <div className="flex items-center gap-3">
-                        <div className="relative rounded-xl bg-[#88734C]/10 p-3 text-[#88734C] transition-colors duration-300 group-hover:bg-[#88734C]/20">
-                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M20 7h-9" />
-                            <path d="M14 17H5" />
-                            <path d="M20 17h-2" />
-                            <path d="M7 7H5" />
-                            <path d="M10 7l-4 10" />
-                            <path d="M18 7l-4 10" />
-                          </svg>
-                          <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#A9BBC8]" />
-                        </div>
-                        <h3 className="text-xl font-medium transition-colors duration-300 group-hover:text-[#88734C]">
-                          Пошив и монтаж
-                        </h3>
-                      </div>
-                      <p className="mt-3 pl-12 text-sm leading-relaxed text-[#202e44]/80">
-                        Важно не только выбрать ткань, но и сделать финальный вид: ровная линия, чистые узлы, аккуратная установка.
-                      </p>
-                      <div className="mt-3 pl-12 text-xs font-medium text-[#88734C] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        Рассчитать в Telegram →
-                      </div>
-                    </div>
+                </div>
+                <div className="lg:col-span-6">
+                  <div className="relative aspect-[4/3] overflow-hidden border border-[color:var(--gray-lines)]">
+                    <Image
+                      src="/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp"
+                      alt="Жалюзи в интерьере"
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover"
+                      loading="eager"
+                    />
                   </div>
                 </div>
               </div>
@@ -2166,12 +1923,9 @@ export default async function CategoryPage({ params }: Params) {
                     </p>
                   </div>
                   <div className="lg:col-span-5 lg:flex lg:justify-end">
-                    <a
-                      href={CONTACTS.telegramHref}
-                      className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                    >
+                    <ContactButton className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]">
                       Подобрать карниз
-                    </a>
+                    </ContactButton>
                   </div>
                 </div>
 
@@ -2193,18 +1947,19 @@ export default async function CategoryPage({ params }: Params) {
                     <a href="#rails-catalog" className="block" aria-label="Каталог карнизов">
                       <div className="group relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.16)] dark:border-white/10 dark:bg-white/5 dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.55)]">
                         <Image
-                          src="/catalog/carnis.jpg"
+                          src="/catalog/4.karnizy/bagetnye-karnizy/1.webp"
                           alt="Карнизы"
                           fill
                           sizes="(min-width: 1024px) 33vw, 100vw"
                           className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.06] group-hover:saturate-[1.10]"
+                          loading="eager"
                         />
                         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.18),rgba(0,0,0,0.30),rgba(0,0,0,0.72))] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.22),rgba(0,0,0,0.36),rgba(0,0,0,0.78))]" />
 
                         <div className="relative z-10 flex h-full flex-col justify-end p-7">
                           <div className="text-xs font-semibold tracking-[0.28em] text-white/75">БЫСТРО</div>
                           <div className="mt-2 text-2xl font-semibold tracking-tight text-white">
-                            Посмотреть варианты
+                            {isBlinds ? "Rimskie shtory na zakaz" : "Posmotret' varianty"}
                           </div>
                           <div className="mt-3 text-sm leading-6 text-white/80">
                             Однорядные, двухрядные, потолочные, эркеры — сразу видно, что подходит под задачу.
@@ -2248,12 +2003,9 @@ export default async function CategoryPage({ params }: Params) {
                       <div className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
                         Пришлите 2 фото: окно и общий вид стены. Мы предложим 2–3 карниза и объясним разницу.
                       </div>
-                      <a
-                        href={CONTACTS.telegramHref}
-                        className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                      >
-                        Написать в Telegram
-                      </a>
+                      <ContactButton className="mt-5 inline-flex h-12 w-full items-center justify-center bg-[color:var(--green)] px-5 text-sm font-medium text-white transition hover:opacity-90">
+                        Связаться
+                      </ContactButton>
                     </div>
                   </div>
                 </div>
@@ -2308,11 +2060,12 @@ export default async function CategoryPage({ params }: Params) {
                     <a href="#cta" className="block" aria-label="Быстрый расчёт">
                       <div className="group relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.16)] dark:border-white/10 dark:bg-white/5 dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.55)]">
                         <Image
-                          src="/catalog/roman.jpg"
+                          src="/catalog/3.rimskie/na-elektroprivode/foto-na-ikonku-.webp"
                           alt="Римские шторы"
                           fill
                           sizes="(min-width: 1024px) 33vw, 100vw"
                           className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.06] group-hover:saturate-[1.10]"
+                          loading="eager"
                         />
                         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.18),rgba(0,0,0,0.30),rgba(0,0,0,0.72))] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.22),rgba(0,0,0,0.36),rgba(0,0,0,0.78))]" />
 
@@ -2361,12 +2114,9 @@ export default async function CategoryPage({ params }: Params) {
                       <div className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
                         Напишите: комната + цель (блики/приватность/blackout) — мы ответим конкретно и без лишнего.
                       </div>
-                      <a
-                        href={CONTACTS.telegramHref}
-                        className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                      >
-                        Написать в Telegram
-                      </a>
+                      <ContactButton className="mt-5 inline-flex h-12 w-full items-center justify-center bg-[color:var(--green)] px-5 text-sm font-medium text-white transition hover:opacity-90">
+                        Связаться
+                      </ContactButton>
                     </div>
                   </div>
                 </div>
@@ -2374,115 +2124,59 @@ export default async function CategoryPage({ params }: Params) {
             </Container>
           </section>
         ) : isDecor ? (
-          <section id="why" className="relative overflow-hidden bg-[color:var(--bg)] py-18 sm:py-24">
-            <div className="absolute inset-0">
-              <div className="absolute inset-0 bg-[radial-gradient(#00000014_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff1a_1px,transparent_1px)] [background-size:18px_18px]" />
-              <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
-              <div className="absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.04]" />
-            </div>
-
+          <section id="why" className="bg-[color:var(--bg)] py-16 sm:py-20">
             <Container>
-              <div className="relative z-10">
-                <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-                  <div className="lg:col-span-8">
-                    <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ЗАЧЕМ</div>
-                    <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                      Ощущение дорогого интерьера создаётся не ценой материалов, а вниманием к деталям
-                    </h2>
-                    <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                      Кисти, подхваты и тесьма могут придать пространству утончённый вид, подчеркнуть продуманность проекта.
-                    </p>
-                  </div>
-                  <div className="lg:col-span-4 lg:flex lg:justify-end">
-                    <a
-                      href="#decor-catalog"
-                      className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                    >
-                      Смотреть примеры
-                    </a>
-                  </div>
-                </div>
+              <div className="mb-8">
+                <span className="inline-block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Декор
+                </span>
+                <span className="ml-2 inline-block font-['Rozovii_Chulok',cursive] text-xl tracking-normal text-[color:var(--green)] sm:ml-4 sm:text-3xl lg:text-4xl" style={{ transform: 'rotate(-6deg)' }}>
+                  и фурнитура
+                </span>
+              </div>
 
-                <div className="mt-12 grid gap-6 lg:grid-cols-12">
-                  <div className="lg:col-span-4">
-                    <div className="group h-full rounded-3xl border border-black/10 bg-white/60 p-7 shadow-sm backdrop-blur transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:bg-white/70 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-                      <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">01</div>
-                      <div className="mt-3 text-xl font-semibold tracking-tight text-[color:var(--fg)]">Цельность</div>
-                      <div className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-                        Связываем ткань, карниз и мебель: один металл, один тон, одна логика.
-                      </div>
-                      <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
-                        В тон интерьеру →
-                      </div>
-                    </div>
+              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <article className="group relative bg-[color:var(--bg)] p-6 transition hover:bg-[color:var(--sand)]">
+                  <div className="flex items-start justify-between border-b border-[color:var(--gray-lines)] pb-4">
+                    <div className="text-xl font-medium text-[color:var(--fg)]">01</div>
                   </div>
+                  <h3 className="mt-4 text-lg font-medium text-[color:var(--fg)]">
+                    Цельность
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                    Связываем ткань, карниз и мебель: один металл, один тон, одна логика.
+                  </p>
+                </article>
 
-                  <div className="order-first lg:order-none lg:col-span-4">
-                    <a href="#cta" className="block" aria-label="Собрать комплект">
-                      <div className="group relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.16)] dark:border-white/10 dark:bg-white/5 dark:hover:shadow-[0_24px_70px_rgba(0,0,0,0.55)]">
-                        <Image
-                          src="/catalog/decor.jpg"
-                          alt="Декор и фурнитура"
-                          fill
-                          sizes="(min-width: 1024px) 33vw, 100vw"
-                          className="object-cover transition-[transform,filter] duration-500 group-hover:scale-[1.06] group-hover:saturate-[1.10]"
-                        />
-                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.18),rgba(0,0,0,0.30),rgba(0,0,0,0.72))] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.22),rgba(0,0,0,0.36),rgba(0,0,0,0.78))]" />
-
-                        <div className="relative z-10 flex h-full flex-col justify-end p-7">
-                          <div className="text-xs font-semibold tracking-[0.28em] text-white/75">АКЦЕНТ</div>
-                          <div className="mt-2 text-2xl font-semibold tracking-tight text-white">Собрать комплект</div>
-                          <div className="mt-3 text-sm leading-6 text-white/80">
-                            2 фото (ткань + окно/стена) — предложим 2–3 детали и объясним, почему именно они.
-                          </div>
-                          <div className="mt-5 inline-flex h-11 items-center justify-center rounded-2xl bg-white px-5 text-sm font-semibold text-black shadow-sm transition group-hover:shadow-md">
-                            Написать <span aria-hidden="true" className="ml-2">→</span>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+                <article className="group relative bg-[color:var(--bg)] p-6 transition hover:bg-[color:var(--sand)]">
+                  <div className="flex items-start justify-between border-b border-[color:var(--gray-lines)] pb-4">
+                    <div className="text-xl font-medium text-[color:var(--fg)]">02</div>
                   </div>
+                  <h3 className="mt-4 text-lg font-medium text-[color:var(--fg)]">
+                    Один сильный штрих
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                    Вместо множества мелких — одна точная деталь: подхват или кисть, правильная по масштабу.
+                  </p>
+                </article>
 
-                  <div className="lg:col-span-4">
-                    <div className="group h-full rounded-3xl border border-black/10 bg-white/60 p-7 shadow-sm backdrop-blur transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:bg-white/70 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-                      <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">02</div>
-                      <div className="mt-3 text-xl font-semibold tracking-tight text-[color:var(--fg)]">Один сильный штрих</div>
-                      <div className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-                        Вместо множества мелких — одна точная деталь: подхват или кисть, правильная по масштабу.
-                      </div>
-                      <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
-                        Без перегруза →
-                      </div>
-                    </div>
+                <article className="group relative bg-[color:var(--bg)] p-6 transition hover:bg-[color:var(--sand)]">
+                  <div className="flex items-start justify-between border-b border-[color:var(--gray-lines)] pb-4">
+                    <div className="text-xl font-medium text-[color:var(--fg)]">03</div>
                   </div>
-                </div>
+                  <h3 className="mt-4 text-lg font-medium text-[color:var(--fg)]">
+                    Металл и тон
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                    Выбираем оттенок глядя на фурнитуру мебели и светильники.
+                  </p>
+                </article>
+              </div>
 
-                <div className="mt-6 grid gap-6 lg:grid-cols-12">
-                  <div className="lg:col-span-6">
-                    <div className="rounded-3xl border border-black/10 bg-white/60 p-7 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-                      <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">03</div>
-                      <div className="mt-3 text-xl font-semibold tracking-tight text-[color:var(--fg)]">Металл и тон</div>
-                      <div className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-                        Выбираем оттенок глядя на фурнитуру мебели и светильники.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:col-span-6">
-                    <div className="rounded-3xl border border-black/10 bg-white/60 p-7 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-                      <div className="text-sm font-semibold text-[color:var(--fg)]">Спросить совет</div>
-                      <div className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-                        Напишите: стиль комнаты + фото ткани/карниза. Мы предложим 2–3 детали и объясним разницу.
-                      </div>
-                      <a
-                        href={CONTACTS.telegramHref}
-                        className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                      >
-                        Написать в Telegram
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              <div className="mt-10 text-center">
+                <ContactButton className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-8 text-xs font-normal uppercase tracking-[0.15em] text-white transition hover:bg-[color:var(--dark-gray)]">
+                  Получить консультацию
+                </ContactButton>
               </div>
             </Container>
           </section>
@@ -2538,79 +2232,34 @@ export default async function CategoryPage({ params }: Params) {
 
         <section id="cases" className="py-14 sm:py-18">
           <Container>
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-8">
-                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                  ПРИМЕРЫ
-                </div>
-                <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                  Реальные задачи — понятные решения
-                </h2>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                  Три сценария, чтобы быстро понять логику: цель → подбор → аккуратный финальный вид.
-                </p>
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
+                  Примеры
+                </span>
               </div>
-              <div className="lg:col-span-4 lg:flex lg:justify-end">
-                <a
-                  href={CONTACTS.telegramHref}
-                  className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                >
-                  Подобрать под мой интерьер
-                </a>
-              </div>
-            </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {derivedCopy.cases.map((c) => (
                 <a key={c.title} href="#cta" aria-label={c.title} className="block">
-                  <div
-                    className={
-                      isRails
-                        ? "group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                        : "group h-full overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                    }
-                  >
+                  <div className="group h-full overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition duration-300 hover:bg-[color:var(--bg)]">
                     <div className="relative aspect-square overflow-hidden">
-                      <Image
+                      <img
                         src={c.imageSrc}
                         alt={c.title}
-                        fill
-                        sizes="(min-width: 768px) 33vw, 100vw"
-                        className={
-                          isRails
-                            ? "object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.06] group-hover:saturate-[1.08]"
-                            : "object-cover transition-transform duration-300 ease-in-out group-hover:scale-[1.04]"
-                        }
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                        loading="eager"
                       />
-                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.22),rgba(0,0,0,0.55))]" />
                     </div>
 
-                    <div className="p-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">
-                          {c.title}
-                        </div>
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
-                          <span
-                            aria-hidden="true"
-                            className={
-                              isRails
-                                ? "text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-rotate-45"
-                                : "text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
-                            }
-                          >
-                            →
-                          </span>
-                        </div>
+                    <div className="p-5">
+                      <div className="text-lg font-medium text-[color:var(--fg)]">
+                        {c.title}
                       </div>
-
-                      <div className="mt-4 grid gap-2 text-sm leading-6 text-[color:var(--muted)]">
-                        <div>
-                          <span className="font-semibold text-[color:var(--fg)]">Задача:</span> {c.goal}
-                        </div>
-                        <div>
-                          <span className="font-semibold text-[color:var(--fg)]">Итог:</span> {c.result}
-                        </div>
+                      <div className="mt-2 text-sm text-[color:var(--muted)]">
+                        <span className="font-medium text-[color:var(--fg)]">Задача:</span> {c.goal}
+                      </div>
+                      <div className="mt-1 text-sm text-[color:var(--muted)]">
+                        <span className="font-medium text-[color:var(--fg)]">Итог:</span> {c.result}
                       </div>
                     </div>
                   </div>
@@ -2620,79 +2269,65 @@ export default async function CategoryPage({ params }: Params) {
           </Container>
         </section>
 
-        <section id="faq" className="bg-black/[0.02] py-14 dark:bg-white/[0.03] sm:py-18">
+        <section id="faq" className="py-14 sm:py-18">
           <Container>
-            <div className="grid gap-6 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">FAQ</div>
-                <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
+              <div className="mb-8">
+                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
                   Частые вопросы
-                </h2>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                  Коротко и по делу — чтобы решить сомнения до покупки.
-                </p>
+                </span>
               </div>
 
-              <div className="lg:col-span-7">
-                <div className="grid gap-3">
-                  {copy.faq.map((it) => (
-                    <details
-                      key={it.q}
-                      className="group rounded-3xl border border-black/10 bg-white/60 p-6 shadow-sm backdrop-blur open:bg-white/75 dark:border-white/10 dark:bg-white/5"
-                    >
-                      <summary className="cursor-pointer list-none text-base font-semibold text-[color:var(--fg)] outline-none">
-                        <div className="flex items-start gap-3">
-                          <div className="flex-1">
-                            {it.q}
-                            <div className="mt-3 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-open:grid-rows-[1fr]">
-                              <div className="overflow-hidden">
-                                <div className="text-sm font-normal leading-6 text-[color:var(--muted)] opacity-0 transition-[opacity,transform] duration-300 ease-out -translate-y-1 group-open:opacity-100 group-open:translate-y-0">
-                                  {it.a}
-                                </div>
+              <div className="grid gap-3">
+                {copy.faq.map((it) => (
+                  <details
+                    key={it.q}
+                    className="group border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-5 open:bg-[color:var(--bg)]"
+                  >
+                    <summary className="cursor-pointer list-none text-base font-medium text-[color:var(--fg)] outline-none">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1">
+                          {it.q}
+                          <div className="mt-3 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-open:grid-rows-[1fr]">
+                            <div className="overflow-hidden">
+                              <div className="text-sm font-normal leading-6 text-[color:var(--muted)] opacity-0 transition-[opacity,transform] duration-300 ease-out -translate-y-1 group-open:opacity-100 group-open:translate-y-0">
+                                {it.a}
                               </div>
                             </div>
                           </div>
-                          <div className="ml-auto mt-0.5 text-[color:var(--muted)] transition-transform duration-300 ease-out group-open:rotate-45">
-                            +
-                          </div>
                         </div>
-                      </summary>
-                    </details>
-                  ))}
-                </div>
-
-                <div className="mt-6">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 w-full items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-                  >
-                    Задать вопрос в Telegram
-                  </a>
-                  {isRugs ? (
-                    <a
-                      href="https://koenigcarpet.ru/ru/vr"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-3 inline-flex h-12 w-full items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-5 text-sm font-semibold text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                    >
-                      Виртуальная примерка ковра
-                    </a>
-                  ) : null}
-                </div>
+                        <div className="ml-auto mt-0.5 text-[color:var(--muted)] transition-transform duration-300 ease-out group-open:rotate-45">
+                          +
+                        </div>
+                      </div>
+                    </summary>
+                  </details>
+                ))}
               </div>
-            </div>
+
+              <div className="mt-6">
+                <ContactButton className="inline-flex h-12 w-full items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-medium text-[color:var(--accent-contrast)] transition hover:opacity-90">
+                  Задать вопрос в Telegram
+                </ContactButton>
+                {isRugs ? (
+                  <a
+                    href="https://koenigcarpet.ru/ru/vr"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-flex h-12 w-full items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--card)] px-5 text-sm font-medium text-[color:var(--fg)] transition hover:bg-[color:var(--bg)]"
+                  >
+                    Виртуальная примерка ковра
+                  </a>
+                ) : null}
+              </div>
           </Container>
         </section>
 
         <section id="cta" className="py-14 sm:py-18">
           <Container>
-            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-              <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:items-center">
+            <div className="border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6 sm:p-10">
+              <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
                 <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                    БЫСТРЫЙ СТАРТ
-                  </div>
-                  <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-4xl">
+                  <h2 className="text-3xl font-medium tracking-tight text-[color:var(--fg)] sm:text-4xl">
                     Напишите 2 сообщения — и мы предложим 2–3 решения
                   </h2>
                   <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
@@ -2700,34 +2335,15 @@ export default async function CategoryPage({ params }: Params) {
                   </p>
                 </div>
                 <div className="lg:col-span-4 lg:flex lg:justify-end">
-                  <a
-                    href={CONTACTS.telegramHref}
-                    className="inline-flex h-12 w-full items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] lg:w-auto"
-                  >
-                    Написать в Telegram
-                  </a>
+                  <ContactButton className="inline-flex h-12 w-full items-center justify-center bg-[color:var(--green)] px-5 text-sm font-medium text-white transition hover:opacity-90 lg:w-auto">
+                    Связаться
+                  </ContactButton>
                 </div>
               </div>
             </div>
           </Container>
         </section>
       </main>
-
-      {isBlinds ? (
-        <div className="pointer-events-none fixed bottom-6 right-6 z-50 hidden lg:block">
-          <div className="pointer-events-auto rounded-3xl border border-black/10 bg-white/70 p-3 shadow-[0_18px_60px_rgba(0,0,0,0.18)] backdrop-blur dark:border-white/10 dark:bg-white/5">
-            <div className="px-2 pb-2 text-xs font-medium text-[color:var(--muted)]">
-              Подбор за 2 сообщения
-            </div>
-            <a
-              href={CONTACTS.telegramHref}
-              className="inline-flex h-12 items-center justify-center rounded-2xl bg-[color:var(--accent)] px-5 text-sm font-semibold text-[color:var(--accent-contrast)] shadow-sm transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)]"
-            >
-              Написать в Telegram
-            </a>
-          </div>
-        </div>
-      ) : null}
 
       <Footer />
       <MobileCtaBar />

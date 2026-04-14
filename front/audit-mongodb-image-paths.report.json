@@ -1,0 +1,13 @@
+{
+  "collections": 11,
+  "docs": 452,
+  "stringsScanned": 4612,
+  "imageStrings": 2220,
+  "nonWebpImageStrings": 0,
+  "localWebpStrings": 652,
+  "localWebpMissingFiles": 0,
+  "examples": {
+    "nonWebp": [],
+    "missingWebp": []
+  }
+}

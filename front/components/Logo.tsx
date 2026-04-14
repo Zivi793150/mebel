@@ -12,11 +12,12 @@ export function Logo() {
     >
       <span className="relative h-9 w-9 overflow-hidden rounded-xl border border-black/10 bg-white/70 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
         <Image
-          src="/logo.png"
+          src="/logo.webp"
           alt={BRAND.name}
           fill
           sizes="36px"
           className="object-contain p-1"
+          loading="eager"
           priority
         />
       </span>

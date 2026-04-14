@@ -35,61 +35,63 @@ function useOnClickOutside(ref: RefObject<HTMLElement | null>, handler: () => vo
 const portfolioItems = [
   {
     title: "Аппартаменты",
-    cover: enc("/for_designers/Аппартаменты/SVM04783-1.jpg"),
+    cover: enc("/for_designers/appartamenty/SVM04783-1.webp"),
     images: [
-      enc("/for_designers/Аппартаменты/SVM04783-1.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04800.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04809.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04819.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04848.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04860.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04877.jpg"),
-      enc("/for_designers/Аппартаменты/SVM04890.jpg"),
+      enc("/for_designers/appartamenty/SVM04783-1.webp"),
+      enc("/for_designers/appartamenty/SVM04800.webp"),
+      enc("/for_designers/appartamenty/SVM04809.webp"),
+      enc("/for_designers/appartamenty/SVM04819.webp"),
+      enc("/for_designers/appartamenty/SVM04848.webp"),
+      enc("/for_designers/appartamenty/SVM04860.webp"),
+      enc("/for_designers/appartamenty/SVM04877.webp"),
+      enc("/for_designers/appartamenty/SVM04890.webp"),
     ],
   },
   {
     title: "Литовский вал",
-    cover: enc("/for_designers/Литовский вал/RED_1170.jfif"),
+    cover: enc("/for_designers/litovskiy-val/RED_1170.webp"),
     images: [
-      enc("/for_designers/Литовский вал/RED_1170.jfif"),
-      enc("/for_designers/Литовский вал/RED_1190.jfif"),
-      enc("/for_designers/Литовский вал/RED_1198.jfif"),
-      enc("/for_designers/Литовский вал/RED_1202.jfif"),
-      enc("/for_designers/Литовский вал/RED_1220.jfif"),
-      enc("/for_designers/Литовский вал/RED_1231.jfif"),
-      enc("/for_designers/Литовский вал/RED_1238.jfif"),
-      enc("/for_designers/Литовский вал/RED_1246.jfif"),
-      enc("/for_designers/Литовский вал/RED_1280.jfif"),
-      enc("/for_designers/Литовский вал/RED_1291.jfif"),
+      enc("/for_designers/litovskiy-val/RED_1170.webp"),
+      enc("/for_designers/litovskiy-val/RED_1190.webp"),
+      enc("/for_designers/litovskiy-val/RED_1198.webp"),
+      enc("/for_designers/litovskiy-val/RED_1202.webp"),
+      enc("/for_designers/litovskiy-val/RED_1220.webp"),
+      enc("/for_designers/litovskiy-val/RED_1231.webp"),
+      enc("/for_designers/litovskiy-val/RED_1238.webp"),
+      enc("/for_designers/litovskiy-val/RED_1246.webp"),
+      enc("/for_designers/litovskiy-val/RED_1280.webp"),
+      enc("/for_designers/litovskiy-val/RED_1291.webp"),
+      enc("/for_designers/litovskiy-val/42ef1b33-15d3-4342-811a-88e0db258022.webp"),
     ],
   },
   {
     title: "Немецкий фонд",
-    cover: enc("/for_designers/Немецкий фонд/RED_0437_2_01.jpg"),
+    cover: enc("/for_designers/nemeckiy-fond/RED_0437_2_01.webp"),
     images: [
-      enc("/for_designers/Немецкий фонд/RED_0437_2_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0467_1_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0479_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0521_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0644_2.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0671_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0958_01.jpg"),
-      enc("/for_designers/Немецкий фонд/RED_0973_01.jpg"),
+      enc("/for_designers/nemeckiy-fond/RED_0437_2_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0467_1_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0479_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0521_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0644_2.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0671_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0958_01.webp"),
+      enc("/for_designers/nemeckiy-fond/RED_0973_01.webp"),
     ],
   },
   {
     title: "Тихая роскошь",
-    cover: enc("/for_designers/Тихая роскошь/730c9e63-1901-4cb9-857b-87778cc05ed3.jpg"),
+    cover: enc("/for_designers/tihaya-roskosh/002f9e6b-c6f5-4326-93d5-b3f80b0959da.webp"),
     images: [
-      enc("/for_designers/Тихая роскошь/2776e08a-d7b8-46bf-a631-9543e4d1245c.jfif"),
-      enc("/for_designers/Тихая роскошь/339f3802-8a1c-46da-b454-b27337dea6f5.jfif"),
-      enc("/for_designers/Тихая роскошь/42ef1b33-15d3-4342-811a-88e0db258022.jfif"),
-      enc("/for_designers/Тихая роскошь/730c9e63-1901-4cb9-857b-87778cc05ed3.jfif"),
-      enc("/for_designers/Тихая роскошь/730c9e63-1901-4cb9-857b-87778cc05ed3.jpg"),
-      enc("/for_designers/Тихая роскошь/735cbb9d-663b-461c-bc28-d90c691e0ab8.jfif"),
-      enc("/for_designers/Тихая роскошь/891c27ad-557b-4a95-ae45-26a329b6e1d2.jfif"),
-      enc("/for_designers/Тихая роскошь/e6d5b49c-e1b5-41a8-acb6-fc71337a29e8.jpg"),
-      enc("/for_designers/Тихая роскошь/fad65c85-32b2-4861-b41c-664bb564caf1.jfif"),
+      enc("/for_designers/tihaya-roskosh/002f9e6b-c6f5-4326-93d5-b3f80b0959da.webp"),
+      enc("/for_designers/tihaya-roskosh/730c9e63-1901-4cb9-857b-87778cc05ed3.webp"),
+      enc("/for_designers/tihaya-roskosh/2776e08a-d7b8-46bf-a631-9543e4d1245c.webp"),
+      enc("/for_designers/tihaya-roskosh/339f3802-8a1c-46da-b454-b27337dea6f5.webp"),
+      enc("/for_designers/tihaya-roskosh/42ef1b33-15d3-4342-811a-88e0db258022.webp"),
+      enc("/for_designers/tihaya-roskosh/29853c59-3648-4ab6-aff2-0bac3a204eca.webp"),
+      enc("/for_designers/tihaya-roskosh/735cbb9d-663b-461c-bc28-d90c691e0ab8.webp"),
+      enc("/for_designers/tihaya-roskosh/891c27ad-557b-4a95-ae45-26a329b6e1d2.webp"),
+      enc("/for_designers/tihaya-roskosh/e6d5b49c-e1b5-41a8-acb6-fc71337a29e8.webp"),
+      enc("/for_designers/tihaya-roskosh/fad65c85-32b2-4861-b41c-664bb564caf1.webp"),
     ],
   },
 ];
@@ -125,7 +127,7 @@ function ProjectModal({
     setThumbStart(0);
   }, [activeProjectIndex]);
 
-  const image = images[activeIdx] || images[0] || project?.cover || "/hero.jpg";
+  const image = images[activeIdx] || images[0] || project?.cover || "/hero.webp";
   const thumbsVisibleCount = 5;
   const canThumbUp = thumbStart > 0;
   const canThumbDown = thumbStart + thumbsVisibleCount < images.length;
@@ -413,7 +415,7 @@ export function DesignersPortfolio() {
               className="block text-left"
               aria-label={`Открыть проект: ${item.title}`}
             >
-              <div className="group overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+              <div className="group overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     alt={item.title}
@@ -424,11 +426,11 @@ export function DesignersPortfolio() {
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.18),rgba(0,0,0,0.60))]" />
 
-                  <div className="absolute left-4 top-4 rounded-2xl border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold tracking-[0.22em] text-[color:var(--fg)] shadow-sm backdrop-blur dark:border-white/10 dark:bg-black/35 dark:text-white">
+                  <div className="absolute left-4 top-4 border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold tracking-[0.22em] text-[color:var(--fg)] shadow-sm backdrop-blur dark:border-white/10 dark:bg-black/35 dark:text-white">
                     {item.images.length} ФОТО
                   </div>
 
-                  <div className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-black/10 bg-white/75 text-[color:var(--fg)] shadow-sm backdrop-blur transition group-hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:group-hover:bg-white/15">
+                  <div className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center border border-black/10 bg-white/75 text-[color:var(--fg)] shadow-sm backdrop-blur transition group-hover:bg-white/90 dark:border-white/10 dark:bg-white/10 dark:text-white dark:group-hover:bg-white/15">
                     →
                   </div>
                 </div>
@@ -451,7 +453,7 @@ export function DesignersPortfolio() {
         <div className="mt-12 text-center">
           <a
             href="#contact"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-[color:var(--divider)] bg-transparent px-6 text-sm font-semibold text-[color:var(--fg)] transition hover:bg-[color:var(--accent-soft)]"
+            className="inline-flex h-12 items-center justify-center gap-2 border border-[color:var(--divider)] bg-transparent px-6 text-sm font-semibold text-[color:var(--fg)] transition hover:bg-[color:var(--accent-soft)]"
           >
             Обсудить ваш проект
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
