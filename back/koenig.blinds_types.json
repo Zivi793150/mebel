@@ -1,132 +1,134 @@
-[{
-  "_id": {
-    "$oid": "69bd6473b5a191f2559e91ca"
+[
+  {
+    "_id": {
+      "$oid": "69bd6473b5a191f2559e91ca"
+    },
+    "source": "koenig_room",
+    "url": "https://centrshtor.ru/blinds/аллюминиевые",
+    "description": "Алюминиевые жалюзи - этот отличный выбор для офисных помещений, магазинов и медицинских учреждений.                        Алюминиевые ламели очень устойчивы к влаге, выгоранию и механическим повреждениям, что делает их долговечным и практичным решением.",
+    "image": "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp",
+    "kind": "blinds_type",
+    "title": "Алюминиевые жалюзи: Современный стиль и надежность для ваших окон",
+    "updatedAt": {},
+    "images": [
+      "/catalog/2.zhalyuzi/allyuminievye/1200x1600_0xac120003_17091580261619537733.webp",
+      "/catalog/2.zhalyuzi/allyuminievye/1880x1418_0xac120003_9882063531587754162.webp",
+      "/catalog/2.zhalyuzi/allyuminievye/195768be64477a8c084135c8bf12ef3b.webp",
+      "/catalog/2.zhalyuzi/allyuminievye/52b98885f6249ed95f4052f42efd9f9f.webp",
+      "/catalog/2.zhalyuzi/allyuminievye/6716349515.webp",
+      "/catalog/2.zhalyuzi/allyuminievye/856 .webp",
+      "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp"
+    ]
   },
-  "source": "koenig_room",
-  "url": "https://centrshtor.ru/blinds/аллюминиевые",
-  "description": "Алюминиевые жалюзи - этот отличный выбор для офисных помещений, магазинов и медицинских учреждений.                        Алюминиевые ламели очень устойчивы к влаге, выгоранию и механическим повреждениям, что делает их долговечным и практичным решением.",
-  "image": "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp",
-  "kind": "blinds_type",
-  "title": "Алюминиевые жалюзи: Современный стиль и надежность для ваших окон",
-  "updatedAt": {},
-  "images": [
-    "/catalog/2.zhalyuzi/allyuminievye/1200x1600_0xac120003_17091580261619537733.webp",
-    "/catalog/2.zhalyuzi/allyuminievye/1880x1418_0xac120003_9882063531587754162.webp",
-    "/catalog/2.zhalyuzi/allyuminievye/195768be64477a8c084135c8bf12ef3b.webp",
-    "/catalog/2.zhalyuzi/allyuminievye/52b98885f6249ed95f4052f42efd9f9f.webp",
-    "/catalog/2.zhalyuzi/allyuminievye/6716349515.webp",
-    "/catalog/2.zhalyuzi/allyuminievye/856 .webp",
-    "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp"
-  ]
-},
-{
-  "_id": {
-    "$oid": "69bd6473b5a191f2559e91cb"
+  {
+    "_id": {
+      "$oid": "69bd6473b5a191f2559e91cb"
+    },
+    "source": "koenig_room",
+    "url": "https://centrshtor.ru/blinds/деревянные",
+    "description": "Деревянные жалюзи представляют собой элегантный и экологичный способ  элегантного оформления  окон.                                                      Они изготавливаются из натурального дерева и имеют  большие преимущества перед пластиковыми или металлическими  аналогами.",
+    "image": "/catalog/2.zhalyuzi/derevyannye/zhalyuzi-glavnaya-.webp",
+    "kind": "blinds_type",
+    "title": "Деревянные жалюзи: тепло природы в вашем интерьере",
+    "updatedAt": {},
+    "images": [
+      "/catalog/2.zhalyuzi/derevyannye/-5413449657339738678_121.webp",
+      "/catalog/2.zhalyuzi/derevyannye/-5413449657339738690_121.webp",
+      "/catalog/2.zhalyuzi/derevyannye/RED-0008.webp",
+      "/catalog/2.zhalyuzi/derevyannye/SVM02672.webp",
+      "/catalog/2.zhalyuzi/derevyannye/SVM05621.webp",
+      "/catalog/2.zhalyuzi/derevyannye/SVM06688.webp",
+      "/catalog/2.zhalyuzi/derevyannye/SVMF4680.webp",
+      "/catalog/2.zhalyuzi/derevyannye/SVMF4711.webp",
+      "/catalog/2.zhalyuzi/derevyannye/photo_2025-10-07_15-24-50.webp",
+      "/catalog/2.zhalyuzi/derevyannye/photo_2025-10-07_15-26-09.webp",
+      "/catalog/2.zhalyuzi/derevyannye/photo_2025-10-15_09-25-44.webp",
+      "/catalog/2.zhalyuzi/derevyannye/photo_2025-11-12_17-17-45.webp",
+      "/catalog/2.zhalyuzi/derevyannye/zhalyuzi-derevyan-1.webp",
+      "/catalog/2.zhalyuzi/derevyannye/zhalyuzi-2-.webp",
+      "/catalog/2.zhalyuzi/derevyannye/zhalyuzi-glavnaya-.webp"
+    ]
   },
-  "source": "koenig_room",
-  "url": "https://centrshtor.ru/blinds/деревянные",
-  "description": "Деревянные жалюзи представляют собой элегантный и экологичный способ  элегантного оформления  окон.                                                      Они изготавливаются из натурального дерева и имеют  большие преимущества перед пластиковыми или металлическими  аналогами.",
-  "image": "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/zhalyuzi-glavnaya-.webp",
-  "kind": "blinds_type",
-  "title": "Деревянные жалюзи: тепло природы в вашем интерьере",
-  "updatedAt": {},
-  "images": [
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/-5413449657339738678_121.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/-5413449657339738690_121.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/RED-0008.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/SVM02672.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/SVM05621.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/SVM06688.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/SVMF4680.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/SVMF4711.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/photo_2025-10-07_15-24-50.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/photo_2025-10-07_15-26-09.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/photo_2025-10-15_09-25-44.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/photo_2025-11-12_17-17-45.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/zhalyuzi-derevyan-1.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/zhalyuzi-2-.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/derevyannye/zhalyuzi-glavnaya-.webp"
-  ]
-},
-{
-  "_id": {
-    "$oid": "69bd6473b5a191f2559e91cc"
+  {
+    "_id": {
+      "$oid": "69bd6473b5a191f2559e91cc"
+    },
+    "source": "koenig_room",
+    "url": "https://centrshtor.ru/blinds/плиссе",
+    "description": "Жалюзи плиссе - это особый вид жалюзи , представляющий собой тканевые ламели, сложенные гармошкой. Эти современные жалюзи подходят для окон нестандартной формы и размера, обеспечивая мягкую регулировку света и уютную атмосферу в помещении.",
+    "image": "/catalog/2.zhalyuzi/plisse/foto-na-ikonku-.webp",
+    "kind": "blinds_type",
+    "title": "Жалюзи плиссе под заказ: создадим уют и защиту от солнца",
+    "updatedAt": {},
+    "images": [
+      "/catalog/2.zhalyuzi/plisse/85cad7cba53e945f35b774a8ed8786fe.webp",
+      "/catalog/2.zhalyuzi/plisse/92d8c3ed911013ed9db4bc66a61410d1.webp",
+      "/catalog/2.zhalyuzi/plisse/ed2d47a591632884376f93c511cdc55c.webp",
+      "/catalog/2.zhalyuzi/plisse/f495eaae1e6caa58c246920181689096.webp",
+      "/catalog/2.zhalyuzi/plisse/fc8708c321407c1e827872df2378b416.webp",
+      "/catalog/2.zhalyuzi/plisse/i.webp",
+      "/catalog/2.zhalyuzi/plisse/photo_2026-03-02_16-21-13.webp",
+      "/catalog/2.zhalyuzi/plisse/photo_2026-03-02_16-27-23.webp",
+      "/catalog/2.zhalyuzi/plisse/photo_2026-03-02_16-27-37.webp",
+      "/catalog/2.zhalyuzi/plisse/photo_2026-03-02_16-28-01.webp",
+      "/catalog/2.zhalyuzi/plisse/foto-na-ikonku-.webp"
+    ]
   },
-  "source": "koenig_room",
-  "url": "https://centrshtor.ru/blinds/плиссе",
-  "description": "Жалюзи плиссе - это особый вид жалюзи , представляющий собой тканевые ламели, сложенные гармошкой. Эти современные жалюзи подходят для окон нестандартной формы и размера, обеспечивая мягкую регулировку света и уютную атмосферу в помещении.",
-  "image": "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/foto-na-ikonku-.webp",
-  "kind": "blinds_type",
-  "title": "Жалюзи плиссе под заказ: создадим уют и защиту от солнца",
-  "updatedAt": {},
-  "images": [
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/85cad7cba53e945f35b774a8ed8786fe.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/92d8c3ed911013ed9db4bc66a61410d1.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/ed2d47a591632884376f93c511cdc55c.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/f495eaae1e6caa58c246920181689096.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/fc8708c321407c1e827872df2378b416.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/i.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/photo_2026-03-02_16-21-13.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/photo_2026-03-02_16-27-23.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/photo_2026-03-02_16-27-37.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/photo_2026-03-02_16-28-01.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/plisse/foto-na-ikonku-.webp"
-  ]
-},
-{
-  "_id": {
-    "$oid": "69bd6473b5a191f2559e91cd"
+  {
+    "_id": {
+      "$oid": "69bd6473b5a191f2559e91cd"
+    },
+    "source": "koenig_room",
+    "url": "https://centrshtor.ru/blinds/римские",
+    "description": "Римские шторы – это элегантное и практичное решение для уютного и стильного интерьера. Они создают комфортную атмосферу, где каждая деталь подчёркивает тепло и семейные ценности. Благодаря удобному механизму регулировки света, римские шторы идеально подходят для любой комнаты. Они гармонично сочетаются с классическим и современным дизайном, дополняя интерьер изысканностью. Наша компания предлагает пошив римских штор под ключ, учитывая ваши пожелания и особенности интерьера.\n\n",
+    "image": "/https:/centrshtor.ru/upload/iblock/642/d9c0pgng1ivjvq243cfyqi56pxyccgwh.webp",
+    "kind": "blinds_type",
+    "title": "Римские шторы: стильное решение для вашего дома",
+    "updatedAt": {},
+    "images": [
+      "/catalog/2.zhalyuzi/rimskie/-5323558650422957065_121.webp",
+      "/catalog/2.zhalyuzi/rimskie/144A4962.webp",
+      "/catalog/2.zhalyuzi/rimskie/1880x2507_0xac120003_8435217681587753767.webp",
+      "/catalog/2.zhalyuzi/rimskie/2776e08a-d7b8-46bf-a631-9543e4d1245c.webp",
+      "/catalog/2.zhalyuzi/rimskie/3072x2304_0xac120003_10276485311610530759.webp",
+      "/catalog/1.shtory-i-tkani/1.8.-shtory-v-detskuyu/SVM02608.webp",
+      "/catalog/2.zhalyuzi/rimskie/photo_2025-12-04_18-47-24.webp",
+      "/catalog/2.zhalyuzi/rimskie/photo_2026-03-03_12-18-09.webp"
+    ]
   },
-  "source": "koenig_room",
-  "url": "https://centrshtor.ru/blinds/римские",
-  "description": "Римские шторы – это элегантное и практичное решение для уютного и стильного интерьера. Они создают комфортную атмосферу, где каждая деталь подчёркивает тепло и семейные ценности. Благодаря удобному механизму регулировки света, римские шторы идеально подходят для любой комнаты. Они гармонично сочетаются с классическим и современным дизайном, дополняя интерьер изысканностью. Наша компания предлагает пошив римских штор под ключ, учитывая ваши пожелания и особенности интерьера.\n\n",
-  "image": "https://centrshtor.ru/upload/iblock/642/d9c0pgng1ivjvq243cfyqi56pxyccgwh.webp",
-  "kind": "blinds_type",
-  "title": "Римские шторы: стильное решение для вашего дома",
-  "updatedAt": {},
-  "images": [
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/-5323558650422957065_121.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/144A4962.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/1880x2507_0xac120003_8435217681587753767.webp",
-    "/catalog/2.zhalyuzi/rimskie/2776e08a-d7b8-46bf-a631-9543e4d1245c.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/3072x2304_0xac120003_10276485311610530759.webp",
-    "/catalog/1.shtory-i-tkani/1.shtory-i-tkani/1.8.-shtory-v-detskuyu/SVM02608.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/photo_2025-12-04_18-47-24.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/photo_2026-03-03_12-18-09.webp"
-  ]
-},
-{
-  "_id": {
-    "$oid": "69bd6473b5a191f2559e91ce"
+  {
+    "_id": {
+      "$oid": "69bd6473b5a191f2559e91ce"
+    },
+    "source": "koenig_room",
+    "url": "https://centrshtor.ru/blinds/рулонные",
+    "description": "Рулонные шторы — это универсальное решение для любого интерьера. Они сочетают в себе лаконичный дизайн, функциональность и простоту в уходе. Идеально подходят для современных квартир, офисов и загородных домов, создавая уют и защищая от яркого света. Компактная конструкция позволяет сохранить эстетику окна без лишних деталей и громоздких карнизов.",
+    "image": "/https:/centrshtor.ru/upload/iblock/bb7/6z2otcfridsclikbd42mixq6omhgbt1x.webp",
+    "kind": "blinds_type",
+    "title": "Рулонные шторы: стиль, комфорт и практичность",
+    "updatedAt": {},
+    "images": [
+      "/catalog/1.shtory-i-tkani/1.8.-shtory-v-detskuyu/photo_2025-10-07_18-40-33.webp",
+      "/catalog/1.shtory-i-tkani/1.8.-shtory-v-detskuyu/photo_2025-10-15_09-26-52.webp",
+      "/catalog/2.zhalyuzi/rimskie/photo_2025-12-04_18-47-25.webp"
+    ]
   },
-  "source": "koenig_room",
-  "url": "https://centrshtor.ru/blinds/рулонные",
-  "description": "Рулонные шторы — это универсальное решение для любого интерьера. Они сочетают в себе лаконичный дизайн, функциональность и простоту в уходе. Идеально подходят для современных квартир, офисов и загородных домов, создавая уют и защищая от яркого света. Компактная конструкция позволяет сохранить эстетику окна без лишних деталей и громоздких карнизов.",
-  "image": "https://centrshtor.ru/upload/iblock/bb7/6z2otcfridsclikbd42mixq6omhgbt1x.webp",
-  "kind": "blinds_type",
-  "title": "Рулонные шторы: стиль, комфорт и практичность",
-  "updatedAt": {},
-  "images": [
-    "/catalog/1.shtory-i-tkani/1.shtory-i-tkani/1.8.-shtory-v-detskuyu/photo_2025-10-07_18-40-33.webp",
-    "/catalog/1.shtory-i-tkani/1.shtory-i-tkani/1.8.-shtory-v-detskuyu/photo_2025-10-15_09-26-52.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/rimskie/photo_2025-12-04_18-47-25.webp"
-  ]
-},
-{
-  "_id": {
-    "$oid": "69bd6473b5a191f2559e91cf"
-  },
-  "source": "koenig_room",
-  "url": "https://centrshtor.ru/blinds/текстильные",
-  "description": "Текстильные жалюзи - помогут внести стильный штрих в оформление интерьерах. Они изготавливаются из легкого материала,  и при этом  обладают хорошей огнестойкостью и водонепроницаемостью. Они не  выгорают на солнце и совершенно не задерживают пыль на совей поверхности.",
-  "image": "/catalog/2.zhalyuzi/2.zhalyuzi/tekstilnye/tekstilnye-.webp",
-  "kind": "blinds_type",
-  "title": "Текстильные жалюзи: Современный стиль и надежность для ваших окон",
-  "updatedAt": {},
-  "images": [
-    "/catalog/2.zhalyuzi/2.zhalyuzi/tekstilnye/2667x4000_0xwkeLzUN4_7321946293526497535.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/tekstilnye/29f79552cb4b37883380c411c7da82ef.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/tekstilnye/4d0779ddafc8364164de2d521e2079fd.webp",
-    "/catalog/2.zhalyuzi/2.zhalyuzi/tekstilnye/tekstilnye-.webp"
-  ]
-}]
+  {
+    "_id": {
+      "$oid": "69bd6473b5a191f2559e91cf"
+    },
+    "source": "koenig_room",
+    "url": "https://centrshtor.ru/blinds/текстильные",
+    "description": "Текстильные жалюзи - помогут внести стильный штрих в оформление интерьерах. Они изготавливаются из легкого материала,  и при этом  обладают хорошей огнестойкостью и водонепроницаемостью. Они не  выгорают на солнце и совершенно не задерживают пыль на совей поверхности.",
+    "image": "/catalog/2.zhalyuzi/tekstilnye/tekstilnye-.webp",
+    "kind": "blinds_type",
+    "title": "Текстильные жалюзи: Современный стиль и надежность для ваших окон",
+    "updatedAt": {},
+    "images": [
+      "/catalog/2.zhalyuzi/tekstilnye/2667x4000_0xwkeLzUN4_7321946293526497535.webp",
+      "/catalog/2.zhalyuzi/tekstilnye/29f79552cb4b37883380c411c7da82ef.webp",
+      "/catalog/2.zhalyuzi/tekstilnye/4d0779ddafc8364164de2d521e2079fd.webp",
+      "/catalog/2.zhalyuzi/tekstilnye/tekstilnye-.webp"
+    ]
+  }
+]

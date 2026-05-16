@@ -1,0 +1,191 @@
+[
+  {
+    "id": 1,
+    "name": "Раздвижной наклонный",
+    "main": "zpf541bl644etsvmvqu8x5101f1fwjqf.jpg",
+    "extra": [
+      "213jio6v9rhod7epkws6e9pcl4jnmf44.png",
+      "29z277rl2uzjdsxv2bylig2sp5p843wi.jpg",
+      "2dvwfkictbegf0gw28f2ymkmmnfa9jm1.jpg",
+      "vzklk0anhxy2a01qv0vn920fgrsmckvn.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Раздвижной прямой",
+    "main": "cj1yslfwwrw97eoz3mwlr9ooq322yzb3.jpg",
+    "extra": [
+      "2ln9rhvt412v21s683qgh4mfeylwkki1.jpg",
+      "2sosr8qbdmmaz4rr1fc49wgzngoej89i.jpg",
+      "3bvqcrdbmb6vw0i98bi1hevb7qve3evk.jpg",
+      "wuxcvmjegqnuu0cy0jml31op8ch0n2ep.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Раздвижной угловой",
+    "main": "d26trwzyg56pm5qsw5dwfqrjsl4ub9f0.jpg",
+    "extra": [
+      "3fux2q2aqz8mq5y5c94ibm9w5jlctmt3.jpg",
+      "3y5hh2f8g47clqn5wzi0u21vy4bh387r.jpg",
+      "4pbjnd5n2a7qg0kidmgrhsj1quxjbdw6.jpg",
+      "wvcfslfm1fxq8tgm64zmugif0uxlm3cx.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Раздвижной радиальный",
+    "main": "e4vvaub4qyq8lbeatdergktn89vfbnfb.jpg",
+    "extra": [
+      "4r4odiogmumuvc5j1zbpiwps20ynyant.jpg",
+      "4xvyug3efgmppml9cl63c4bcbz3hb2sn.jpg",
+      "553kay20tleopff6uwgqj1n0yz5chts9.jpg",
+      "xdl66tsi3wypjza2iupwz8towp9w33qn.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Раздвижной на люверсах",
+    "main": "1o3bysw2k7990ir6z5kaor4o0316b0ci.jpg",
+    "extra": [
+      "55y1oqx0g0bzi9qnk6fm600712z8tccl.jpg",
+      "58a08px4kjfto3mu11j0j1fmw8br0rmc.jpg",
+      "5u3qginp4yb2j703c3zmziqa7z6vqqr2.png",
+      "xju8x07rfuqfnkpsbrgjy46n73e3cmgi.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Римский",
+    "main": "n1szfwy3h7bjh185fguzcsifxq69m1dp.jpg",
+    "extra": [
+      "610lzxhup72p0bwwuh0doqqigrm1ord7.jpg",
+      "6cq4m1cnzogcrr377o67ku1mi5gdg3pv.png",
+      "8b0em2dq5sf19yl82gwrceafx60m8g2h.jpg",
+      "yt9xp0a1hc4tuwppub74hhnggke1twiw.jpg"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Римский день-ночь",
+    "main": "janr06n307vnsaikabt3tquoq2wm5dwq.jpg",
+    "extra": [
+      "8ogp92xt3w3923dda1jp502f16bop1lu.jpg",
+      "9r7ezvnhivipz6zzmve2o0jdh48y8dxe.jpg",
+      "9s2d6ktpsgovpom7wy3tpi16kyyjbbzw.jpg",
+      "yxx3prutyxoz6au0ln3k43bszcc3cmgq.jpg"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Римский наклонный",
+    "main": "w8w0qhhjz1asugmb2ck5tu6lzxrbjc6a.jpg",
+    "extra": [
+      "ajh32rxq192sa18c7g4jw4raoa7ncy6d.jpg",
+      "aqbahmdt4eko7zris8pvjou78an0ap37.jpg",
+      "b28y4hpsde9agyw9j3sgs3okw9piz7wf.jpg",
+      "z8zohx4fyzraa2m99c5g6dwvufqvs591.jpg"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Рулонный с соединителем",
+    "main": "ecujr9pjg6z2493790j47qeu0zn515nd.jpg",
+    "extra": [
+      "bn7vl7f2d240fjhzy3vqqx9k66ankt2v.jpg",
+      "ch836paedov02g1rwn7pmn5n3kgbiifq.jpg",
+      "djprwx8ee6z2xjg89g6y0x6v4imu7pb5.jpg",
+      "zz3he1c1qfqd6jzzstlmhi0svns7cjc9.jpg"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Рулонный UNI2",
+    "main": "y0kts07ljazvqlv5oe1be1bhskjijbbz.png",
+    "extra": [
+      "dmsavna6scd65247wetpcym7wpmgbcjn.jpg",
+      "e5rptf6vmzn0crp5wvph0wd6lwplzc1x.jpg",
+      "fisx11ulrcj2cguhu7fpau8a39v7x953.jpg"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Рулонный открытый",
+    "main": "qtdx2hb7kh7z831q2fl1zew3uvvtkm9b.jpg",
+    "extra": [
+      "g9t5lidtio9rpd4z4eu1j64ul3x4b5sw.jpg",
+      "h9d1fo5ls884lbffbv7gi36da797gi2i.jpg",
+      "ibsvrjiu5yenzvfhnc2vgdet4k9ztuz1.jpg"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Рулонный день-ночь",
+    "main": "9ly0rcdxw0lv83pk4ntvrg3rs5fl0a0l.jpg",
+    "extra": [
+      "k05ukl6yj9b3zpwvuump57yqd9ff1mwq.jpg",
+      "llfqh5znjgx75w2wbugvl5w7ivjhclwy.jpg",
+      "n9q34v879e8qt5hfyrosw6wplnczdug8.jpg"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Рулонный зебра в коробе",
+    "main": "87dftq9sroixbke0bdo4g23hp8qu8j18.jpg",
+    "extra": [
+      "ncdlt4qbxzaxj9degowam0fq5urhnwbz.jpg",
+      "o2g4hqiennefkbdrb8ts9e8jxjpf9wbl.jpg",
+      "o9abn0zzk13z35t2b7tobg4u4nzkj16e.jpg"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Горизонтальные жалюзи",
+    "main": "2cxzcnwpb2pbec67lhut5dk0tfr1jpdj.jpg",
+    "extra": [
+      "pmz1nqksdj547gfohbk4z7emem69jqq8.jpg",
+      "qn7g6pjldaxql8xy84bg21i42h6smy31.jpg",
+      "r6wk5ijsivijg7zaepyu5z2l1i38x1x6.jpg"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Вертикальные жалюзи",
+    "main": "bpdkjbcq6bw5d2sduk4wsssqrrao7axn.jpg",
+    "extra": [
+      "raca1sx808y2c42mpp4in3tn1zuat128.jpg",
+      "sh1wy0rl5sook5n4kdcvgpf4nv7wyudn.jpg",
+      "sr5at5l9os49hca3gnoltjam4yozn7gk.jpg"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Плиссе",
+    "main": "grvtvg899kzl5bcsmeftyl93m7aft8u2.jpg",
+    "extra": [
+      "t9e0axngi8ma7gs5kgguj9vfa0p0eupi.jpg",
+      "to54gqfhc3c4qu1bwt5ytuqdrzktc0d4.jpg",
+      "tpojh1ni07beb9fu46m9pt1cg9k9jez8.jpg"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Перголы",
+    "main": "308a0bfrbag3qjn00dl87rd0n735kqz9.jpg",
+    "extra": [
+      "ucrweeqf3aydzd4q6e2s7zxrsss1fzop.jpg",
+      "ukln14go30ddf0gd404r1azny53clpr8.jpg",
+      "umxvm52m4v449b773uhdzrdr7nynm2oi.jpg"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Лифт-система",
+    "main": "zf56d1c6163bk26r6tmx33e8quu27ez8.jpg",
+    "extra": [
+      "v9q88bylgwu30n7ik9iiq74721iq70as.jpg",
+      "vj7ao0zos5pvn020sw3fue9bduavc95m.jpg",
+      "vp3u6ymrchcmcpi8mox8f8zijs32uy13.jpg"
+    ]
+  }
+]

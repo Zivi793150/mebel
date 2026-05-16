@@ -253,7 +253,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                           }
                         >
                           <div className="relative aspect-square">
-                            <img alt="" src={src} className="h-full w-full object-cover" />
+                            <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                           </div>
                         </button>
                       );
@@ -278,8 +278,20 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
 
               <div className="relative">
                 <div className="relative aspect-[16/10] w-full overflow-hidden border border-[color:var(--gray-lines)]">
-                  <img alt={item.title || ""} className="h-full w-full object-cover object-center" src={image} />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)]" />
+                  {/* Blurred background for vertical/small images */}
+                  <img
+                    alt=""
+                    src={image}
+                    className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                    aria-hidden="true"
+                  />
+                  {/* Main image */}
+                  <img
+                    alt={item.title || ""}
+                    className="relative h-full w-full object-contain object-center"
+                    src={image}
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
                 </div>
 
                 {images.length > 1 ? (
@@ -298,7 +310,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
                               : "h-16 w-16 flex-none overflow-hidden border border-[color:var(--gray-lines)] transition hover:bg-[color:var(--bg)]"
                           }
                         >
-                          <img alt="" src={src} className="h-full w-full object-cover" />
+                          <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                         </button>
                       );
                     })}
@@ -310,8 +322,7 @@ function CurtainsTypeModal({ item, onClose }: { item: CurtainTypeItem; onClose: 
 
           <div className="lg:col-span-4">
             <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-5">
-              <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
-              <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
+              <div className="text-sm leading-6 text-[color:var(--muted)]">
                 {item.description ||
                   "Подбираем этот вид, когда нужно попасть в свет, приватность и финальный вид окна. Подскажем ткань и посадку под вашу комнату."}
               </div>
@@ -643,16 +654,15 @@ export function CurtainTypesCatalog({ items }: { items: CurtainTypeItem[] }) {
           return (
             <button
               key={it.url}
-              ref={idx === 0 ? firstCardRef : undefined}
               type="button"
               onClick={() => setActive(it)}
               className="group block overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] text-left transition duration-300 hover:bg-[color:var(--bg)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative w-full pt-[75%] overflow-hidden bg-black/5">
                 <img
                   src={img}
                   alt={it.title || ""}
-                  className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="absolute inset-0 block !h-full !w-full !object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)]" />
               </div>

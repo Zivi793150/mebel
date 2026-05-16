@@ -154,9 +154,9 @@ export function RugsWhyShowcase({ images }: { images?: string[] }) {
 
       <div className="relative z-10">
         <div className="flex flex-col items-center px-4 pt-12 text-center lg:pt-16">
-          <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ЗАЧЕМ</div>
+          <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ПОЧЕМУ МЫ</div>
           <h2 className="mt-4 max-w-3xl text-balance text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-            Ковёр — это тишина, тепло и собранный интерьер
+            Ковёр — это мягкость, тепло и собранный, гармоничный интерьер
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
             Выберите, что для вас важнее — и мы подберём решение так, чтобы выглядело дорого и было удобно каждый день.

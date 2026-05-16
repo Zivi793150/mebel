@@ -14,7 +14,12 @@ type PortfolioItem = {
 };
 
 function enc(path: string) {
-  return encodeURI(path);
+  const [pathname, query = ""] = path.split("?");
+  const encodedPath = pathname
+    .split("/")
+    .map((seg, i) => (i === 0 ? seg : encodeURIComponent(seg)))
+    .join("/");
+  return query ? `${encodedPath}?${query}` : encodedPath;
 }
 
 function useOnClickOutside(ref: RefObject<HTMLElement | null>, handler: () => void) {
@@ -89,7 +94,6 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
       enc("/for_designers/litovskiy-val/RED_1246.webp"),
       enc("/for_designers/litovskiy-val/RED_1280.webp"),
       enc("/for_designers/litovskiy-val/RED_1291.webp"),
-      enc("/for_designers/litovskiy-val/42ef1b33-15d3-4342-811a-88e0db258022.webp"),
     ],
   },
   {
@@ -120,6 +124,28 @@ const PORTFOLIO_ITEMS: PortfolioItem[] = [
       enc("/for_designers/tihaya-roskosh/891c27ad-557b-4a95-ae45-26a329b6e1d2.webp"),
       enc("/for_designers/tihaya-roskosh/e6d5b49c-e1b5-41a8-acb6-fc71337a29e8.webp"),
       enc("/for_designers/tihaya-roskosh/fad65c85-32b2-4861-b41c-664bb564caf1.webp"),
+    ],
+  },
+  {
+    title: "Сокольники",
+    cover: enc("/for_designers/sokolniky/FullSizeRender (2).webp"),
+    images: [
+      enc("/for_designers/sokolniky/FullSizeRender (2).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (3).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (4).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (6).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (9).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (12).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (17).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (20).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (22).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (23).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (27).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (32).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (34).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (38).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (39).webp"),
+      enc("/for_designers/sokolniky/FullSizeRender (40).webp"),
     ],
   },
   {
@@ -254,7 +280,7 @@ function ProjectModal({
                             isActive ? "ring-2 ring-[color:var(--accent)]" : "opacity-60 hover:opacity-90"
                           }`}
                         >
-                          <Image src={src} alt="" fill sizes="104px" className="object-cover" />
+                          <Image src={src} alt="" fill sizes="104px" className="object-cover" unoptimized />
                         </button>
                       );
                     })}
@@ -284,6 +310,7 @@ function ProjectModal({
                   fill
                   sizes="(min-width: 1024px) 66vw, 100vw"
                   className="object-cover"
+                  unoptimized
                 />
               </div>
             </div>
@@ -300,7 +327,7 @@ function ProjectModal({
                     idx === activeIdx ? "ring-2 ring-[color:var(--accent)]" : "opacity-60 hover:opacity-90"
                   }`}
                 >
-                  <Image src={src} alt="" fill sizes="200px" className="object-cover" />
+                  <Image src={src} alt="" fill sizes="200px" className="object-cover" unoptimized />
                 </button>
               ))}
             </div>
@@ -315,11 +342,28 @@ function ProjectModal({
 export function PortfolioSlider() {
   const [current, setCurrent] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   usePreloadPortfolioImages();
 
   const next = () => setCurrent((c) => (c + 1) % PORTFOLIO_ITEMS.length);
   const prev = () => setCurrent((c) => (c - 1 + PORTFOLIO_ITEMS.length) % PORTFOLIO_ITEMS.length);
+
+  useEffect(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    if (modalOpen || isPaused) return;
+    intervalRef.current = setInterval(next, 10000);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [modalOpen, isPaused]);
 
   const item = PORTFOLIO_ITEMS[current];
 
@@ -335,7 +379,11 @@ export function PortfolioSlider() {
           </h2>
         </Container>
 
-        <div className="mt-8">
+        <div 
+          className="mt-8"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <div className="relative aspect-[16/9] overflow-hidden sm:aspect-[21/9]">
             <Image
               key={item.cover}
@@ -347,6 +395,7 @@ export function PortfolioSlider() {
               loading="eager"
               fetchPriority="high"
               className="object-cover transition-opacity duration-500"
+              unoptimized
             />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.7)_0%,rgba(0,0,0,0.3)_40%,transparent_70%)]" />
             
@@ -360,7 +409,13 @@ export function PortfolioSlider() {
                 </h3>
                 <div className="mt-6">
                   <button
-                    onClick={() => setModalOpen(true)}
+                    onClick={() => {
+                      if (intervalRef.current) {
+                        clearInterval(intervalRef.current);
+                        intervalRef.current = null;
+                      }
+                      setModalOpen(true);
+                    }}
                     className="inline-flex h-11 items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
                   >
                     Смотреть проект

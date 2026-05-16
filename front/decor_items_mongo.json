@@ -1,0 +1,84 @@
+[
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Подхват классический",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/0380f73b-bc79-11eb-9130-001517de9f40_1.jfif",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/0380f73b-bc79-11eb-9130-001517de9f40_1.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/072a5ca1-515b-11ea-8809-001517de9f40_1.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/0d4da77f-7246-11e4-84e9-94de80655f65_2.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/0d4da791-7246-11e4-84e9-94de80655f65_2.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/0fc1e791-71c5-11e1-99fd-001517de9f40_2.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/1361eb4d-8c1b-11e4-9fdb-001517de9f40_1.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/19b4c47d-fead-11ed-a8ad-3497f65a19e0_1.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/31cb007d-de67-11e7-86cc-001517de9f40_2.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/64ebdb74-306e-11ee-a8ad-3497f65a19e0_1.jfif",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/64ebdb82-306e-11ee-a8ad-3497f65a19e0_1.jfif"
+    ],
+    "description": "Элегантные кисти и подхваты для штор. Ручная работа, премиальные материалы."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Кисть декоративная",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80001 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80001 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80003 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80004 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80009 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80010 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80054 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80055 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85001 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85009 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85010 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85054 (2).png",
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85055 (2).png"
+    ],
+    "description": "Кисти различных форм и размеров для создания уникальных акцентов."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Бахрома классическая",
+    "image": "/catalog/5.Furnitura/3.bahroma/036c4feb77ccc843c2ab59e697497bec.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/036c4feb77ccc843c2ab59e697497bec.jpg",
+      "/catalog/5.Furnitura/3.bahroma/07rq0hxbrehz1b21uaekcyn40h0p5zni.jpg",
+      "/catalog/5.Furnitura/3.bahroma/2171ijav29x4j7pe6plu04dcyzfsh3un.jpg",
+      "/catalog/5.Furnitura/3.bahroma/3q085jiu4av9uggsx05865yefk7vcyps.jpg",
+      "/catalog/5.Furnitura/3.bahroma/41a5b2944db431c73657c3f2a6dbc4a4.jpg",
+      "/catalog/5.Furnitura/3.bahroma/4bcd8ffcecdb48faf1eab089e4e6982f.jpg",
+      "/catalog/5.Furnitura/3.bahroma/5wc3prb7vj7xe16o3kq8qo20muzwulep.jpg",
+      "/catalog/5.Furnitura/3.bahroma/68ui2erlwb5s7k6esxc5d7jgl4urmsxt.jpg",
+      "/catalog/5.Furnitura/3.bahroma/6czqgcd8r1sukiu50ravapgzvxns323b.jpg",
+      "/catalog/5.Furnitura/3.bahroma/71661d6857f3e74a366c65c6b1ee38f9.jpg"
+    ],
+    "description": "Декоративная бахрома для отделки штор, покрывал и подушек."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Тесьма декоративная",
+    "image": "/catalog/5.Furnitura/4.Tesmya/0484077219d510575c784cd9a74b5bad.jpeg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/0484077219d510575c784cd9a74b5bad.jpeg",
+      "/catalog/5.Furnitura/4.Tesmya/20d64878d19a98ffb17055bec4741901.jpeg",
+      "/catalog/5.Furnitura/4.Tesmya/3e69f8f2573235c18e39d882b16f2f3f.jpg",
+      "/catalog/5.Furnitura/4.Tesmya/409a2338bd5aa066fcbf2cd708cc898b.jpg",
+      "/catalog/5.Furnitura/4.Tesmya/4ae0c7b556b307975d27cb8fcbfba267.jpeg",
+      "/catalog/5.Furnitura/4.Tesmya/54ffa9d94c06dc588c85db948a3fe240.jpg",
+      "/catalog/5.Furnitura/4.Tesmya/7xohn4p6hx8apqbgwc9cr5ky44myz0pf.jpg",
+      "/catalog/5.Furnitura/4.Tesmya/88fbe6fd7074d82d03b01648de8403a0.jpeg",
+      "/catalog/5.Furnitura/4.Tesmya/8cbfd603cc69a56005ee430cecf6b578.jpeg",
+      "/catalog/5.Furnitura/4.Tesmya/AG8149D_2396.jpg"
+    ],
+    "description": "Широкий выбор тесьмы для создания безупречной складки и декора."
+  }
+]

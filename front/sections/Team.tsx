@@ -17,7 +17,7 @@ export function Team() {
                 дизайнеров
               </span>
             </div>
-            <ContactButton className="inline-flex h-12 items-center justify-center border border-[color:var(--fg)] bg-transparent px-8 text-xs font-normal uppercase tracking-[0.15em] text-[color:var(--fg)] transition hover:bg-[color:var(--fg)] hover:text-[color:var(--bg)]" imageSrc="/devochka-dizayneram.webp">
+            <ContactButton className="inline-flex h-12 items-center justify-center border border-[color:var(--fg)] bg-transparent px-8 text-xs font-normal uppercase tracking-[0.15em] text-[color:var(--fg)] transition hover:bg-[color:var(--fg)] hover:text-[color:var(--bg)]" imageSrc="/devochka-dizayneram.webp" useRandomImage={false}>
               Пригласить дизайнера
             </ContactButton>
           </div>

@@ -7,9 +7,11 @@ interface ContactButtonProps {
   children: React.ReactNode;
   className?: string;
   imageSrc?: string;
+  /** If true, use random image from folder. Default: true. Set false for designers page. */
+  useRandomImage?: boolean;
 }
 
-export function ContactButton({ children, className, imageSrc }: ContactButtonProps) {
+export function ContactButton({ children, className, imageSrc, useRandomImage = true }: ContactButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -31,6 +33,7 @@ export function ContactButton({ children, className, imageSrc }: ContactButtonPr
         <ContactModal
           onClose={() => setIsOpen(false)}
           imageSrc={imageSrc}
+          useRandomImage={useRandomImage}
         />
       )}
     </>

@@ -1,0 +1,179 @@
+[
+  {
+    "source": "koenig_room",
+    "kind": "cornice_collection",
+    "type": "потолочные",
+    "collectionSlug": "profil-02",
+    "title": "Профиль 02",
+    "description": "Потолочный профиль для штор серии Профиль 02. Доступен в белом и черном цветах, а также цветные варианты.",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 белый.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 белый.jpg",
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 черный.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-02",
+    "collectionTitle": "Профиль 02",
+    "title": "Профиль 02 белый",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 белый.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 белый.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-02",
+    "collectionTitle": "Профиль 02",
+    "title": "Профиль 02 цвета",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/профиль 02 цвета .webp",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/профиль 02 цвета .webp"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-02",
+    "collectionTitle": "Профиль 02",
+    "title": "Профиль 02 черный",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 черный.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль 02 черный.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_collection",
+    "type": "потолочные",
+    "collectionSlug": "profil-03",
+    "title": "Профиль 03",
+    "description": "Потолочный профиль для штор серии Профиль 03.",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль 03.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль 03.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-03",
+    "collectionTitle": "Профиль 03",
+    "title": "Профиль 03",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль 03.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль 03.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_collection",
+    "type": "потолочные",
+    "collectionSlug": "profil-velcro",
+    "title": "Профиль велкро",
+    "description": "Потолочный профиль для штор с липкой лентой (велкро) для крепления ламбрекенов.",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль велкро.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль велкро.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-velcro",
+    "collectionTitle": "Профиль велкро",
+    "title": "Профиль велкро",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль велкро.jpg",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль велкро.jpg"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_collection",
+    "type": "потолочные",
+    "collectionSlug": "profil-dvuhryadnyy-otel",
+    "title": "Профиль двухрядный Отель KS",
+    "description": "Двухрядный потолочный профиль для штор серии Отель KS.",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль двухрядный Отель KS .png",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль двухрядный Отель KS .png"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-dvuhryadnyy-otel",
+    "collectionTitle": "Профиль двухрядный Отель KS",
+    "title": "Профиль двухрядный Отель KS",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль двухрядный Отель KS .png",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль двухрядный Отель KS .png"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_collection",
+    "type": "потолочные",
+    "collectionSlug": "profil-odnoryadnyy-ks",
+    "title": "Профиль однорядный KS",
+    "description": "Однорядный потолочный профиль для штор серии KS.",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль однорядный KS.png",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль однорядный KS.png"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-odnoryadnyy-ks",
+    "collectionTitle": "Профиль однорядный KS",
+    "title": "Профиль однорядный KS",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль однорядный KS.png",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль однорядный KS.png"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_collection",
+    "type": "потолочные",
+    "collectionSlug": "profil-chernyy-rimskiy",
+    "title": "Профиль черный римский",
+    "description": "Черный потолочный профиль для римских штор.",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль черный римский.webp",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль черный римский.webp"
+    ]
+  },
+  {
+    "source": "koenig_room",
+    "kind": "cornice_item",
+    "type": "потолочные",
+    "collectionSlug": "profil-chernyy-rimskiy",
+    "collectionTitle": "Профиль черный римский",
+    "title": "Профиль черный римский",
+    "description": "",
+    "image": "/catalog/4.karnizy/potolochnye-karnizy/Профиль черный римский.webp",
+    "images": [
+      "/catalog/4.karnizy/potolochnye-karnizy/Профиль черный римский.webp"
+    ]
+  }
+]

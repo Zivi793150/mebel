@@ -51,10 +51,24 @@ export async function GET(req: Request) {
 
     const [docs, total] = await Promise.all([
       col
-        .find(query, { projection: { _id: 1, title: 1, slug: 1, url: 1, kind: 1, type: 1, variant: 1 } })
-        .sort({ _id: -1 })
+        .find(query, { 
+          projection: { 
+            _id: 1, 
+            title: 1, 
+            slug: 1, 
+            url: 1, 
+            kind: 1, 
+            type: 1, 
+            variant: 1, 
+            collectionTitle: 1, 
+            subtypeTitle: 1, 
+            group: 1,
+            order: 1
+          } 
+        })
+        .sort({ order: 1, _id: -1 })
         .skip(skip)
-        .limit(limit)
+        .limit(1000)
         .toArray(),
       col.countDocuments(query),
     ]);

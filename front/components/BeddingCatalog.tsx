@@ -152,7 +152,7 @@ function BeddingModal({
                           }
                         >
                           <div className="relative aspect-square">
-                            <img alt="" src={src} className="h-full w-full object-cover" />
+                            <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                           </div>
                         </button>
                       );
@@ -176,9 +176,17 @@ function BeddingModal({
               </div>
 
               <div className="relative">
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-black/[0.03] dark:bg-white/[0.04]">
-                  <img alt="" className="h-full w-full object-cover" src={image} />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0.28))]" />
+                <div className="relative aspect-[16/10] w-full overflow-hidden border border-black/10 bg-black/5">
+                  {/* Blurred background */}
+                  <img
+                    alt=""
+                    src={image}
+                    className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                    aria-hidden="true"
+                  />
+                  {/* Main image */}
+                  <img alt="" className="relative h-full w-full object-contain object-center" src={image} />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
                 </div>
 
                 {allImages.length > 1 ? (
@@ -197,7 +205,7 @@ function BeddingModal({
                               : "h-16 w-16 flex-none overflow-hidden border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                           }
                         >
-                          <img alt="" src={src} className="h-full w-full object-cover" />
+                          <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                         </button>
                       );
                     })}
@@ -209,8 +217,7 @@ function BeddingModal({
 
           <div className="lg:col-span-5">
             <div className="border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-              <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ИНФОРМАЦИЯ</div>
-              <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
+              <div className="text-sm leading-6 text-[color:var(--muted)]">
                 {card.description
                   ? card.description
                   : "Нажмите на миниатюру слева, чтобы переключиться между фотографиями. Используйте стрелки для прокрутки списка."}
@@ -299,18 +306,15 @@ export function BeddingCatalog({
             aria-label={`Вариант ${idx + 1}`}
           >
             <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-px hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src={c.imageSrc}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.08]"
-                  loading="eager"
-                  priority
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
-              </div>
+                <div className="relative w-full pt-[75%] overflow-hidden bg-black/5">
+                  <img
+                    src={c.imageSrc}
+                    alt=""
+                    className="absolute inset-0 block !h-full !w-full !object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.08]"
+                    loading="eager"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
+                </div>
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">Вариант {idx + 1}</div>

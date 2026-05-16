@@ -1,0 +1,396 @@
+.elektrokarniz-page {
+    color: #282828;
+}
+.elektrokarniz-page .section-head{
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.elektrokarniz-page .section-head__top{
+    background-image: url(../images/bg-ek.png);
+    /*background-position: bottom right;*/
+}
+.elektrokarniz-page .section-head__top-new{
+    background-image: url(../images/onviz_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 560px;
+}
+.elektrokarniz-page .section-head__top-new .s-head__h1{
+    margin-bottom: 86px;
+}
+.elektrokarniz-page .section-head__top-new .s-head__h1 p{
+    margin-top: 50px;
+    max-width: 400px;
+    line-height: 1.6;
+}
+@media (max-width: 992px) {
+    .elektrokarniz-page .section-head__top-new{
+        padding: 0;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1{
+        margin-bottom: 86px;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1 p{
+        margin-top: 52px;
+        line-height: 1.4;
+    }
+}
+@media (max-width: 642px) {
+    .elektrokarniz-page .section-head__top-new .s-head__content .h1{
+        font-size: 40px;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1{
+        margin-bottom: 86px;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1 p{
+        margin-top: 52px;
+       /* max-width: none;*/
+    }
+}
+
+@media (max-width: 600px) {
+    /*.elektrokarniz-page .section-head__top-new{
+        background-image: url(/local/templates/general/img/elektrokarniz/banner_m.png);
+        height: 398px;
+    }*/
+
+    .elektrokarniz-page .section-head__top-new .h1{
+        font-size: 40px;
+    }
+}
+@media (max-width: 450px) {
+    .elektrokarniz-page .section-head__top-new{
+        /*background-image: url(/local/templates/general/img/elektrokarniz/banner_m.png);*/
+        height: 430px;
+    }
+
+    .elektrokarniz-page .section-head__top-new .s-head__content .btn{
+        white-space: nowrap;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__content .h1{
+        font-size: 28px;
+    }
+
+    .elektrokarniz-page .section-head__top-new .s-head__h1{
+        margin-bottom: 65px;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1 p{
+        margin-top: 42px;
+        max-width: none;
+    }
+}
+@media (max-width: 400px) {
+    /*.elektrokarniz-page .section-head__top-new .s-head__content{*/
+    /*    padding-right: 40px;*/
+    /*}*/
+}
+@media (max-width: 376px) {
+    .elektrokarniz-page .section-head__top-new{
+        background-image: url(../images/banner_xs.png);
+        height: 343px;
+    }
+
+    .elektrokarniz-page .section-head__top-new .s-head__content .h1{
+        font-size: 28px;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .elektrokarniz-page .section-head__top-new .s-head__content{
+        padding-right: 30px;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1{
+        margin-bottom: 30px;
+    }
+    .elektrokarniz-page .section-head__top-new .s-head__h1 p{
+        margin-top: 22px;
+    }
+}
+.elektrokarniz-page .section-head .h1{
+    position: relative;
+    display: block;
+    max-width: 690px;
+    font-size: 48px;
+    text-transform: none;
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+.elektrokarniz-page .section-brand-block{
+    display: flex;
+    align-items: center;
+    background: #F7F7F7;
+    justify-content: center;
+    color: #282828;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    padding: 36px 20px;
+}
+.elektrokarniz-page .section-brand-block__logo{
+    margin-left: 10px;
+}
+.section-advantages{
+    margin-bottom: 80px;
+}
+.section-advantages__item{
+    background-color: #fff;
+    box-shadow: 0 0 20px rgb(0 0 0 / 8%);
+    padding: 32px 15px;
+    text-align: center;
+    margin-top: 30px;
+}
+.section-advantages__item-img{
+    height: 40px;
+    margin: 20px;
+}
+.section-advantages__item-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 5px;
+}
+.section-advantages__item-desc{
+    font-size: 16px;
+    min-height: 45px;
+    line-height: 1.5;
+}
+.section-sale{
+    text-align: center;
+    margin-bottom: 80px;
+}
+.section-sale__title{
+    font-size: 32px;
+    line-height: 40px;
+}
+.section-sale__slogan{
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 40px;
+    color: var(--biege);
+}
+.section-sale__desc{
+    font-size: 18px;
+    margin: 40px 0;
+}
+
+.elektrokarniz-page .ik-icon{
+    width: 48px;
+    height: 48px;
+    background-repeat: no-repeat;
+    flex: none;
+}
+.elektrokarniz-page .ik-icon-2-1{
+    background-image: url(../images/icon-adv2-1.svg);
+}
+.elektrokarniz-page .ik-icon-2-2{
+    background-image: url(../images/icon-adv2-2.svg);
+}
+.elektrokarniz-page .ik-icon-2-3{
+    background-image: url(../images/icon-adv2-3.svg);
+}
+.elektrokarniz-page .ik-icon-2-4{
+    background-image: url(../images/icon-adv2-4.svg);
+}
+.elektrokarniz-page .advantage-item__title{
+    display: flex;
+    align-items: center;
+}
+.elektrokarniz-page .advantage-item__title span {
+    width: auto;
+}
+.lSSlideOuter{
+    position: relative;
+}
+.text-block .zag {
+    font-size: 29px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+.text-block ul{
+    margin-left: 50px;
+}
+.text-block ul li{
+    font-size: 18px;
+    line-height: 40px;
+}
+.text-block ul li::marker {
+    color: #b8a599;
+}
+.elektrokarniz-page iframe{
+    margin-bottom: 80px;
+}
+.elektrokarniz-page .section-showreal .lSSlideOuter{
+    margin-bottom: 60px;
+    padding: 0 56px;
+}
+.elektrokarniz-page .lSAction > .lSPrev,
+.elektrokarniz-page .lSAction > .lSNext {
+    width: 56px;
+    height: 56px;
+    background-position: 0 0;
+}
+.elektrokarniz-page .lSAction > .lSPrev {
+    background-image: url(../images/chevron-left.svg);
+    left: 0;
+}
+.elektrokarniz-page .page__section_showreals .title{
+    margin: 80px 0 60px;
+}
+
+.elektrokarniz-page .lSAction > .lSNext {
+    background-image: url(../images/chevron-right.svg);
+    right: 0;
+}
+.btn__box-utp{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+.section-showreal__btn-box{
+    text-align: center;
+}
+.section-showreal__btn-box .section-showreal__btn{
+    background-color: #fff;
+    color: var(--biege);
+    border: 1px solid var(--biege);
+    text-transform: uppercase;
+}
+
+.preim iframe{
+    margin-bottom: 20px;
+}
+.section-contacts .ek-page__title{
+    margin-bottom: 80px;
+}
+
+.contact-item{
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+    .elektrokarniz-page .section-brand-block{
+        flex-direction: column;
+        margin-bottom: 25px;
+    }
+    .section-brand-block__text{
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+    .elektrokarniz-page .ik-icon {
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        margin-right: 10px;
+    }
+    .elektrokarniz-page .flex_content .advantage-item__title {
+        font-size: 10px;
+    }
+    .section-advantage .advantage-item {
+        padding: 20px 0 10px 0;
+        /*max-width: 190px;*/
+        width: auto!important;
+    }
+    .elektrokarniz-page .ek-page__title {
+        margin-bottom: 30px;
+        margin-top: 20px;
+        font-size: 26px;
+        font-weight: 300;
+        line-height: 30px;
+    }
+    .s-contacts-whatsapp{
+        margin-bottom: 20px;
+    }
+    .elektrokarniz-page iframe {
+        margin-bottom: 25px;
+    }
+    .text-block .zag {
+        font-size: 20px;
+        line-height: 25px;
+        margin-bottom: 20px;
+    }
+    .text-block ul {
+        margin-left: 0;
+    }
+    .text-block ul li {
+        font-size: 15px;
+        line-height: 18px;
+        margin-bottom: 20px;
+    }
+    .btn__box-utp {
+        margin: 0;
+    }
+    .section-advantages {
+        margin-bottom: 40px;
+    }
+    .section-advantages [class^='col-'],
+    .section-ek.preim [class^='col-']{
+        float: none;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 15px;
+    }
+    .section-advantages .row,
+    .section-ek.preim .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: stretch;
+    }
+    .section-advantages__item{
+        margin-top: 0;
+        padding: 10px 10px;
+    }
+    .section-advantages__item,
+    .elektrokarniz-page .section-ek.preim .ek-box {
+        height: 100%;
+    }
+    .section-advantages__item-img {
+        margin: 0 0 10px;
+    }
+    .section-advantages__item-title {
+        font-size: 15px;
+        min-height: 44px;
+    }
+    .section-advantages__item-desc {
+        font-size: 14px;
+    }
+    .section-sale__title {
+        font-size: 25px;
+        line-height: 1.3;
+    }
+    .section-sale__slogan {
+        font-size: 29px;
+        line-height: 1.3;
+    }
+    .section-sale__desc {
+        font-size: 15px;
+        margin: 10px 0;
+    }
+    .section-sale {
+        margin-bottom: 0;
+    }
+    .elektrokarniz-page .section-contacts {
+        padding: 30px 0 0;
+    }
+    .elektrokarniz-page .contact-item {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    .elektrokarniz-page .s-head__h1 p {
+        font-size: 16px;
+    }
+    .elektrokarniz-page .ek-box {
+        margin-top: 0;
+    }
+    .elektrokarniz-page .section-contacts .row {
+        margin-bottom: 15px;
+    }
+    .elektrokarniz-page .s-contacts-whatsapp a {
+        width: 262px;
+        box-shadow: none;
+        text-align: center;
+        padding: 20px 30px 21px 43px;
+        background-position: 0% 50%;
+    }
+}

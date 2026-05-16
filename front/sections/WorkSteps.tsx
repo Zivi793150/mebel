@@ -69,7 +69,7 @@ export function WorkSteps() {
 
             <div className="relative mt-8 aspect-[4/5] overflow-hidden">
               <Image
-                src="/poryadok-raboty-.webp"
+                src="/_О нас_ вместо ступеней .jpg"
                 alt="Порядок работы"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"

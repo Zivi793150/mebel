@@ -106,7 +106,15 @@ function RailsVariantModal({
         <div className="grid gap-4 lg:grid-cols-12">
           <div className="relative lg:col-span-7">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-white/90">
-              <img alt={currentCard?.title || ""} className="h-full w-full object-contain p-4" src={currentImage} />
+              {/* Blurred background */}
+              <img
+                alt=""
+                src={currentImage}
+                className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                aria-hidden="true"
+              />
+              {/* Main image */}
+              <img alt={currentCard?.title || ""} className="relative h-full w-full object-contain p-4" src={currentImage} />
             </div>
 
             {cards.length > 1 ? (
@@ -125,7 +133,7 @@ function RailsVariantModal({
                           : "h-16 w-16 flex-none overflow-hidden border border-black/10 bg-white/60 shadow-sm transition hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                       }
                     >
-                      <img alt="" src={c.imageSrc} className="h-full w-full object-cover" />
+                      <img alt="" src={c.imageSrc} className="h-full w-full object-contain bg-black/5" />
                     </button>
                   );
                 })}
@@ -135,8 +143,7 @@ function RailsVariantModal({
 
           <div className="lg:col-span-5">
             <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-5">
-              <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
-              <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
+              <div className="text-sm leading-6 text-[color:var(--muted)]">
                 {currentCard?.description || "Подберём карниз под ваш интерьер, высоту установки и вес ткани. Подскажем крепёж и рассчитаем комплект."}
               </div>
 
@@ -205,16 +212,14 @@ export function RailsVariantsCatalog({
             aria-label={c.title}
           >
             <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-px hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-              <div className="relative aspect-[4/3] overflow-hidden bg-white/80">
-                <Image
-                  src={c.imageSrc}
-                  alt={c.title}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-contain p-4 transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.02]"
-                  loading="eager"
-                />
-              </div>
+            <div className="relative aspect-[4/3] overflow-hidden bg-white/80">
+              <img
+                src={c.imageSrc}
+                alt={c.title}
+                className="absolute inset-0 block !h-full !w-full !object-cover p-4 transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.02]"
+                loading="eager"
+              />
+            </div>
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{c.title}</div>

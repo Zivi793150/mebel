@@ -1,0 +1,98 @@
+.footer .container,
+.wrapper .container{
+    width: auto;
+}
+@media (min-width: 1341px) {
+    .footer .container,
+    .wrapper .container{
+        padding: 0;
+    }
+}
+.mobile-header .container:before, .mobile-header .container:after,
+.header .container:before, .header .container:after,
+.footer .container:before, .footer .container:after{
+    display: none;
+}
+.header .main-menu__list:after{
+    display: none;
+}
+.title-search-item a:hover,
+.footer .email-link:hover,
+.header .phone-link:hover{
+    color: var(--black);
+    text-decoration: none;
+}
+.wrapper .top-menu__link:hover{
+    text-decoration: none;
+}
+.breadcrumbs__link:hover{
+    color: rgba(20, 20, 20, 0.4);
+}
+
+.header .main-menu{
+    padding: 0;
+}
+.header .main-menu .main-menu__item {
+     position: static;
+    display: block;
+}
+.header .main-menu [data-level="1"] > .main-menu__item > a{
+    text-transform: uppercase;
+    padding: 18px 0;
+    white-space: nowrap;
+    line-height: 1;
+}
+.header .main-menu .main-menu__item > a{
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: var(--font-family);
+    letter-spacing: 0.05em;
+
+    color: var(--black);
+    text-decoration: none;
+}
+.header .main-menu .main-menu__list_sub .main-menu__link{
+    font-size: 16px;
+    text-transform: none;
+    font-weight: 400;
+}
+.footer .v-menu__link:hover {
+    color: var(--black);
+}
+
+.b-web-form input[type='text'],
+.b-web-form input[type='email'],
+.b-web-form input[type='password'],
+.b-web-form input[type='date'],
+.b-web-form input[type='phone'],
+.b-web-form textarea,
+.b-web-form select{
+    width: 100%;
+    background-color: transparent;
+    padding: 28px 24px 12px 24px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--black);
+    height: auto;
+    margin-bottom: 0;
+}
+body .footer{
+    background: none;
+}
+.b-web-form .row{
+    margin: 0;
+}
+.elektrokarniz-page .section-head__top-new {
+    background-size: cover;
+}
+.section-ek .text-block ul{
+    list-style-type: disc;
+}
+
+.form-input + .btn {
+    margin-top: 20px;
+}

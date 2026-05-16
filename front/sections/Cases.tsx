@@ -70,12 +70,9 @@ export function Cases({ images }: { images?: string[] }) {
         </div>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {derivedCases.map((c) => (
-            <article
-              key={c.title}
-              className="group overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/5"
-            >
-              <div className="relative aspect-[16/10]">
+          {derivedCases.map((c, idx) => (
+            <div key={c.title + idx} className="group overflow-hidden rounded-3xl border border-black/10 bg-white/60 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-white/5">
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={c.imageSrc}
                   alt={c.title}
@@ -112,7 +109,7 @@ export function Cases({ images }: { images?: string[] }) {
                   </ContactButton>
                 </div>
               </div>
-            </article>
+            </div>
           ))}
         </div>
       </Container>

@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  rewrites: async () => [
+    {
+      source: "/uploads/:path*",
+      destination: "/api/uploads/:path*",
+    },
+  ],
   images: {
     unoptimized: true,
     formats: ["image/webp", "image/avif"],

@@ -43,9 +43,25 @@ function hasPlaceholderGuid(url: string): boolean {
 }
 
 /**
+ * Deduplicate consecutive path segments (e.g., "2.zhalyuzi/2.zhalyuzi" -> "2.zhalyuzi")
+ */
+function dedupePathSegments(path: string): string {
+  const parts = path.split("/").filter(Boolean);
+  const deduped: string[] = [];
+  for (let i = 0; i < parts.length; i++) {
+    if (i === 0 || parts[i] !== parts[i - 1]) {
+      deduped.push(parts[i]);
+    }
+  }
+  return deduped.join("/");
+}
+
+/**
  * Normalize image URL from MongoDB or hardcoded path
  * Ensures proper URL encoding for Russian characters
  * Rejects malformed external URLs with placeholder GUIDs
+ * Deduplicates consecutive path segments
+ * Converts .jfif to .webp extension
  */
 export function normalizeImageUrl(url: string | null | undefined): string {
   if (!url) return "";
@@ -58,5 +74,15 @@ export function normalizeImageUrl(url: string | null | undefined): string {
     return url;
   }
 
-  return encodeUrlPath(url);
+  // Ensure leading slash
+  let fixed = url.startsWith("/") ? url : "/" + url;
+  
+  // Convert .jfif to .webp
+  fixed = fixed.replace(/\.jfif$/i, ".webp");
+  
+  // Deduplicate consecutive segments
+  const deduped = dedupePathSegments(fixed);
+  
+  // Re-add leading slash after dedupe
+  return encodeUrlPath("/" + deduped);
 }

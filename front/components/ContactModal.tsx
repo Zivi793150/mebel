@@ -1,15 +1,38 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+
+// Random images for contact modal (except designers page)
+const RANDOM_MODAL_IMAGES = [
+  "/ikonki dlya svysi/-5413449657339738695_121.jpg",
+  "/ikonki dlya svysi/1886f1bc69f845da9025a9a291080432 (2).jpg",
+  "/ikonki dlya svysi/339f3802-8a1c-46da-b454-b27337dea6f5.JPG",
+  "/ikonki dlya svysi/7T2A4295.jpg",
+  "/ikonki dlya svysi/DSC08102 копия.jpg",
+  "/ikonki dlya svysi/IMG_1537-HDR.jpg",
+  "/ikonki dlya svysi/RED_1232.JPG",
+];
+
+function encodePath(path: string): string {
+  return path.split("/").map(encodeURIComponent).join("/");
+}
+
+function getRandomImage() {
+  const raw = RANDOM_MODAL_IMAGES[Math.floor(Math.random() * RANDOM_MODAL_IMAGES.length)];
+  // Encode each path segment for proper URL handling
+  return encodePath(raw);
+}
 
 export function ContactModal({
   onClose,
-  imageSrc = "/hero.webp",
+  imageSrc,
+  useRandomImage = true,
 }: {
   onClose: () => void;
   imageSrc?: string;
+  useRandomImage?: boolean;
 }) {
+  const [randomSrc] = useState(() => useRandomImage ? getRandomImage() : (imageSrc || "/hero.webp"));
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [comment, setComment] = useState("");
@@ -25,11 +48,21 @@ export function ContactModal({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [onClose]);
 
-  // Lock scroll
+  // Lock scroll completely
   useEffect(() => {
     const original = document.body.style.overflow;
+    const originalPadding = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = original; };
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    return () => {
+      document.body.style.overflow = original;
+      document.body.style.paddingRight = originalPadding;
+      document.body.style.position = "";
+      document.body.style.width = "";
+    };
   }, []);
 
   async function onSubmit() {
@@ -72,14 +105,14 @@ export function ContactModal({
 
   return (
     <div 
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4"
+      className="fixed inset-0 z-[2147483647] flex items-center justify-center bg-black/60 p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div 
-        className="relative w-auto max-w-2xl bg-white shadow-2xl overflow-hidden"
+        className="relative w-auto max-w-3xl bg-white shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="grid lg:grid-cols-[380px,400px]">
+        <div className="grid lg:grid-cols-[320px,400px]">
           <div className="p-5 order-2 lg:order-1">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-base font-semibold">Связаться с нами</h3>
@@ -113,8 +146,8 @@ export function ContactModal({
               </div>
             )}
           </div>
-          <div className="relative hidden lg:block order-1 lg:order-2 w-[400px]">
-            <Image src={imageSrc} alt="" fill className="object-cover object-center" sizes="400px" loading="eager" />
+          <div className="relative hidden lg:block order-1 lg:order-2 h-[500px] lg:h-auto">
+            <img src={randomSrc} alt="" className="h-full w-full object-cover object-center" loading="eager" />
           </div>
         </div>
       </div>

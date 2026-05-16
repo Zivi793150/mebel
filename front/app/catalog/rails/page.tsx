@@ -82,7 +82,6 @@ export default async function RailsCatalogPage() {
         <section className="py-14 sm:py-18">
           <Container>
             <div className="text-center">
-              <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">КАТАЛОГ</div>
               <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
                 Выберите вид карниза
               </h2>

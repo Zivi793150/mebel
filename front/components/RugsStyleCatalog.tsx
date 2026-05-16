@@ -72,6 +72,10 @@ function normalizePrice(priceText?: string) {
   return priceText.replace(/\s+/g, " ").trim();
 }
 
+function isVideoSrc(src: string): boolean {
+  return /\.(mp4|webm|ogg)(\?.*)?$/i.test(src);
+}
+
 function useOnClickOutside(ref: RefObject<HTMLElement | null>, handler: () => void) {
   useEffect(() => {
     function onPointerDown(e: MouseEvent | TouchEvent) {
@@ -279,10 +283,29 @@ function RugDetailsModal({
           <div className="order-1 col-span-12 sm:order-2 sm:col-span-9">
             <div className="grid gap-4 lg:grid-cols-12">
               <div className="relative lg:col-span-8">
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-black/[0.03] dark:bg-white/[0.04]">
-                  <img alt={item.title || ""} className="h-full w-full object-contain" src={current} />
+                <div className="relative aspect-[16/10] w-full overflow-hidden border border-black/10 bg-black/5">
+                  {/* Blurred background */}
+                  <img
+                    alt=""
+                    src={current}
+                    className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                    aria-hidden="true"
+                  />
+                  {/* Main content */}
+                  {isVideoSrc(current) ? (
+                    <video
+                      src={current}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="relative h-full w-full object-contain object-center"
+                    />
+                  ) : (
+                    <img alt="" className="relative h-full w-full object-contain object-center" src={current} />
+                  )}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
                 </div>
-
                 {images.length > 1 ? (
                   <div className="absolute bottom-3 right-3 flex gap-2">
                     <button
@@ -307,8 +330,7 @@ function RugDetailsModal({
 
               <div className="lg:col-span-4">
                 <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-4">
-                  <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ИНФОРМАЦИЯ</div>
-                  <div className="mt-2 text-lg font-semibold text-[color:var(--fg)]">{item.title || "Ковёр"}</div>
+                  <div className="text-lg font-semibold text-[color:var(--fg)]">{item.title || "Ковёр"}</div>
 
                   {chips.length ? (
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -577,14 +599,28 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                   aria-label={it.title || "Ковёр"}
                 >
                   <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden border border-black/10 bg-black/5">
+                      {/* Blurred background */}
                       <img
+                        alt=""
                         src={current}
-                        alt={it.title || ""}
-                        className="h-full w-full object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
-                        loading="eager"
+                        className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                        aria-hidden="true"
                       />
-                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
+                      {/* Main content */}
+                      {isVideoSrc(current) ? (
+                        <video
+                          src={current}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="relative h-full w-full object-contain object-center"
+                        />
+                      ) : (
+                        <img alt="" className="relative h-full w-full object-contain object-center" src={current} />
+                      )}
+                      <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
                     </div>
                     <div className="p-6">
                       <div className="flex items-start justify-between gap-4">

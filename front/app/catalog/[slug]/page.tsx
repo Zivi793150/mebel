@@ -20,6 +20,7 @@ import { RugsStyleCatalog } from "@/components/RugsStyleCatalog";
 import { RugsWhyShowcase } from "@/components/RugsWhyShowcase";
 import { CurtainTypesCatalog, CurtainTypesList, type CurtainTypeItem } from "@/components/CurtainTypesList";
 import { CornicesCatalog, type CorniceItem } from "@/components/CornicesCatalog";
+import { DecorCatalog, type DecorItem } from "@/components/DecorCatalog";
 import { ContactButton } from "@/components/ContactButton";
 import { CONTACTS, CATALOG_CATEGORIES } from "@/lib/constants";
 import { getMongoClient } from "@/lib/mongo";
@@ -30,6 +31,9 @@ type Params = {
     slug: string;
   }>;
 };
+
+// Dynamic rendering to show new images immediately
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return CATALOG_CATEGORIES.map((c) => ({ slug: c.slug }));
@@ -325,7 +329,7 @@ function pickHeroImageFromDb(
 
 function injectCaseImages(cases: PageCopy["cases"], images: string[]): PageCopy["cases"] {
   if (images.length === 0) return cases;
-  return cases.map((c, idx) => ({ ...c, imageSrc: images[(idx + 1) % images.length] }));
+  return cases.map((c, idx) => ({ ...c, imageSrc: images[idx % images.length] }));
 }
 
 async function pickPublicCatalogCover(appSlug: string): Promise<string | null> {
@@ -594,40 +598,22 @@ const DECOR_VALUES = [
 
 const DECOR_CATALOG = [
   {
-    title: "Подхваты",
+    title: "Кисти и подхваты",
     subtitle: "Аккуратная форма",
     text: "Дают композицию и “держат” складку. Подбираем под металл и стиль комнаты.",
-    imageSrc: "/catalog/5. \u0414\u0435\u043a\u043e\u0440, \u0444\u0443\u0440\u043d\u0438\u0442\u0443\u0440\u0430/50007.webp",
+    imageSrc: "/catalog/5.Furnitura/2.Kisty i podhvaty/3c7a83f8-f03a-11ef-a8ae-3497f65a19e0_1.png",
   },
   {
-    title: "Кисти и бахрома",
+    title: "Бахрома",
     subtitle: "Тактильный премиум",
     text: "Когда нужен мягкий, но дорогой акцент. Главное — пропорции и один сильный штрих.",
-    imageSrc: "/catalog/1.\u0428\u0442\u043e\u0440\u044b \u0438 \u0442\u043a\u0430\u043d\u0438/1.1.\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435/\u0410\u0432\u0441\u0442\u0440\u0438\u0439\u0441\u043a\u0438\u0435 \u043d\u0430 \u0438\u043a\u043e\u043d\u043a\u0443.webp",
+    imageSrc: "/catalog/5.Furnitura/3.bahroma/71661d6857f3e74a366c65c6b1ee38f9.jpg",
   },
   {
-    title: "Ленты и тесьма",
+    title: "Тесьма",
     subtitle: "Сборка складки",
     text: "Форма складки и высота посадки: то, что отличает “просто шторы” от комплекта.",
-    imageSrc: "/hero2.webp",
-  },
-  {
-    title: "Наконечники",
-    subtitle: "Ювелирная деталь",
-    text: "Металл и форма связывают карниз с интерьерной фурнитурой — смотрится как комплект.",
-    imageSrc: "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp",
-  },
-  {
-    title: "Кольца / крючки",
-    subtitle: "Тихий ход",
-    text: "Чтобы ткань двигалась легко, а линия выглядела ровной. Подбираем под систему.",
-    imageSrc: "/hero.webp",
-  },
-  {
-    title: "Комплект под интерьер",
-    subtitle: "Цельность",
-    text: "Собираем металл, цвет, фактуры и карниз под вашу мебель и светильники.",
-    imageSrc: "/2foto_dark.webp",
+    imageSrc: "/catalog/5.Furnitura/4.Tesmya/54ffa9d94c06dc588c85db948a3fe240.jpg",
   },
 ];
 
@@ -749,6 +735,12 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     ],
     cases: [
       {
+        title: "Спальня",
+        goal: "Сон без бликов и света с улицы.",
+        result: "Тишина, затемнение и визуально лёгкая стена — без тяжёлых штор.",
+        imageSrc: "/primery/spalnya-.webp",
+      },
+      {
         title: "Гостиная / панорамные окна",
         goal: "Сохранить воздух и сделать красиво в кадре.",
         result: "Мягкий свет, ровная геометрия, интерьер смотрится собранно.",
@@ -759,12 +751,6 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
         goal: "Чтобы не пачкалось и легко управлялось.",
         result: "Практичная ткань + понятная механика — без лишней “декорации”.",
         imageSrc: "/primery/kuhnya-gostinaya-.webp",
-      },
-      {
-        title: "Спальня",
-        goal: "Сон без бликов и света с улицы.",
-        result: "Тишина, затемнение и визуально лёгкая стена — без тяжёлых штор.",
-        imageSrc: "/primery/spalnya-.webp",
       },
     ],
     faq: [
@@ -950,7 +936,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
     heroTitle: "Декор и фурнитура - финальный штрих, который показывает премиум",
     heroSubtitle:
       "Декор и фурнитура создают ощущение целостности и завершенности, а порой и сами становятся главными героями в интерьере.",
-    heroImage: "/glavnaya_dizayneram.webp",
+    heroImage: "/фурнитура .jpg",
     bullets: [
       { title: "Цельность", text: "Фурнитура связывает ткань, карниз и мебель в один тон." },
       { title: "Тактильность", text: "Фактура и материал ощущаются “дорого” даже без слов." },
@@ -1041,14 +1027,14 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
   },
   bedding: {
     kicker: "ПОСТЕЛЬНОЕ",
-    heroTitle: "Постельное бельё, которое дарит нежность и комфорт каждый день",
+    heroTitle: "Финальный штрих",
     heroSubtitle:
-      "Подберём состав, плотность и цвет под спальню. Комфорт, тактильность и спокойный премиум без логотипов.",
-    heroImage: "/catalog/7.postelnoe-bele/SVM05681.webp",
+      "Один необычный материал способен преобразить комнату и придать ей ощущение роскоши.",
+    heroImage: "/банер покрывала.webp",
     bullets: [
-      { title: "Тактильность", text: "Материал, который хочется трогать — и который “дышит”." },
-      { title: "Цвет", text: "Спокойные оттенки, которые поддерживают интерьер." },
-      { title: "Сборка", text: "Подберём комплект: подушки, покрывало, плед — в одном стиле." },
+      { title: "Палитра", text: "Возьмите нейтральный цвет, добавьте к нему один тёплый оттенок и объедините их связующим тоном." },
+      { title: "Фактуры", text: "Подушки из букле, льна и велюра обладают такой объёмной фактурой, что их рельеф заметен даже в пасмурную погоду." },
+      { title: "Баланс", text: "Количество и размер подушек — чтобы выглядело аккуратно." },
     ],
     cases: [
       {
@@ -1087,32 +1073,32 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
   },
   pillows: {
     kicker: "ПОДУШКИ",
-    heroTitle: "Подушки и покрывала — быстрый апгрейд интерьера без ремонта",
+    heroTitle: "Финальный штрих",
     heroSubtitle:
-      "Соберём фактуры и цвета под диван, шторы и ковёр. Чтобы выглядело как комплект, а не набор случайных покупок.",
+      "Один необычный материал способен преобразить комнату и придать ей ощущение роскоши.",
     heroImage: "/ikonki-katalog/podushki-.webp",
     bullets: [
-      { title: "Цвет", text: "Связываем палитру комнаты: 2–3 оттенка вместо хаоса." },
-      { title: "Фактура", text: "Добавляем глубину: букле, лен, велюр — по стилю интерьера." },
+      { title: "Палитра", text: "Возьмите нейтральный цвет, добавьте к нему один тёплый оттенок и объедините их связующим тоном." },
+      { title: "Фактуры", text: "Подушки из букле, льна и велюра обладают такой объёмной фактурой, что их рельеф заметен даже в пасмурную погоду." },
       { title: "Баланс", text: "Количество и размер подушек — чтобы выглядело аккуратно." },
     ],
     cases: [
       {
         title: "Диван",
-        goal: "Сделать зону живой и “дорогой”.",
+        goal: "Создать в зоне отдыха атмосферу изысканности и комфорта.",
         result: "Интерьер выглядит продуманно, как в шоуруме.",
         imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A0592.webp",
       },
       {
         title: "Спальня",
-        goal: "Дать ощущение отеля.",
-        result: "Покрывало + подушки собирают кровать как композицию.",
+        goal: "Создать ощущение спокойствия.",
+        result: "Покрывало + подушки собирают гармоничную композицию.",
         imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/144A4918.webp",
       },
       {
         title: "В связке с шторами",
-        goal: "Чтобы текстиль “разговаривал” друг с другом.",
-        result: "Один стиль, одна палитра — без перегруза.",
+        goal: "Элементы текстиля поддерживают друг друга.",
+        result: "Гармония в простоте — один стиль, одна гамма.",
         imageSrc: "/catalog/8.dekorativnye-podushki-pokryvala/00509_089_dop_-maxiimov.webp",
       },
     ],
@@ -1123,7 +1109,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
       },
       {
         q: "Можно подобрать под мой интерьер по фото?",
-        a: "Да. Пришли фото комнаты/дивана — предложим палитру и 2–3 сочетания фактур.",
+        a: "Да. Пришлите фото комнаты/дивана — предложим палитру и 2–3 сочетания фактур.",
       },
       {
         q: "Это будет практично?",
@@ -1131,7 +1117,7 @@ const COPY_BY_SLUG: Record<string, PageCopy> = {
       },
       {
         q: "Можно ли сделать “как на картинке” из Pinterest?",
-        a: "Да. Скинь референсы — мы адаптируем под твою комнату.",
+        a: "Да. Пришлите референсы — мы адаптируем под вашу комнату.",
       },
     ],
   },
@@ -1305,6 +1291,7 @@ export default async function CategoryPage({ params }: Params) {
   const curtainTypes: CurtainTypeItem[] = isCurtains ? await getCurtainTypes() : [];
   const blindsTypes: BlindsTypeItem[] = isBlinds ? await getBlindsTypes() : [];
   const cornicesItems: CorniceItem[] = isRails ? await getCornicesItems() : [];
+  const decorItemsList: DecorItem[] = isDecor ? await getDecorItems() : [];
 
   const heroImageFromDb = pickHeroImageFromDb(slug, koenigImages, railsSubcatDocs, copy.heroImage);
   const publicHeroCover = await pickPublicCatalogCover(slug);
@@ -1313,7 +1300,9 @@ export default async function CategoryPage({ params }: Params) {
 
   const examplesImages = isCurtains
     ? ["/primery/spalnya-.webp", "/primery/gostinaya-panoramnye-okna.webp", "/primery/kuhnya-gostinaya-.webp"]
-    : koenigImages.map(dedupePathSegments);
+    : isBlinds
+      ? ["/Кухня .jpg", "/Кабинет .jpg", "/Первый этаж .jpg"]
+      : koenigImages.map(dedupePathSegments);
 
   const derivedCopy: PageCopy = {
     ...copy,
@@ -1329,6 +1318,15 @@ export default async function CategoryPage({ params }: Params) {
         <section className="relative isolate overflow-hidden">
           <div className="absolute inset-0">
             <div className={isBlinds ? "absolute inset-0 kr-blinds-hero-pan" : "absolute inset-0"}>
+              {isBedding && (
+                <Image
+                  src={derivedCopy.heroImage}
+                  alt=""
+                  fill
+                  className="object-cover blur-xl saturate-[0.8] opacity-50"
+                  aria-hidden="true"
+                />
+              )}
               <Image
                 src={derivedCopy.heroImage}
                 alt={category.title}
@@ -1338,7 +1336,9 @@ export default async function CategoryPage({ params }: Params) {
                 className={
                   isBlinds
                     ? "object-cover object-center brightness-[0.98] contrast-[1.06] saturate-[1.02]"
-                    : "object-cover object-center brightness-[0.95]"
+                    : isBedding
+                      ? "object-contain object-[50%_98%] scale-[1.15] brightness-[1.05]"
+                      : "object-cover object-center brightness-[0.95]"
                 }
                 priority
               />
@@ -1348,7 +1348,9 @@ export default async function CategoryPage({ params }: Params) {
               className={
                 isBlinds
                   ? "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.88),rgba(255,255,255,0.18))] dark:bg-[linear-gradient(to_bottom,rgba(0,0,0,0.72),rgba(0,0,0,0.12))]"
-                  : "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.72),rgba(0,0,0,0.08))]"
+                  : isBedding
+                    ? "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.45),rgba(0,0,0,0.05))]"
+                    : "absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.72),rgba(0,0,0,0.08))]"
               }
             />
           </div>
@@ -1370,15 +1372,6 @@ export default async function CategoryPage({ params }: Params) {
                   </a>
                 </div>
 
-                <div
-                  className={
-                    isBlinds
-                      ? "text-xs font-medium tracking-[0.34em] text-black/55 dark:text-white/70"
-                      : "text-xs font-medium tracking-[0.34em] text-white/70"
-                  }
-                >
-                  {derivedCopy.kicker}
-                </div>
                 <h1
                   className={
                     isBlinds
@@ -1495,7 +1488,10 @@ export default async function CategoryPage({ params }: Params) {
                         Koenig Carpet — ковры премиум-класса
                       </h2>
                       <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
-                        Наш специализированный сайт для покупки качественных ковров. Koenig Room — основной зал со всей продукцией, а здесь — исключительно ковры.
+                        Наш сайт посвящён исключительно выбору и покупке качественных ковров. В то время как на "Koenig Room" представлен весь ассортимент продукции, здесь вы найдёте только ковры.
+                      </p>
+                      <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+                        Мы собрали для вас коллекцию, где важны три вещи: тактильность, тепло и завершенность. Для каждого изделия доступны фото, название и цена.
                       </p>
                       <div className="mt-6 flex flex-wrap gap-4 text-sm">
                         <div className="flex items-center gap-2">
@@ -1541,12 +1537,11 @@ export default async function CategoryPage({ params }: Params) {
               <Container>
                 <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
                 <div className="lg:col-span-8">
-                  <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ВСЕ КОВРЫ</div>
-                  <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
-                    Выберите стиль
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-[color:var(--muted)] sm:text-base">
-                    Быстрый фильтр по стилю. Внутри — фото, название и цена.
+                  <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
+                    {category.title}
+                  </h1>
+                  <p className="mt-4 max-w-xl text-base leading-7 text-[color:var(--muted)] sm:text-lg">
+                    {category.description} Внутри — фото, название и цена.
                   </p>
                 </div>
                 <div className="lg:col-span-4 lg:flex lg:justify-end">
@@ -1632,29 +1627,24 @@ export default async function CategoryPage({ params }: Params) {
           </section>
         ) : null}
 
-        {isBlinds ? <BlindsShowcase images={koenigImages} /> : null}
+        {isBlinds ? (
+          <BlindsShowcase
+            images={[
+              "/фон на 02 и 03/-5334905485867554782_121 (1).jpg",
+              "/фон на 02 и 03/-5354925664169039299_121.jpg",
+              "/фон на 02 и 03/photo_2026-03-03_13-08-18.jpg",
+            ]}
+          />
+        ) : null}
 
         {isRails ? <RailsShowcase images={koenigImages} /> : null}
 
         {isDecor ? (
           <section id="decor-catalog" className="py-14 sm:py-18">
             <Container>
-              <div className="mb-8">
-                <span className="block text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl lg:text-5xl">
-                  Декор и фурнитура
-                </span>
+              <div className="mt-10">
+                <DecorCatalog items={decorItemsList} />
               </div>
-
-              <RailsVariantsCatalog
-                cards={decorVariantCards}
-                contextBase={{
-                  source: "koenigroom.ru",
-                  kind: "decor",
-                  url: "/catalog/decor",
-                  category: "Декор и фурнитура",
-                  title: "Декор и фурнитура",
-                }}
-              />
             </Container>
           </section>
         ) : null}

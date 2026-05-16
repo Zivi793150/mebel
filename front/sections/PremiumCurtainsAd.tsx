@@ -70,8 +70,15 @@ export function PremiumCurtainsAd() {
   );
 
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [progress, setProgress] = useState(0);
+  const [active, setActive] = useState(0);
   const [fit, setFit] = useState<"contain" | "cover">("contain");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % scenes.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [scenes.length]);
 
   useEffect(() => {
     function updateFit() {
@@ -88,52 +95,15 @@ export function PremiumCurtainsAd() {
     return () => window.removeEventListener("resize", updateFit);
   }, []);
 
-  useEffect(() => {
-    let raf = 0;
-
-    function update() {
-      const el = sectionRef.current;
-      if (!el) return;
-
-      const rect = el.getBoundingClientRect();
-      const viewportH = window.innerHeight || 1;
-
-      const total = rect.height - viewportH;
-      const scrolled = -rect.top;
-      const p = total <= 0 ? 0 : clamp01(scrolled / total);
-      setProgress(p);
-    }
-
-    function onScroll() {
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        update();
-        raf = 0;
-      });
-    }
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [scenes.length]);
-
   const n = scenes.length;
-  const scaled = progress * n;
-  const active = Math.min(n - 1, Math.floor(scaled));
-  const t = clamp01(scaled - active);
+  const t = 1; // Always show full opacity since we are not scrolling anymore
 
   return (
     <section
       ref={sectionRef}
       className="relative kr-header-invert bg-[#0b0b0b] text-[#f7f7f7]"
-      style={{ height: `${(n + 1) * 100}vh` }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="relative h-screen overflow-hidden">
         <div className="absolute inset-0">
           <video
             ref={videoRef}
@@ -200,8 +170,8 @@ export function PremiumCurtainsAd() {
 
               <div className="mt-8 h-1 w-full max-w-lg rounded-full bg-white/10">
                 <div
-                  className="h-1 rounded-full bg-white/65"
-                  style={{ width: `${Math.round(progress * 100)}%` }}
+                  className="h-1 rounded-full bg-white/65 transition-all duration-500"
+                  style={{ width: `${Math.round(((active + 1) / n) * 100)}%` }}
                 />
               </div>
             </div>

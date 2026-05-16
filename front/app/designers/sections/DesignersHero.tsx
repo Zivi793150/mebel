@@ -59,10 +59,6 @@ export function DesignersHero() {
       <Container>
         <div className="relative z-10 flex min-h-[70vh] flex-col justify-center py-16 sm:py-20 lg:py-24">
           <div className="max-w-4xl">
-            <div className="mb-6 inline-flex items-center gap-2 border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
-              <span className="text-xs font-medium tracking-wider text-white uppercase">for designers</span>
-            </div>
-
             <h1
               className="kr-word-title text-[clamp(2rem,4vw,3.75rem)] font-semibold leading-[1.1] tracking-tight text-white"
               style={{ textShadow: "0 18px 60px rgba(0,0,0,0.18)" }}

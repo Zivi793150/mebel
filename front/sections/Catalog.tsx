@@ -129,9 +129,7 @@ export async function Catalog() {
                 href={c.slug === "roman" ? "/catalog/blinds/roman" : `/catalog/${c.slug}`}
                 className="group block"
               >
-                <div
-                  className={`relative h-[320px] overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition duration-500 sm:h-[380px] lg:h-[420px]`}
-                >
+                <div className="relative h-[320px] overflow-hidden border border-[color:var(--gray-lines)] bg-[color:var(--card)] transition duration-500 sm:h-[380px] lg:h-[420px]">
                   <Image
                     src={imageSrc}
                     alt={c.title}
@@ -141,22 +139,21 @@ export async function Catalog() {
                     loading="eager"
                     priority
                   />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)] opacity-85 transition-opacity duration-500 group-hover:opacity-95" />
 
-                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)] opacity-85 transition-opacity duration-500 group-hover:opacity-95" />
-
-                <div className="absolute inset-x-0 top-0 flex h-16 items-center bg-black/50 px-5">
-                  <div className="text-lg font-medium text-white">
-                    {c.title}
-                  </div>
-                </div>
-
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="flex min-h-[80px] flex-col justify-end">
-                    <div className="text-sm leading-6 text-white/80 opacity-100 transition duration-500">
-                      {c.description}
+                  <div className="absolute inset-x-0 top-0 flex h-16 items-center bg-black/50 px-5">
+                    <div className="text-lg font-medium text-white">
+                      {c.title}
                     </div>
                   </div>
-                </div>
+
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <div className="flex min-h-[80px] flex-col justify-end">
+                      <div className="text-sm leading-6 text-white/80 opacity-100 transition duration-500">
+                        {c.description}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </Link>
             );

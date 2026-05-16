@@ -1,0 +1,783 @@
+[
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 1",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/10014.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/10014.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 2",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/10072.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/10072.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 3",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50007 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50007 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 4",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50008 (1) (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50008 (1) (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 5",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50054 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50054 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 6",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50055 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50055 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 7",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50056 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50056 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 8",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50057 (1).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50057 (1).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 9",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/50058 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/50058 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 10",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90003.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90003.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 11",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90004.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90004.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 12",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90007 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90007 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 13",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90007.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90007.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 14",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90008 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90008 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 15",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90009 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90009 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 16",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90009.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90009.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 17",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90010 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90010 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 18",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90017.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90017.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 19",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90033.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90033.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 20",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90054 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90054 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 21",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90055 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90055 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 22",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90056 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90056 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 23",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90057 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90057 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 24",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/90058 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/90058 (2).png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 25",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/Art-90018___A9R169xfao_1ab7jns_73c_04_03.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/Art-90018___A9R169xfao_1ab7jns_73c_04_03.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 26",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/Art-90022___A9R1au33tc_1ab7jno_73c_05_03.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/Art-90022___A9R1au33tc_1ab7jno_73c_05_03.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 27",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/Art-90023___A9R1vq0yjg_1ab7jnq_73c_05_03.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/Art-90023___A9R1vq0yjg_1ab7jnq_73c_05_03.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 28",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_10043.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_10043.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 29",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_10065 — копия.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_10065 — копия.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 30",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_10065.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_10065.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 31",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90001.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90001.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 32",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90002.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90002.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 33",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90007.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90007.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 34",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90008.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90008.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 35",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90016.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90016.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 36",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90042.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90042.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 37",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_90043.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_90043.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Декоративные элементы",
+    "title": "Вариант 38",
+    "image": "/catalog/5.Furnitura/1.Decorativniye elementy/full_Art-90064___A9R18hjz5q_otgomx_g0_17_03.png",
+    "images": [
+      "/catalog/5.Furnitura/1.Decorativniye elementy/full_Art-90064___A9R18hjz5q_otgomx_g0_17_03.png"
+    ],
+    "description": "Декоративный элемент для украшения интерьера."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 1",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/0380f73b-bc79-11eb-9130-001517de9f40_1.jfif",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/0380f73b-bc79-11eb-9130-001517de9f40_1.jfif"
+    ],
+    "description": "Элегантные кисти и подхваты для штор. Ручная работа, премиальные материалы."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 2",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80001 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80001 (2).png"
+    ],
+    "description": "Кисти различных форм и размеров для создания уникальных акцентов."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 3",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80003 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80003 (2).png"
+    ],
+    "description": "Стильные подхваты для современных интерьеров."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 4",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80004 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80004 (2).png"
+    ],
+    "description": "Атласные кисти для роскошных штор."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 5",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80009 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80009 (2).png"
+    ],
+    "description": "Золотые подхваты премиум-качества."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 6",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80010 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80010 (2).png"
+    ],
+    "description": "Декоративные кисти с кристаллами для элегантного вида."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 7",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80054 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80054 (2).png"
+    ],
+    "description": "Деревянные подхваты в классическом стиле."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 8",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/80055 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/80055 (2).png"
+    ],
+    "description": "Шелковые кисти для премиальных штор."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 9",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/85001 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85001 (2).png"
+    ],
+    "description": "Металлические подхваты для современных интерьеров."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 10",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/85009 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85009 (2).png"
+    ],
+    "description": "Бархатные кисти для роскошного вида."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 11",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/85010 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85010 (2).png"
+    ],
+    "description": "Латунные подхваты в винтажном стиле."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 12",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/85054 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85054 (2).png"
+    ],
+    "description": "Хромированные подхваты для минималистичного стиля."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Кисти и подхваты",
+    "title": "Вариант 13",
+    "image": "/catalog/5.Furnitura/2.Kisty i podhvaty/85055 (2).png",
+    "images": [
+      "/catalog/5.Furnitura/2.Kisty i podhvaty/85055 (2).png"
+    ],
+    "description": "Классические подхваты для традиционных интерьеров."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 14",
+    "image": "/catalog/5.Furnitura/3.bahroma/036c4feb77ccc843c2ab59e697497bec.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/036c4feb77ccc843c2ab59e697497bec.jpg"
+    ],
+    "description": "Декоративная бахрома для отделки штор, покрывал и подушек."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 15",
+    "image": "/catalog/5.Furnitura/3.bahroma/07rq0hxbrehz1b21uaekcyn40h0p5zni.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/07rq0hxbrehz1b21uaekcyn40h0p5zni.jpg"
+    ],
+    "description": "Золотая бахрома премиум-качества для роскошных изделий."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 16",
+    "image": "/catalog/5.Furnitura/3.bahroma/2171ijav29x4j7pe6plu04dcyzfsh3un.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/2171ijav29x4j7pe6plu04dcyzfsh3un.jpg"
+    ],
+    "description": "Атласная бахрома для элегантной отделки текстиля."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 17",
+    "image": "/catalog/5.Furnitura/3.bahroma/3q085jiu4av9uggsx05865yefk7vcyps.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/3q085jiu4av9uggsx05865yefk7vcyps.jpg"
+    ],
+    "description": "Шелковая бахрома для премиальных изделий."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 18",
+    "image": "/catalog/5.Furnitura/3.bahroma/41a5b2944db431c73657c3f2a6dbc4a4.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/41a5b2944db431c73657c3f2a6dbc4a4.jpg"
+    ],
+    "description": "Кружевная бахрома для романтичного стиля."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 19",
+    "image": "/catalog/5.Furnitura/3.bahroma/4bcd8ffcecdb48faf1eab089e4e6982f.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/4bcd8ffcecdb48faf1eab089e4e6982f.jpg"
+    ],
+    "description": "Винтажная бахрома для классических интерьеров."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 20",
+    "image": "/catalog/5.Furnitura/3.bahroma/5wc3prb7vj7xe16o3kq8qo20muzwulep.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/5wc3prb7vj7xe16o3kq8qo20muzwulep.jpg"
+    ],
+    "description": "Современная бахрома для актуальных дизайнов."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 21",
+    "image": "/catalog/5.Furnitura/3.bahroma/68ui2erlwb5s7k6esxc5d7jgl4urmsxt.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/68ui2erlwb5s7k6esxc5d7jgl4urmsxt.jpg"
+    ],
+    "description": "Цветная бахрома для ярких акцентов."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 22",
+    "image": "/catalog/5.Furnitura/3.bahroma/6czqgcd8r1sukiu50ravapgzvxns323b.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/6czqgcd8r1sukiu50ravapgzvxns323b.jpg"
+    ],
+    "description": "Металлизированная бахрома с блеском."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Бахрома",
+    "title": "Вариант 23",
+    "image": "/catalog/5.Furnitura/3.bahroma/71661d6857f3e74a366c65c6b1ee38f9.jpg",
+    "images": [
+      "/catalog/5.Furnitura/3.bahroma/71661d6857f3e74a366c65c6b1ee38f9.jpg"
+    ],
+    "description": "Эксклюзивная дизайнерская бахрома."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 24",
+    "image": "/catalog/5.Furnitura/4.Tesmya/0484077219d510575c784cd9a74b5bad.jpeg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/0484077219d510575c784cd9a74b5bad.jpeg"
+    ],
+    "description": "Широкий выбор тесьмы для создания безупречной складки и декора."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 25",
+    "image": "/catalog/5.Furnitura/4.Tesmya/20d64878d19a98ffb17055bec4741901.jpeg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/20d64878d19a98ffb17055bec4741901.jpeg"
+    ],
+    "description": "Атласная тесьма для отделки штор."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 26",
+    "image": "/catalog/5.Furnitura/4.Tesmya/3e69f8f2573235c18e39d882b16f2f3f.jpg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/3e69f8f2573235c18e39d882b16f2f3f.jpg"
+    ],
+    "description": "Кружевная тесьма для декорирования текстиля."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 27",
+    "image": "/catalog/5.Furnitura/4.Tesmya/409a2338bd5aa066fcbf2cd708cc898b.jpg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/409a2338bd5aa066fcbf2cd708cc898b.jpg"
+    ],
+    "description": "Шелковая тесьма для роскошных изделий."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 28",
+    "image": "/catalog/5.Furnitura/4.Tesmya/4ae0c7b556b307975d27cb8fcbfba267.jpeg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/4ae0c7b556b307975d27cb8fcbfba267.jpeg"
+    ],
+    "description": "Золотая тесьма премиум-качества."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 29",
+    "image": "/catalog/5.Furnitura/4.Tesmya/54ffa9d94c06dc588c85db948a3fe240.jpg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/54ffa9d94c06dc588c85db948a3fe240.jpg"
+    ],
+    "description": "Цветная тесьма для ярких акцентов."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 30",
+    "image": "/catalog/5.Furnitura/4.Tesmya/7xohn4p6hx8apqbgwc9cr5ky44myz0pf.jpg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/7xohn4p6hx8apqbgwc9cr5ky44myz0pf.jpg"
+    ],
+    "description": "Дизайнерская тесьма для уникальных проектов."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 31",
+    "image": "/catalog/5.Furnitura/4.Tesmya/88fbe6fd7074d82d03b01648de8403a0.jpeg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/88fbe6fd7074d82d03b01648de8403a0.jpeg"
+    ],
+    "description": "Винтажная тесьма для классических интерьеров."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 32",
+    "image": "/catalog/5.Furnitura/4.Tesmya/8cbfd603cc69a56005ee430cecf6b578.jpeg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/8cbfd603cc69a56005ee430cecf6b578.jpeg"
+    ],
+    "description": "Премиум кружевная тесьма ручной работы."
+  },
+  {
+    "source": "koenig_room",
+    "kind": "decor_item",
+    "category": "Тесьма",
+    "title": "Вариант 33",
+    "image": "/catalog/5.Furnitura/4.Tesmya/AG8149D_2396.jpg",
+    "images": [
+      "/catalog/5.Furnitura/4.Tesmya/AG8149D_2396.jpg"
+    ],
+    "description": "Широкая атласная тесьма для крупных проектов."
+  }
+]

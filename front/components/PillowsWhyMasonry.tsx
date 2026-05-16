@@ -209,7 +209,7 @@ export function PillowsWhyMasonry({ images }: { images?: string[] }) {
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
-            <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ЗАЧЕМ</div>
+            <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">ПОЧЕМУ МЫ</div>
             <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
               Подушки и покрывала — самый быстрый апгрейд интерьера
             </h2>

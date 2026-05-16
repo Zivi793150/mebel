@@ -187,7 +187,7 @@ export function Footer() {
             </div>
             <div className="mt-2 text-xs text-[color:var(--muted)]">{CONTACTS.address}</div>
             {CONTACTS.instagramHref ? (
-              <div className="mt-1 text-[10px] text-[color:var(--muted)]">Instagram — запрещённая соцсеть на территории РФ</div>
+              <div className="mt-1 text-[10px] text-[color:var(--muted)]">Instagram — принадлежит компании Meta, признанной экстремистской организацией, деятельность которое запрещена на территории РФ</div>
             ) : null}
           </div>
 
@@ -286,7 +286,7 @@ export function Footer() {
           </div>
           <div className="mt-3 text-xs text-[color:var(--muted)]">{CONTACTS.address}</div>
           {CONTACTS.instagramHref ? (
-            <div className="mt-1 text-[10px] text-[color:var(--muted)]">Instagram — запрещённая соцсеть на территории РФ</div>
+            <div className="mt-1 text-[10px] text-[color:var(--muted)]">Instagram — принадлежит компании Meta, признанной экстремистской организацией, деятельность которое запрещена на территории РФ</div>
           ) : null}
           <div className="mt-4"><ThemeToggle /></div>
         </div>

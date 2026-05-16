@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Container } from "@/components/Container";
+import { TelegramPromoBlock } from "@/components/TelegramPromoBlock";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MobileCtaBar } from "@/components/MobileCtaBar";
@@ -49,6 +50,12 @@ export default function ContactsPage() {
                     <a className="mt-2 block text-lg text-[color:var(--fg)] hover:opacity-90" href={CONTACTS.phoneHref}>
                       {CONTACTS.phoneDisplay}
                     </a>
+                    <a
+                      className="mt-1 block text-lg text-[color:var(--fg)] hover:opacity-90"
+                      href="tel:+79937322022"
+                    >
+                      +79937322022
+                    </a>
                   </div>
 
                   <div className="border-b border-[color:var(--gray-lines)] pb-6">
@@ -56,6 +63,15 @@ export default function ContactsPage() {
                     <ContactButton className="mt-2 block text-lg text-[color:var(--fg)] hover:opacity-90 text-left">
                       {CONTACTS.telegramHandle}
                     </ContactButton>
+                  </div>
+
+                    <div className="border-b border-[color:var(--gray-lines)] pb-6">
+                    <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">РЕЖИМ РАБОТЫ</div>
+                    <div className="mt-2 text-base text-[color:var(--fg)]">
+                      <div>пн-пт 10:00 - 19:00</div>
+                      <div>сб 11:00 - 17:00</div>
+                      <div>вс выходной</div>
+                    </div>
                   </div>
 
                   <div className="border-b border-[color:var(--gray-lines)] pb-6">
@@ -180,6 +196,7 @@ export default function ContactsPage() {
       </main>
 
       <Footer />
+      <TelegramPromoBlock />
       <MobileCtaBar />
     </div>
   );

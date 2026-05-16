@@ -80,15 +80,14 @@ export default function HimchistkaPage() {
         {/* Cleaning Section with 3 Steps */}
         <section className="bg-black/[0.02] py-16 sm:py-20 dark:bg-white/[0.03]">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+            <div className="grid gap-10 lg:grid-cols-12 lg:items-stretch">
               <div className="lg:col-span-6">
-                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
+                <h2 className="text-3xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl">
                   ХИМЧИСТКА
-                </div>
-                <h2 className="mt-4 text-3xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl">
+                </h2>
+                <h2 className="mt-2 text-3xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-4xl">
                   штор
                 </h2>
-                <p className="mt-2 text-sm text-[color:var(--muted)]">cleaning</p>
 
                 <div className="mt-8 space-y-6">
                   <div className="border-b border-[color:var(--gray-lines)] pb-6">
@@ -114,8 +113,8 @@ export default function HimchistkaPage() {
                 </div>
               </div>
 
-              <div className="lg:col-span-6">
-                <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="lg:col-span-6 flex flex-col">
+                <div className="relative flex-1 overflow-hidden">
                   <Image
                     src={PROCESS_IMAGE}
                     alt="Химчистка штор"
@@ -125,6 +124,10 @@ export default function HimchistkaPage() {
                     loading="eager"
                     priority
                   />
+                </div>
+                <div className="mt-4 flex justify-between text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
+                  <span>до</span>
+                  <span>после</span>
                 </div>
               </div>
             </div>
@@ -136,9 +139,9 @@ export default function HimchistkaPage() {
           <Container>
             <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
               <div className="lg:col-span-6">
-                <div className="relative aspect-video overflow-hidden bg-black/5">
+                <div className="relative h-full min-h-[600px] overflow-hidden bg-black/5">
                   <Image
-                    src={HERO_IMAGE}
+                    src={encodeURI("/himchistka/uhod-za-shtorami-.webp")}
                     alt="Как ухаживать за шторами"
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"

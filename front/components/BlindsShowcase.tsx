@@ -17,22 +17,22 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
         label: "Сценарий",
         quote: "Блики исчезают. Свет ровный. Комната спокойнее.",
         authorTitle: "Подбор под задачу",
-        authorSubtitle: "кухня / кабинет / ТВ",
-        imageSrc: "/catalog/2.zhalyuzi/allyuminievye/foto-na-ikonku-1-.webp",
+        authorSubtitle: "кабинет",
+        imageSrc: "/фон на 02 и 03/-5334905485867554782_121 (1).jpg",
       },
       {
         label: "Сценарий",
         quote: "Вечером — приватно. Днём — светло и легко.",
         authorTitle: "Тонкая настройка",
-        authorSubtitle: "без тяжёлых тканей",
-        imageSrc: "/catalog/5.-dekor-furnitura/50007.webp",
+        authorSubtitle: "кухня",
+        imageSrc: "/фон на 02 и 03/-5354925664169039299_121.jpg",
       },
       {
         label: "Сценарий",
         quote: "“Дорого” начинается с геометрии и чистой посадки.",
         authorTitle: "Чистый монтаж",
-        authorSubtitle: "ровно и без шума",
-        imageSrc: "/catalog/4.karnizy/bagetnye-karnizy/1.webp",
+        authorSubtitle: "первый этаж",
+        imageSrc: "/фон на 02 и 03/photo_2026-03-03_13-08-18.jpg",
       },
     ],
     [],
@@ -119,7 +119,7 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url(${bgFrom})`,
+              backgroundImage: `url('${bgFrom}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: 1 - bgMix,
@@ -129,7 +129,7 @@ export function BlindsShowcase({ images }: { images?: string[] }) {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url(${bgTo})`,
+              backgroundImage: `url('${bgTo}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: bgMix,

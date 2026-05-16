@@ -61,7 +61,7 @@ export function Services() {
               key={idx}
               className="group relative overflow-hidden bg-[color:var(--bg)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[color:var(--sand)]">
                 <Image
                   src={item.imageSrc}
                   alt={item.title}

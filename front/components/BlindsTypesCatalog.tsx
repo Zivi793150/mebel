@@ -173,14 +173,14 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                           <div className="relative aspect-square">
                             {isVideo ? (
                               <video
-                                className="h-full w-full object-cover pointer-events-none"
+                                className="h-full w-full object-contain bg-black/5 pointer-events-none"
                                 src={src}
                                 muted
                                 playsInline
                                 preload="metadata"
                               />
                             ) : (
-                              <img alt="" src={src} className="h-full w-full object-cover" />
+                              <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                             )}
 
                             {isVideo ? (
@@ -212,51 +212,58 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                 </div>
               </div>
               <div className="relative">
-                <div className="relative aspect-[4/3] w-full overflow-hidden border border-[color:var(--gray-lines)]">
+                <div className="relative aspect-[16/10] w-full overflow-hidden border border-[color:var(--gray-lines)] bg-black/5">
+                  {/* Blurred background */}
+                  <img
+                    alt=""
+                    src={activeImage}
+                    className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                    aria-hidden="true"
+                  />
+                  {/* Main content */}
                   {activeIsVideo ? (
                     <video
-                      className="h-full w-full object-cover"
                       src={activeImage}
-                      controls
+                      autoPlay
+                      muted
+                      loop
                       playsInline
-                      preload="metadata"
+                      className="relative h-full w-full object-contain object-center"
                     />
                   ) : (
-                    <img alt={item.title || ""} className="h-full w-full object-cover" src={activeImage} />
+                    <img alt={item.title || ""} className="relative h-full w-full object-contain object-center" src={activeImage} />
                   )}
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.12),rgba(0,0,0,0.28))]" />
-
-                  {images.length > 1 ? (
-                    <div className="absolute inset-0 flex items-center justify-between px-2 sm:hidden">
-                      <button
-                        type="button"
-                        onClick={goPrev}
-                        disabled={!canPrev}
-                        aria-label="Предыдущее фото"
-                        className={
-                          canPrev
-                            ? "inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/80 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/50 dark:hover:bg-black/70"
-                            : "inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/50 text-[color:var(--muted)] opacity-60 shadow-sm backdrop-blur dark:border-white/10 dark:bg-black/35"
-                        }
-                      >
-                        ←
-                      </button>
-                      <button
-                        type="button"
-                        onClick={goNext}
-                        disabled={!canNext}
-                        aria-label="Следующее фото"
-                        className={
-                          canNext
-                            ? "inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/80 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/50 dark:hover:bg-black/70"
-                            : "inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/50 text-[color:var(--muted)] opacity-60 shadow-sm backdrop-blur dark:border-white/10 dark:bg-black/35"
-                        }
-                      >
-                        →
-                      </button>
-                    </div>
-                  ) : null}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
                 </div>
+
+                {images.length > 1 ? (
+                  <div className="absolute inset-0 flex items-center justify-between px-2 sm:hidden pointer-events-none">
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      disabled={!canPrev}
+                      aria-label="Предыдущее фото"
+                      className={
+                        "pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/80 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/50 dark:hover:bg-black/70 " +
+                        (!canPrev ? "opacity-60 grayscale cursor-not-allowed" : "")
+                      }
+                    >
+                      ←
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      disabled={!canNext}
+                      aria-label="Следующее фото"
+                      className={
+                        "pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/80 text-[color:var(--fg)] shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/50 dark:hover:bg-black/70 " +
+                        (!canNext ? "opacity-60 grayscale cursor-not-allowed" : "")
+                      }
+                    >
+                      →
+                    </button>
+                  </div>
+                ) : null}
 
                 {images.length > 1 ? (
                   <div className="mt-3 grid grid-cols-3 gap-2 sm:hidden">
@@ -279,14 +286,14 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                           <div className="relative aspect-square">
                             {isVideo ? (
                               <video
-                                className="h-full w-full object-cover pointer-events-none"
+                                className="h-full w-full object-contain bg-black/5 pointer-events-none"
                                 src={src}
                                 muted
                                 playsInline
                                 preload="metadata"
                               />
                             ) : (
-                              <img alt="" src={src} className="h-full w-full object-cover" />
+                              <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                             )}
 
                             {isVideo ? (
@@ -302,16 +309,6 @@ export function BlindsTypeModal({ item, onClose }: { item: BlindsTypeItem; onClo
                     })}
                   </div>
                 ) : null}
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5">
-            <div className="rounded-2xl border border-black/10 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-white/10 dark:bg-zinc-800/80">
-              <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЗАЧЕМ</div>
-              <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
-                {item.description ||
-                  "Подбираем жалюзи под свет и приватность. Подскажем ламели, механику и монтаж под ваше окно."}
               </div>
 
               <div className="mt-5 grid gap-2">
@@ -380,11 +377,11 @@ export function BlindsTypesCatalog({
             onClick={() => setActive(it)}
             className="group text-left overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/80 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
           >
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative w-full pt-[75%] overflow-hidden bg-black/5">
               <img
                 alt={it.title || ""}
                 src={img}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                className="absolute inset-0 block !h-full !w-full !object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.55),transparent_70%)]" />
             </div>

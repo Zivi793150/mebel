@@ -32,8 +32,8 @@ export function DesignersContact() {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-[color:var(--fg)]">Адрес шоу-рума</div>
-                  <div className="text-sm text-[color:var(--muted)]">г. Калининград, ул. М. Гвардии 34к2</div>
+                  <div className="text-sm font-medium text-[color:var(--fg)]">Адрес</div>
+                  <div className="text-sm text-[color:var(--muted)]">{CONTACTS.address}</div>
                 </div>
               </div>
 
@@ -60,7 +60,11 @@ export function DesignersContact() {
                 </div>
                 <div>
                   <div className="text-sm font-medium text-[color:var(--fg)]">Режим работы</div>
-                  <div className="text-sm text-[color:var(--muted)]">Ежедневно с 10:00 до 19:00</div>
+                  <div className="text-sm text-[color:var(--muted)]">
+                    <div>пн-пт 10:00 - 19:00</div>
+                    <div>сб 11:00 - 17:00</div>
+                    <div>вс выходной</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -75,7 +79,7 @@ export function DesignersContact() {
             </p>
 
             <div className="mt-6 grid gap-3">
-              <ContactButton className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-6 text-sm font-medium text-white transition hover:opacity-90" imageSrc="/devochka-dizayneram.webp">
+              <ContactButton className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-6 text-sm font-medium text-white transition hover:opacity-90" imageSrc="/devochka-dizayneram.webp" useRandomImage={false}>
                 Связаться
               </ContactButton>
 
@@ -91,7 +95,7 @@ export function DesignersContact() {
 
               <div className="bg-[color:var(--sand)] p-4">
                 <p className="text-xs leading-5 text-[color:var(--muted)]">
-                  <span className="font-medium text-[color:var(--fg)]">Рады видеть вас в нашем шоу-руме</span> с удобным паркингом. По всем вопросам можете обращаться к руководителю отдела по работе с дизайнерами.
+                  <span className="font-medium text-[color:var(--fg)]">Рады видеть вас в нашем салоне текстиля</span> с удобным паркингом. По всем вопросам можете обращаться к руководителю отдела по работе с дизайнерами.
                 </p>
               </div>
             </div>

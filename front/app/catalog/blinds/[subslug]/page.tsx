@@ -350,9 +350,6 @@ export default async function BlindsSubcatalogPage({
           <Container>
             <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-6">
-                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                  ПОДКАТАЛОГ
-                </div>
                 <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--fg)] sm:text-5xl">
                   {meta.title}
                 </h1>
@@ -398,9 +395,6 @@ export default async function BlindsSubcatalogPage({
           <Container>
             <div className={`grid gap-6 lg:grid-cols-12 lg:items-end ${isRoman ? "text-center" : ""}`}>
               <div className={isRoman ? "lg:col-span-12" : "lg:col-span-8"}>
-                <div className="text-xs font-semibold tracking-[0.32em] text-[color:var(--muted)]">
-                  ВАРИАНТЫ
-                </div>
                 <h2 className={`mt-4 font-semibold tracking-tight text-[color:var(--fg)] ${isRoman ? "text-4xl sm:text-5xl" : "text-3xl sm:text-4xl"}`}>
                   Выберите систему
                 </h2>

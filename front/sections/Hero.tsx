@@ -41,6 +41,7 @@ function formatNumber(n: number) {
 }
 
 export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
+  const defaultBg = "/fonovaya-na-glavnuyu-1.webp";
   const title = "Текстиль , который говорит без слов";
   const titleWords = title.split(" ");
 
@@ -79,11 +80,11 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
   }, [proofInView]);
 
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden flex flex-col justify-center">
       <div className="absolute inset-0 z-0">
         <Image
-          key={backgroundSrc || "/fonovaya-na-glavnuyu-1.webp"}
-          src={backgroundSrc || "/fonovaya-na-glavnuyu-1.webp"}
+          key={backgroundSrc || defaultBg}
+          src={backgroundSrc || defaultBg}
           alt="Koenig Room"
           fill
           sizes="100vw"
@@ -99,7 +100,7 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
         <div className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:py-20">
           <div className="relative z-10 lg:col-span-7">
             <h1
-              className="kr-word-title max-w-[46rem] text-[clamp(2.2rem,2.3vw,3.25rem)] font-medium leading-tight tracking-tight text-white"
+              className="kr-word-title max-w-[54rem] text-[clamp(2.5rem,4vw,4.5rem)] font-medium leading-[1.1] tracking-tight text-white"
               aria-label={title}
             >
               {titleWords.map((w, i) => (
@@ -112,26 +113,26 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
               ))}
             </h1>
 
-            <p className="mt-4 max-w-xl text-pretty text-base leading-7 text-white/80 sm:text-lg">
+            <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/90 sm:text-xl">
               Подбираем ткани и решения под стиль пространства.
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <ContactButton
-                className="inline-flex h-12 items-center justify-center bg-[color:var(--accent)] px-5 text-sm font-medium text-[color:var(--accent-contrast)] transition hover:opacity-90"
+                className="inline-flex h-14 items-center justify-center bg-[color:var(--accent)] px-8 text-base font-semibold text-[color:var(--accent-contrast)] transition hover:opacity-90"
                 imageSrc="/foto-na-knopku-1-.webp"
               >
                 Рассчитать стоимость
               </ContactButton>
               <a
                 href="#catalog"
-                className="inline-flex h-12 items-center justify-center border border-white/25 bg-transparent px-5 text-sm font-medium text-white transition hover:bg-white/10"
+                className="inline-flex h-14 items-center justify-center border border-white/30 bg-transparent px-8 text-base font-semibold text-white transition hover:bg-white/10"
               >
                 Смотреть каталог
               </a>
             </div>
 
-            <div ref={proofRef} className="mt-9 grid gap-3 sm:grid-cols-3">
+            <div ref={proofRef} className="mt-12 grid gap-4 sm:grid-cols-3">
               {stats.map((s) => {
                 const val = s.value * anim;
                 const shown = s.value % 1 === 0 ? formatNumber(val) : val.toFixed(1);
@@ -140,14 +141,14 @@ export function Hero({ backgroundSrc }: { backgroundSrc?: string }) {
                 return (
                   <div
                     key={s.label}
-                    className="border border-white/20 bg-white/10 px-4 py-3 backdrop-blur-sm"
+                    className="border border-white/20 bg-white/10 px-6 py-5 backdrop-blur-sm"
                   >
-                    <div className="text-2xl font-medium tracking-tight text-white">
+                    <div className="text-3xl font-semibold tracking-tight text-white">
                       {prefix}
                       {shown}
                       {suffix}
                     </div>
-                    <div className="mt-1 text-xs font-medium tracking-[0.22em] text-white/65">
+                    <div className="mt-2 text-[10px] font-bold tracking-[0.25em] text-white/70">
                       {s.label.toUpperCase()}
                     </div>
                   </div>

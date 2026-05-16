@@ -3,16 +3,15 @@ export const BRAND = {
 };
 
 export const CONTACTS = {
-  phoneDisplay: "+7 (906) 230-20-22",
-  phoneHref: "tel:+79062302022",
+  phoneDisplay: "8(9062) 38-90-38",
+  phoneHref: "tel:+79062389038",
   telegramHandle: "@koenig_room",
-  telegramHref: "https://t.me/koenig_room",
+  telegramHref: "https://t.me/koenigroom",
   email: "salon@koenigroom.ru",
-  address: "г. Калининград, ул. М. Гвардии 34к2",
+  address: "Салон текстиля \"Koenig Room\", г. Калининград, ул. М. Гвардии 34к2",
   vkHref: "https://vk.com/koenigroom",
   rutubeHref: "https://rutube.ru/channel/74116194/",
-  twoGisHref:
-    "https://2gis.ru/kaliningrad/search/%D0%9A%D0%BE%D0%B2%D1%80%D1%8B/rubricId/19505/firm/70000001103690198/20.563928%2C54.720942?m=20.545521%2C54.723172%2F16.14",
+  twoGisHref: "https://2gis.ru/kaliningrad/firm/70000001089561588/tab/reviews",
   instagramHref: "https://www.instagram.com/koenigroom/",
   maxHref: "https://max.ru/join/feos5xEfrDQWNiXbR6sjVFkmbiSqzrl6Bb-d9t5_tSg",
 };

@@ -38,10 +38,7 @@ export function Header() {
         { label: "Жалюзи", href: "/catalog/blinds" },
         { label: "Рулонные шторы", href: "/catalog/blinds" },
         { label: "Декоративные карнизы", href: "/catalog/rails" },
-        {
-          label: "Электрокарнизы",
-          href: "/catalog/blinds/roman?t=%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE&scroll=1",
-        },
+        { label: "Электрокарнизы", href: "/electro" },
       ],
     },
     {
@@ -103,15 +100,15 @@ export function Header() {
           ref={barRef}
           className="border-b border-[color:var(--gray-lines)] bg-[color:var(--bg)]"
         >
-          <div className="mx-auto w-full max-w-7xl px-2 sm:px-4 lg:px-6">
+          <div className="mx-auto w-full max-w-[90rem] px-2 sm:px-4 lg:px-6">
             <div className="relative flex h-16 items-center justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-20">
+              <div className="flex min-w-0 items-center gap-10 xl:gap-20">
                 <Link
                   href="/#top"
-                  className="shrink-0 text-sm font-semibold tracking-wide text-[color:var(--fg)] transition hover:opacity-80 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-                  aria-label="Наверх"
+                  className="shrink-0 transition hover:opacity-80 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                  aria-label="На главную"
                 >
-                  {BRAND.name}
+                  <img src="/logo.webp" alt={BRAND.name} className="h-10 w-auto object-contain dark:invert" />
                 </Link>
 
                 <nav className="relative hidden items-center gap-0.5 xl:flex" onMouseLeave={closeCatalog}>
@@ -303,7 +300,13 @@ export function Header() {
           <div className="absolute inset-0 bg-[color:var(--bg)] text-[color:var(--fg)]">
             <div className="flex h-full flex-col pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
               <div className="flex items-center justify-between border-b border-[color:var(--gray-lines)] px-5 py-4">
-                <div className="text-sm font-medium tracking-wide">{BRAND.name}</div>
+                <Link
+                  href="/#top"
+                  onClick={() => setMobileOpen(false)}
+                  className="shrink-0 transition hover:opacity-80 focus:outline-none"
+                >
+                  <img src="/logo.webp" alt={BRAND.name} className="h-9 w-auto object-contain dark:invert" />
+                </Link>
                 <button
                   type="button"
                   onClick={() => setMobileOpen(false)}

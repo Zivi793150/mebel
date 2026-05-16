@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 
@@ -180,6 +181,10 @@ function isLeafItem(doc: CorniceItem): doc is CorniceLeafItem {
   return String(doc.kind || "") === "cornice_item" && Boolean(doc.collectionSlug);
 }
 
+function isElectroType(value: string): boolean {
+  return String(value || "").trim().toLowerCase() === "электро";
+}
+
 function CorniceViewer({ item, collections }: { item: CorniceItem; collections?: CorniceCollection[] }) {
   const images = useMemo(() => {
     const arr = [...(item.images || [])].filter(Boolean);
@@ -220,8 +225,8 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
   const title = buildTitle(item);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-12">
-      <div className="relative lg:col-span-7">
+    <div className="grid gap-4">
+      <div className="relative">
         <div className="grid gap-3 sm:grid-cols-[92px,1fr]">
           <div className="hidden sm:block">
             <div className="grid gap-2">
@@ -254,9 +259,9 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
                       }
                     >
                       {isVideoSrc(src) ? (
-                        <video className="h-full w-full object-cover" src={src} muted playsInline preload="metadata" />
+                        <video className="h-full w-full object-contain bg-black/5" src={src} muted playsInline preload="metadata" />
                       ) : (
-                        <img alt="" src={src} className="h-full w-full object-cover" />
+                        <img alt="" src={src} className="h-full w-full object-contain bg-black/5" />
                       )}
                     </button>
                   );
@@ -279,33 +284,22 @@ function CorniceViewer({ item, collections }: { item: CorniceItem; collections?:
 
           <div className="relative overflow-hidden border border-[color:var(--gray-lines)]">
             <div className="relative aspect-square overflow-hidden">
+              <img
+                alt=""
+                src={activeImage}
+                className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+                aria-hidden="true"
+              />
               {activeIsVideo ? (
-                <video className="h-full w-full object-cover" src={activeImage} controls playsInline />
+                <video className="relative h-full w-full object-contain bg-black/5" src={activeImage} controls playsInline />
               ) : (
-                <img alt={title} src={activeImage} className="h-full w-full object-cover" />
+                <img alt={title} src={activeImage} className="relative h-full w-full object-contain bg-black/5" />
               )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="lg:col-span-5">
-        <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-5">
-          <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ПОДРОБНЕЕ</div>
-          <div className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
-            {displayDescription}
-          </div>
-
-          <div className="mt-5 grid gap-2">
-            <ContactButton
-              className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
-              imageSrc="/foto-na-knopku-1-.webp"
-            >
-              Связаться
-            </ContactButton>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -450,10 +444,7 @@ export function CorniceCollectionModal({
 
           <div className="lg:col-span-5">
             <div className="border border-black/10 bg-white/60 p-5 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/5">
-              {description ? <div className="text-sm leading-6 text-[color:var(--muted)]">{description}</div> : null}
-
-              <div className="mt-5 grid gap-3">
-                <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ВАРИАНТЫ</div>
+              <div className="grid gap-3">
                 <div className="grid gap-3 sm:grid-cols-2">
                   {derivedItems.map((it, idx) => {
                     const img = it.image || it.images?.[0] || "/catalog/4.\u041a\u0430\u0440\u043d\u0438\u0437\u044b/\u0411\u0430\u0433\u0435\u0442\u043d\u044b\u0435 \u043a\u0430\u0440\u043d\u0438\u0437\u044b/1.webp";
@@ -467,22 +458,15 @@ export function CorniceCollectionModal({
                       >
                         <div className="relative aspect-square overflow-hidden">
                           {isVideoSrc(img) ? (
-                            <video className="h-full w-full object-cover" src={img} muted playsInline preload="metadata" />
+                            <video className="h-full w-full object-contain bg-black/5" src={img} muted playsInline preload="metadata" />
                           ) : (
-                            <img alt={t} src={img} className="h-full w-full object-cover" />
+                            <img alt={t} src={img} className="h-full w-full object-contain bg-black/5" />
                           )}
-                        </div>
-                        <div className="p-4">
-                          <div className="text-sm font-semibold tracking-tight text-[color:var(--fg)]">{t}</div>
                         </div>
                       </button>
                     );
                   })}
                 </div>
-
-                <ContactButton className="inline-flex h-12 items-center justify-center bg-[color:var(--green)] px-8 text-xs font-normal uppercase tracking-[0.15em] text-white transition hover:bg-[color:var(--dark-gray)]">
-                  Связаться
-                </ContactButton>
               </div>
             </div>
           </div>
@@ -543,12 +527,14 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
 
   const filteredCollections = useMemo(() => {
     return collections
+      .filter((i) => !isElectroType(i.type || ""))
       .filter((i) => (type === "ВСЕ" ? true : i.type === type))
       .slice()
       .sort((a, b) => String(a.title || "").localeCompare(String(b.title || ""), "ru"));
   }, [collections, type]);
 
   const [activeCollection, setActiveCollection] = useState<CorniceCollection | null>(null);
+  const [activeModalCollection, setActiveModalCollection] = useState<CorniceCollection | null>(null);
   const [viewMode, setViewMode] = useState<'types' | 'collections' | 'items'>('types');
   const [activeItems, setActiveItems] = useState<CorniceLeafItem[]>([]);
   const [activeItem, setActiveItem] = useState<CorniceLeafItem | null>(null);
@@ -609,34 +595,61 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
       {viewMode === 'types' ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {typeCards.map((t) => (
-            <button
-              key={t.type}
-              type="button"
-              onClick={() => {
-                setType(t.type);
-                setViewMode('collections');
-              }}
-              className="group text-left overflow-hidden bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:bg-white/5 dark:hover:bg-white/10"
-            >
-              <div className="relative aspect-square overflow-hidden">
-                {isVideoSrc(t.image) ? (
-                  <video className="h-full w-full object-cover" src={t.image} muted playsInline preload="metadata" />
-                ) : (
-                  <img
-                    alt={t.type}
-                    src={t.image}
-                    className="h-full w-full object-cover transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
-                  />
-                )}
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
-              </div>
-              <div className="p-6">
-                <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{t.type}</div>
-                <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
-                  Смотреть коллекции →
+            isElectroType(t.type) ? (
+              <Link
+                key={t.type}
+                href="/electro"
+                className="group block text-left overflow-hidden bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:bg-white/5 dark:hover:bg-white/10"
+              >
+                <div className="relative aspect-square overflow-hidden">
+                  {isVideoSrc(t.image) ? (
+                    <video className="h-full w-full object-contain bg-black/5" src={t.image} muted playsInline preload="metadata" />
+                  ) : (
+                    <img
+                      alt={t.type}
+                      src={t.image}
+                      className="h-full w-full object-contain bg-black/5 transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
                 </div>
-              </div>
-            </button>
+                <div className="p-6">
+                  <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{t.type}</div>
+                  <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
+                    Открыть →
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <button
+                key={t.type}
+                type="button"
+                onClick={() => {
+                  setType(t.type);
+                  setViewMode('collections');
+                }}
+                className="group text-left overflow-hidden bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:bg-white/5 dark:hover:bg-white/10"
+              >
+                <div className="relative aspect-square overflow-hidden">
+                  {isVideoSrc(t.image) ? (
+                    <video className="h-full w-full object-contain bg-black/5" src={t.image} muted playsInline preload="metadata" />
+                  ) : (
+                    <img
+                      alt={t.type}
+                      src={t.image}
+                      className="h-full w-full object-contain bg-black/5 transition-[transform,filter] duration-300 ease-in-out group-hover:scale-[1.05] group-hover:saturate-[1.06]"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
+                </div>
+                <div className="p-6">
+                  <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">{t.type}</div>
+                  <div className="mt-4 text-xs font-semibold tracking-[0.24em] text-[color:var(--muted)] transition-colors duration-300 group-hover:text-[color:var(--fg)]">
+                    Смотреть коллекции →
+                  </div>
+                </div>
+              </button>
+            )
           ))}
         </div>
       ) : (
@@ -692,27 +705,23 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
                     key={`${title}-${idx}-${img}`}
                     type="button"
                     onClick={() => {
-                      setActiveCollection(it);
                       const collectionItems = leafItems.filter((item) => item.collectionSlug === it.collectionSlug);
-                      // Для электро - сразу открываем модалку (1 товар = коллекция)
-                      if (it.type === "электро" && collectionItems.length === 1) {
-                        setActiveItems(collectionItems);
-                        setActiveItem(collectionItems[0]);
-                      } else {
-                        setActiveItems(collectionItems);
-                        setViewMode('items');
-                      }
+                      // Открываем модалку коллекции (с вариантами) всегда
+                      setActiveCollection(it);
+                      setActiveItems(collectionItems);
+                      setActiveModalCollection(it);
+                      setActiveItem(collectionItems[0] || null);
                     }}
                     className="group overflow-hidden border border-black/10 bg-white/70 text-left shadow-sm backdrop-blur transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
                   >
                     <div className="relative aspect-square overflow-hidden">
                       {isVideoSrc(img) ? (
-                        <video className="h-full w-full object-cover" src={img} muted playsInline preload="metadata" />
+                        <video className="h-full w-full object-contain bg-black/5" src={img} muted playsInline preload="metadata" />
                       ) : (
                         <img
                           alt={it.title || it.collectionSlug || it.url || ""}
                           src={img}
-                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                          className="h-full w-full object-contain bg-black/5 transition duration-300 group-hover:scale-[1.03]"
                         />
                       )}
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
@@ -739,12 +748,12 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
                   >
                     <div className="relative aspect-square overflow-hidden">
                       {isVideoSrc(img) ? (
-                        <video className="h-full w-full object-cover" src={img} muted playsInline preload="metadata" />
+                        <video className="h-full w-full object-contain bg-black/5" src={img} muted playsInline preload="metadata" />
                       ) : (
                         <img
                           alt={it.title || it.collectionSlug || it.url || ""}
                           src={img}
-                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                          className="h-full w-full object-contain bg-black/5 transition duration-300 group-hover:scale-[1.03]"
                         />
                       )}
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0),rgba(0,0,0,0.14),rgba(0,0,0,0.50))]" />
@@ -758,7 +767,18 @@ export function CornicesCatalog({ items }: { items: CorniceItem[] }) {
             )}
           </div>
 
-          {activeItem ? (
+          {activeModalCollection && activeItems.length > 0 ? (
+            <CorniceCollectionModal
+              collection={activeModalCollection}
+              items={activeItems}
+              onClose={() => {
+                setActiveModalCollection(null);
+                setActiveItem(null);
+              }}
+            />
+          ) : null}
+
+          {activeItem && !activeModalCollection ? (
             <CornicesModal item={activeItem} collections={collections} onClose={() => setActiveItem(null)} />
           ) : null}
         </>

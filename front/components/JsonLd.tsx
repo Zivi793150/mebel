@@ -1,3 +1,5 @@
+import { CONTACTS } from "@/lib/constants";
+
 export function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -5,26 +7,29 @@ export function OrganizationJsonLd() {
     name: "Koenig Room",
     description: "Премиальные шторы, жалюзи и интерьерный декор в Калининграде",
     url: "https://koenigroom.ru",
-    telephone: "+7 (XXX) XXX-XX-XX",
-    email: "info@koenigroom.ru",
+    telephone: CONTACTS.phoneDisplay,
+    email: CONTACTS.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "ул. Примерная, 123",
+      streetAddress: CONTACTS.address,
       addressLocality: "Калининград",
       addressRegion: "Калининградская область",
-      postalCode: "236000",
       addressCountry: "RU",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "54.7104",
-      longitude: "20.4522",
+      latitude: "54.7206719",
+      longitude: "20.5636115",
     },
-    image: "https://koenigroom.ru/Фоновая на главную 1.webp",
+    image: "https://koenigroom.ru/hero.webp",
     sameAs: [
-      "https://instagram.com/koenigroom",
-      "https://facebook.com/koenigroom",
-    ],
+      CONTACTS.telegramHref,
+      CONTACTS.vkHref,
+      CONTACTS.rutubeHref,
+      CONTACTS.twoGisHref,
+      CONTACTS.instagramHref,
+      CONTACTS.maxHref,
+    ].filter(Boolean),
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
@@ -34,7 +39,7 @@ export function OrganizationJsonLd() {
       },
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
+        dayOfWeek: ["Saturday"],
         opens: "11:00",
         closes: "17:00",
       },

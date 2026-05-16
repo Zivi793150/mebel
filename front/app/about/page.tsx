@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { TelegramPromoBlock } from "@/components/TelegramPromoBlock";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Container } from "@/components/Container";
@@ -142,13 +143,15 @@ export default async function AboutPage() {
           <AboutStory images={portfolio} />
         </div>
 
+        <TelegramPromoBlock />
+
         <WorkSteps />
 
         <section className="py-14 sm:py-18">
           <Container>
             <div className="text-center">
               <h2 className="text-2xl font-light tracking-[0.05em] uppercase text-[color:var(--fg)] sm:text-3xl">
-                Профессионально. Спокойно. С уважением к вашему дому.
+                Профессионально и с уважением к вашему дому!
               </h2>
             </div>
 
