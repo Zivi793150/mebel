@@ -295,7 +295,7 @@ function RugDetailsModal({
                 rel="noreferrer"
                 className="inline-flex h-10 flex-1 items-center justify-center border border-black/10 bg-white/70 px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 min-w-[140px]"
               >
-                Открыть на сайте
+                Перейти на ковер ↗
               </a>
             ) : null}
 
@@ -562,9 +562,6 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                           <div className="text-sm font-semibold tracking-tight text-[color:var(--fg)] truncate">
                             {it.title || "Ковёр"}
                           </div>
-                          <div className="mt-0.5 text-[10px] font-semibold tracking-[0.2em] text-[color:var(--muted)] truncate">
-                            {normalizePrice(it.priceText) || ""}
-                          </div>
                         </div>
                         <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
                           <span
@@ -575,17 +572,6 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                           </span>
                         </div>
                       </div>
-                      {it.url && (
-                        <a
-                          href={it.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="mt-2 block w-full text-center border border-black/10 bg-[color:var(--accent)]/10 px-2 py-1.5 text-[10px] font-semibold tracking-wider text-[color:var(--accent)] transition hover:bg-[color:var(--accent)]/20 hover:text-[color:var(--accent)] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.12]"
-                        >
-                          Перейти на ковер →
-                        </a>
-                      )}
                     </div>
                   </div>
                 </button>

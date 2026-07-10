@@ -296,8 +296,13 @@ function extractProductDataFromRsc(html) {
       const styleValue = rug.style?.value || "";
       const colorValue = rug.color?.value || "";
 
-      // Build product URL pointing to the collection page on koenigcarpet.ru
-      const url = collectionValue ? `${BASE}/ru/collection/${collectionValue}` : null;
+      // Build product URL pointing to the specific product page on koenigcarpet.ru
+      let url = null;
+      if (collectionValue && productCode) {
+        url = `${BASE}/ru/${collectionValue}/${productCode.toLowerCase()}`;
+      } else if (collectionValue) {
+        url = `${BASE}/ru/collection/${collectionValue}`;
+      }
 
       return {
         source: "koenigcarpet.ru",

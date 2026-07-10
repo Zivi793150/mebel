@@ -35,9 +35,17 @@ async function main() {
       continue;
     }
 
-    // Build correct URL from collection
+    // Build correct URL from collection + title-based slug
     if (collection) {
-      const newUrl = `https://koenigcarpet.ru/ru/collection/${collection}`;
+      // Try to build a product-specific URL
+      // The site uses: /ru/{collectionSlug}/{productCode}
+      // or fallback to collection page
+      let newUrl;
+      if (doc.product_code) {
+        newUrl = `https://koenigcarpet.ru/ru/${collection}/${doc.product_code.toLowerCase()}`;
+      } else {
+        newUrl = `https://koenigcarpet.ru/ru/collection/${collection}`;
+      }
       await col.updateOne(
         { _id: doc._id },
         { $set: { url: newUrl } }
