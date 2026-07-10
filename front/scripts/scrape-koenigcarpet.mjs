@@ -31,6 +31,75 @@ async function fetchText(url) {
   return await res.text();
 }
 
+/**
+ * Parse the RSC (React Server Components) payload from the page
+ * to extract product data with proper URLs.
+ */
+function extractProductsFromRsc(html) {
+  // Extract all RSC payload chunks
+  const scriptRe = /<script>self\.__next_f\.push\(\[([\s\S]*?)\]\)<\/script>/g;
+  let m;
+  let allRaw = "";
+  while ((m = scriptRe.exec(html))) {
+    allRaw += m[1] + "\n";
+  }
+
+  if (!allRaw) return null;
+
+  // Normalize: decode escape sequences
+  const decoded = allRaw
+    .replace(/\\u002F/g, '/')
+    .replace(/\\u0022/g, '"')
+    .replace(/\\n/g, ' ')
+    .replace(/\\"/g, '"');
+
+  // Find rugs array in the decoded RSC payload
+  // Pattern: "rugs":[{...product_data...}]
+  const rugsMatch = decoded.match(/"rugs":(\[[\s\S]*?\])\s*,\s*"rugsCount"/);
+  if (!rugsMatch) return null;
+
+  try {
+    const rugs = JSON.parse(rugsMatch[1]);
+    return rugs.map((rug) => {
+      const collectionValue = rug.collection?.value || "";
+      const productCode = rug.product_code || "";
+      const title = rug.product_name?.ru || rug.product_name?.en || "";
+      const price = rug.price ? `${parseFloat(rug.price).toFixed(0)} ₽` : "";
+
+      // Image: use the first one from the images array, construct full URL
+      const image = rug.images?.[0]
+        ? absUrl(rug.images[0].startsWith("/") ? rug.images[0] : `/${rug.images[0]}`)
+        : null;
+
+      // Style, collection, color
+      const styleValue = rug.style?.value || "";
+      const colorValue = rug.color?.value || "";
+
+      // Construct product page URL:
+      // Since items don't have individual pages (they open in modal),
+      // link to the collection listing page filtered by collection
+      // e.g. https://koenigcarpet.ru/ru/collection/{collectionSlug}
+      let url = null;
+      if (collectionValue) {
+        url = `${BASE}/ru/collection/${collectionValue}`;
+      }
+
+      return {
+        key: `${encodeURIComponent(title)}::${image || ""}`,
+        title,
+        url,
+        image,
+        priceText: price,
+        style: styleValue,
+        collection: collectionValue,
+        color: colorValue,
+      };
+    });
+  } catch {
+    return null;
+  }
+}
+
 function extractStyleUrls(html) {
   const re = /href=["'](\/ru\/style\/[a-z0-9_\-]+)["']/gi;
   const out = [];
@@ -114,7 +183,7 @@ function extractTitlesPricesLoose(html) {
 
 function extractListingCards(html) {
   // Matches the listing card snippet structure:
-  // <img ... src="..."> ... <h3 ...>TITLE</h3> ... <p ...>PRICE ₽</p>
+  // <a href="..."><img ... src="..."> ... <h3 ...>TITLE</h3> ... <p ...>PRICE ₽</p></a>
   const out = [];
 
   // Avoid heavy regex on large HTML: split into probable card chunks.
@@ -125,10 +194,17 @@ function extractListingCards(html) {
     // Keep chunk size bounded
     const s = chunk.slice(0, 20000);
 
+    // Extract product URL from <a href> wrapping the card
+    const urlMatch = /<a[^>]+href=["']([^"']+)["']/i.exec(s);
+
     const imgMatch = /<img[^>]+src=["']([^"']+)["']/i.exec(s);
     const titleMatch = /<h3[^>]*>([^<]{3,200})<\/h3>/i.exec(s);
-    const priceMatch = /<p[^>]*>([\s\S]{0,120}?₽)<\/p>/i.exec(s);
+    // Try multiple price patterns
+    const priceMatch = /<p[^>]*>([\s\S]{0,120}?₽)<\/p>/i.exec(s) ||
+                       /<span[^>]*class=["'][^"']*price[^"']*["'][^>]*>([\s\S]{0,120}?₽)<\/span>/i.exec(s) ||
+                       /<div[^>]*class=["'][^"']*price[^"']*["'][^>]*>([\s\S]{0,120}?₽)<\/div>/i.exec(s);
 
+    const url = urlMatch ? absUrl(String(urlMatch[1] || "").trim()) : null;
     const image = imgMatch ? absUrl(String(imgMatch[1] || "").trim()) : null;
     const title = titleMatch ? String(titleMatch[1] || "").replace(/\s+/g, " ").trim() : null;
     const priceText = priceMatch
@@ -140,7 +216,19 @@ function extractListingCards(html) {
       : null;
 
     if (!title && !image) continue;
-    out.push({ title, priceText, image });
+
+    // Skip if URL looks like a CMS page (not a product)
+    if (url) {
+      const urlPath = new URL(url).pathname.toLowerCase();
+      const nonProductPaths = /^\/(ru\/)?(bestsellers|sold-rugs|dealers|delivery-return|demonstration|partners|our-projects|vr|faq|contact|about|feedback|search|cart|checkout|him|all-rugs|rugs-in-stock|new-rugs|runners|atelier|designer)/i;
+      if (urlPath.length < 5 || nonProductPaths.test(urlPath)) {
+        // Parseable data but non-product URL — still keep the item but don't trust the URL
+        out.push({ title, priceText, image, url: null });
+        continue;
+      }
+    }
+
+    out.push({ title, priceText, image, url });
   }
 
   return out;
@@ -166,8 +254,71 @@ function slugFromUrl(url) {
   }
 }
 
+/**
+ * Try to extract product data from the RSC (React Server Components) payload.
+ * Returns an array of items with properly formatted URLs, or null if not found.
+ */
+function extractProductDataFromRsc(html) {
+  // Extract all RSC payload chunks
+  const scriptRe = /<script>self\.__next_f\.push\(\[([\s\S]*?)\]\)<\/script>/g;
+  let m;
+  let allRaw = "";
+  while ((m = scriptRe.exec(html))) {
+    allRaw += m[1] + "\n";
+  }
+
+  if (!allRaw) return null;
+
+  // Normalize escape sequences
+  const decoded = allRaw
+    .replace(/\\u002F/g, '/')
+    .replace(/\\u0022/g, '"')
+    .replace(/\\n/g, ' ')
+    .replace(/\\"/g, '"');
+
+  // Find the rugs array with their data
+  // Pattern: "rugs":[{"id":...,"product_code":"...",...
+  const rugsMatch = decoded.match(/"rugs":(\[[\s\S]*?\])\s*,\s*"rugsCount"/);
+  if (!rugsMatch) return null;
+
+  try {
+    const rugs = JSON.parse(rugsMatch[1]);
+    return rugs.map((rug) => {
+      const collectionValue = rug.collection?.value || "";
+      const productCode = rug.product_code || "";
+      const title = rug.product_name?.ru || rug.product_name?.en || "";
+      const price = rug.price ? `${parseFloat(rug.price).toFixed(0)} ₽` : "";
+
+      // Use first image, construct full URL
+      const firstImg = rug.images?.[0];
+      const image = firstImg ? absUrl(firstImg.startsWith("/") ? firstImg : `/${firstImg}`) : null;
+
+      const styleValue = rug.style?.value || "";
+      const colorValue = rug.color?.value || "";
+
+      // Build product URL pointing to the collection page on koenigcarpet.ru
+      const url = collectionValue ? `${BASE}/ru/collection/${collectionValue}` : null;
+
+      return {
+        source: "koenigcarpet.ru",
+        kind: "rug",
+        key: `${title}::${image || ""}`,
+        url,
+        title,
+        priceText: price,
+        image,
+        style: styleValue,
+        collection: collectionValue,
+        color: colorValue,
+      };
+    });
+  } catch {
+    return null;
+  }
+}
+
 async function maybeUploadToMongo(docs) {
-  const uri = process.env.MONGODB_URI;
+  const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/koenig";
   if (!uri) {
     console.log("MONGODB_URI is not set. Skipping Mongo upload.");
     return { uploaded: 0 };
@@ -329,80 +480,105 @@ async function main() {
         continue;
       }
 
-      const images = extractImages(html);
-      const loose = extractTitlesPricesLoose(html);
-      const links = uniq([...extractProductLinks(html), ...extractProductLinksFromJson(html)]);
-      const cards = extractListingCards(html);
+      // Try to extract product data from RSC payload first (most reliable)
+      const rscItems = extractProductDataFromRsc(html);
 
-      if (!debug && page === 1) {
-        console.log(
-          `  found: links=${links.length} images=${images.length} titles=${loose.length} cards=${cards.length}`,
-        );
-      }
-
-      if (debug) {
-        console.log(
-          `[${target.type}:${valueSlug}] page ${page}: images=${images.length} loose=${loose.length} links=${links.length}`,
-        );
-      }
-
-      if (images.length === 0 && loose.length === 0 && links.length === 0 && cards.length === 0) {
-        emptyStreak += 1;
-        page += 1;
-        continue;
-      }
-
-      emptyStreak = 0;
-
-      const count = Math.max(cards.length, loose.length, images.length, links.length);
-      for (let i = 0; i < count; i += 1) {
-        // Skip if we already have enough items for this filter
-        if (filterCounts.get(filterKey) >= MAX_ITEMS_PER_FILTER) {
-          break;
+      if (rscItems && rscItems.length > 0) {
+        if (debug) {
+          console.log(`  RSC extracted ${rscItems.length} items`);
         }
 
-        const card = cards[i];
-        const row = loose[i];
-        const urlValue = links[i] || null;
-        const imageValue = card?.image || images[i] || null;
-        const titleValue = card?.title || row?.title || null;
-        const priceValue = card?.priceText || row?.priceText || null;
-        const key = urlValue || `${titleValue || ""}::${imageValue || ""}`;
+        for (const item of rscItems) {
+          if (filterCounts.get(filterKey) >= MAX_ITEMS_PER_FILTER) break;
 
-        // Skip items without title or image (likely garbage)
-        if (!titleValue && !imageValue) continue;
-        // Skip logo images
-        if (imageValue && (imageValue.includes("logo") || imageValue.includes("static"))) continue;
+          const key = item.key;
+          const prev = map.get(key) || { ...item };
+          map.set(key, {
+            ...prev,
+            url: prev.url || item.url,
+            style: prev.style || (target.type === "style" ? valueSlug : null) || item.style,
+            collection: prev.collection || (target.type === "collection" ? valueSlug : null) || item.collection,
+            color: prev.color || (target.type === "color" ? valueSlug : null) || item.color,
+          });
+          filterCounts.set(filterKey, filterCounts.get(filterKey) + 1);
+        }
+      } else {
+        // Fallback to HTML parsing methods
+        const images = extractImages(html);
+        const loose = extractTitlesPricesLoose(html);
+        const links = uniq([...extractProductLinks(html), ...extractProductLinksFromJson(html)]);
+        const cards = extractListingCards(html);
 
-        const prev = map.get(key) || {
-          source: "koenigcarpet.ru",
-          kind: "rug",
-          key,
-          url: urlValue,
-          title: titleValue,
-          priceText: priceValue,
-          image: imageValue,
-          style: null,
-          collection: null,
-          color: null,
-          page,
-        };
+        if (!debug && page === 1) {
+          console.log(
+            `  found: links=${links.length} images=${images.length} titles=${loose.length} cards=${cards.length}`,
+          );
+        }
 
-        const next = {
-          ...prev,
-          key: prev.key || key,
-          url: prev.url || urlValue,
-          title: prev.title || titleValue,
-          priceText: prev.priceText || priceValue,
-          image: prev.image || imageValue,
-          page: prev.page || page,
-          style: prev.style || (target.type === "style" ? valueSlug : null),
-          collection: prev.collection || (target.type === "collection" ? valueSlug : null),
-          color: prev.color || (target.type === "color" ? valueSlug : null),
-        };
+        if (debug) {
+          console.log(
+            `[${target.type}:${valueSlug}] page ${page}: images=${images.length} loose=${loose.length} links=${links.length}`,
+          );
+        }
 
-        map.set(key, next);
-        filterCounts.set(filterKey, filterCounts.get(filterKey) + 1);
+        if (images.length === 0 && loose.length === 0 && links.length === 0 && cards.length === 0) {
+          emptyStreak += 1;
+          page += 1;
+          continue;
+        }
+
+        emptyStreak = 0;
+
+        const count = Math.max(cards.length, loose.length, images.length, links.length);
+        for (let i = 0; i < count; i += 1) {
+          // Skip if we already have enough items for this filter
+          if (filterCounts.get(filterKey) >= MAX_ITEMS_PER_FILTER) {
+            break;
+          }
+
+          const card = cards[i];
+          const row = loose[i];
+          const urlValue = card?.url || links[i] || null;
+          const imageValue = card?.image || images[i] || null;
+          const titleValue = card?.title || row?.title || null;
+          const priceValue = card?.priceText || row?.priceText || null;
+          const key = urlValue || `${titleValue || ""}::${imageValue || ""}`;
+
+          // Skip items without title or image (likely garbage)
+          if (!titleValue && !imageValue) continue;
+          // Skip logo images
+          if (imageValue && (imageValue.includes("logo") || imageValue.includes("static"))) continue;
+
+          const prev = map.get(key) || {
+            source: "koenigcarpet.ru",
+            kind: "rug",
+            key,
+            url: urlValue,
+            title: titleValue,
+            priceText: priceValue,
+            image: imageValue,
+            style: null,
+            collection: null,
+            color: null,
+            page,
+          };
+
+          const next = {
+            ...prev,
+            key: prev.key || key,
+            url: prev.url || urlValue,
+            title: prev.title || titleValue,
+            priceText: prev.priceText || priceValue,
+            image: prev.image || imageValue,
+            page: prev.page || page,
+            style: prev.style || (target.type === "style" ? valueSlug : null),
+            collection: prev.collection || (target.type === "collection" ? valueSlug : null),
+            color: prev.color || (target.type === "color" ? valueSlug : null),
+          };
+
+          map.set(key, next);
+          filterCounts.set(filterKey, filterCounts.get(filterKey) + 1);
+        }
       }
 
       page += 1;

@@ -191,14 +191,7 @@ function RugDetailsModal({
   item: RugItem;
   onClose: () => void;
 }) {
-  const images = useMemo(() => {
-    const base = (item.images && item.images.length ? item.images : item.image ? [item.image] : []).filter(
-      Boolean,
-    ) as string[];
-    return base.length ? Array.from(new Set(base)) : ["/hero.webp"];
-  }, [item.image, item.images]);
-
-  const [idx, setIdx] = useState(0);
+  const current = item.image || "/hero.webp";
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
   useOnClickOutside(wrapRef, onClose);
@@ -206,14 +199,10 @@ function RugDetailsModal({
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") setIdx((v) => (v - 1 + images.length) % images.length);
-      if (e.key === "ArrowRight") setIdx((v) => (v + 1) % images.length);
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [images.length, onClose]);
-
-  const current = images[Math.min(idx, images.length - 1)] || images[0];
+  }, [onClose]);
 
   const chips = [
     item.style ? { label: "Стиль", value: item.style } : null,
@@ -224,177 +213,122 @@ function RugDetailsModal({
   const [leadOpen, setLeadOpen] = useState(false);
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4">
+    <div className="fixed inset-0 z-[80] flex items-start justify-center bg-black/45 p-4 overflow-y-auto py-8">
       <div
         ref={wrapRef}
-        className="w-full max-w-5xl border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-6"
+        className="w-full max-w-xl border border-[color:var(--gray-lines)] bg-[color:var(--card)] p-5"
       >
         <div className="flex items-center justify-between">
           <button
             type="button"
             onClick={onClose}
             aria-label="Back"
-            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
+            className="inline-flex h-8 w-8 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ←
           </button>
-          <h2 className="text-xl font-semibold sm:text-2xl">{item.title || "Product Details"}</h2>
+          <h2 className="text-lg font-semibold truncate px-2">{item.title || "Product Details"}</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-9 w-9 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
+            className="inline-flex h-8 w-8 items-center justify-center border border-[color:var(--gray-lines)] bg-[color:var(--bg)] transition hover:bg-[color:var(--card)]"
           >
             ✕
           </button>
         </div>
 
-        <div className="my-4 h-px w-full bg-black/10 dark:bg-white/10" />
+        <div className="my-3 h-px w-full bg-black/10 dark:bg-white/10" />
 
-        <div className="grid grid-cols-12 gap-4">
-          <div className="order-2 col-span-12 sm:order-1 sm:col-span-3">
-            <div className="relative overflow-hidden">
-              <div className="flex gap-3 overflow-auto sm:max-h-[420px] sm:flex-col sm:pr-2">
-                {images.map((src, i) => (
-                  <button
-                    key={src + i}
-                    type="button"
-                    aria-pressed={i === idx}
-                    onClick={() => setIdx(i)}
-                    className={
-                      "relative overflow-hidden border p-0 outline-none transition focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]/40 " +
-                      (i === idx
-                        ? "border-[color:var(--fg)]"
-                        : "border-black/10 hover:border-black/30 dark:border-white/10 dark:hover:border-white/30")
-                    }
-                  >
-                    <img
-                      alt={item.title || "Preview"}
-                      className="h-20 w-20 object-cover sm:h-16 sm:w-full"
-                      loading={i === idx ? "eager" : "lazy"}
-                      src={src}
-                    />
-                  </button>
-                ))}
+        <div className="relative aspect-[4/3] w-full overflow-hidden border border-black/10 bg-black/5">
+          <img
+            alt=""
+            src={current}
+            className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
+            aria-hidden="true"
+          />
+          {isVideoSrc(current) ? (
+            <video
+              src={current}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="relative h-full w-full object-contain object-center"
+            />
+          ) : (
+            <img alt="" className="relative h-full w-full object-contain object-center" src={current} />
+          )}
+          <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
+        </div>
+
+        <div className="mt-4 border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-4">
+          {chips.length ? (
+            <div className="flex flex-wrap gap-2">
+              {chips.map((c) => (
+                <div
+                  key={c.label}
+                  className="border border-black/10 bg-white/70 px-3 py-1 text-xs text-[color:var(--fg)] dark:border-white/10 dark:bg-white/[0.06]"
+                  title={c.label}
+                >
+                  <span className="text-[color:var(--muted)]">{c.label}: </span>
+                  <span className="font-semibold">{c.value}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
+          {item.priceText ? (
+            <div className="mt-3">
+              <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЦЕНА</div>
+              <div className="mt-1 text-xl font-semibold text-[color:var(--fg)]">
+                {normalizePrice(item.priceText)}
               </div>
             </div>
+          ) : null}
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {item.url ? (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-10 flex-1 items-center justify-center border border-black/10 bg-white/70 px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 min-w-[140px]"
+              >
+                Открыть на сайте
+              </a>
+            ) : null}
+
+            <button
+              type="button"
+              onClick={() => setLeadOpen(true)}
+              className="inline-flex h-10 flex-1 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90 min-w-[140px]"
+            >
+              Связаться
+            </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-10 flex-1 items-center justify-center border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10] min-w-[100px]"
+            >
+              Закрыть
+            </button>
           </div>
 
-          <div className="order-1 col-span-12 sm:order-2 sm:col-span-9">
-            <div className="grid gap-4 lg:grid-cols-12">
-              <div className="relative lg:col-span-8">
-                <div className="relative aspect-[16/10] w-full overflow-hidden border border-black/10 bg-black/5">
-                  {/* Blurred background */}
-                  <img
-                    alt=""
-                    src={current}
-                    className="absolute inset-0 h-full w-full object-cover blur-md saturate-[0.3] opacity-55 scale-105"
-                    aria-hidden="true"
-                  />
-                  {/* Main content */}
-                  {isVideoSrc(current) ? (
-                    <video
-                      src={current}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="relative h-full w-full object-contain object-center"
-                    />
-                  ) : (
-                    <img alt="" className="relative h-full w-full object-contain object-center" src={current} />
-                  )}
-                  <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
-                </div>
-                {images.length > 1 ? (
-                  <div className="absolute bottom-3 right-3 flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setIdx((v) => (v - 1 + images.length) % images.length)}
-                      aria-label="Previous image"
-                      className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/80 shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/40 dark:hover:bg-black/55"
-                    >
-                      ‹
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIdx((v) => (v + 1) % images.length)}
-                      aria-label="Next image"
-                      className="inline-flex h-9 w-9 items-center justify-center border border-black/10 bg-white/80 shadow-sm backdrop-blur transition hover:bg-white/95 dark:border-white/10 dark:bg-black/40 dark:hover:bg-black/55"
-                    >
-                      ›
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-
-              <div className="lg:col-span-4">
-                <div className="border border-[color:var(--gray-lines)] bg-[color:var(--bg)] p-4">
-                  <div className="text-lg font-semibold text-[color:var(--fg)]">{item.title || "Ковёр"}</div>
-
-                  {chips.length ? (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {chips.map((c) => (
-                        <div
-                          key={c.label}
-                          className="border border-black/10 bg-white/70 px-3 py-1 text-xs text-[color:var(--fg)] dark:border-white/10 dark:bg-white/[0.06]"
-                          title={c.label}
-                        >
-                          <span className="text-[color:var(--muted)]">{c.label}: </span>
-                          <span className="font-semibold">{c.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-
-                  {item.priceText ? (
-                    <div className="mt-4">
-                      <div className="text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">ЦЕНА</div>
-                      <div className="mt-2 text-2xl font-semibold text-[color:var(--fg)]">
-                        {normalizePrice(item.priceText)}
-                      </div>
-                    </div>
-                  ) : null}
-
-                  <div className="mt-4 grid gap-2">
-                    {item.url ? (
-                      <a
-                        href={item.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex h-11 items-center justify-center border border-black/10 bg-white/70 px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
-                      >
-                        Открыть на сайте
-                      </a>
-                    ) : null}
-
-                    <button
-                      type="button"
-                      onClick={() => setLeadOpen(true)}
-                      className="inline-flex h-11 items-center justify-center bg-[color:var(--green)] px-4 text-sm font-medium text-white transition hover:opacity-90"
-                    >
-                      Связаться
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      className="inline-flex h-11 items-center justify-center border border-black/10 bg-black/[0.03] px-4 text-sm font-semibold text-[color:var(--fg)] shadow-sm transition hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.10]"
-                    >
-                      Закрыть
-                    </button>
-                  </div>
-
-                  {leadOpen ? (
-                    <ContactModal
-                      onClose={() => setLeadOpen(false)}
-                      imageSrc="/foto-na-knopku-1-.webp"
-                    />
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </div>
+          {leadOpen ? (
+            <ContactModal
+              onClose={() => setLeadOpen(false)}
+              imageSrc="/foto-na-knopku-1-.webp"
+              context={{
+                productType: "rug",
+                title: item.title,
+                url: item.url,
+                category: item.collection,
+                image: current,
+              }}
+            />
+          ) : null}
         </div>
       </div>
     </div>
@@ -587,7 +521,7 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
             </div>
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {visible.map((it, idx) => {
               const current = it.image || "/hero.webp";
               return (
@@ -598,8 +532,8 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                   className="block text-left"
                   aria-label={it.title || "Ковёр"}
                 >
-                  <div className="group h-full overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
-                    <div className="relative aspect-[16/10] w-full overflow-hidden border border-black/10 bg-black/5">
+                  <div className="group overflow-hidden border border-black/10 bg-white/60 shadow-sm backdrop-blur transition-[box-shadow,transform,background-color] duration-300 hover:-translate-y-0.5 hover:shadow-md hover:bg-white/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
+                    <div className="relative w-full overflow-hidden border border-black/10 bg-black/5" style={{ aspectRatio: '340/480' }}>
                       {/* Blurred background */}
                       <img
                         alt=""
@@ -615,32 +549,43 @@ export function RugsStyleCatalog({ items }: { items: RugItem[] }) {
                           muted
                           loop
                           playsInline
-                          className="relative h-full w-full object-contain object-center"
+                          className="relative h-full w-full object-cover object-center"
                         />
                       ) : (
-                        <img alt="" className="relative h-full w-full object-contain object-center" src={current} />
+                        <img alt="" className="relative h-full w-full object-cover object-center" src={current} />
                       )}
                       <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)] pointer-events-none" />
                     </div>
-                    <div className="p-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <div className="text-lg font-semibold tracking-tight text-[color:var(--fg)]">
+                    <div className="p-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <div className="text-sm font-semibold tracking-tight text-[color:var(--fg)] truncate">
                             {it.title || "Ковёр"}
                           </div>
-                          <div className="mt-1 text-xs font-semibold tracking-[0.28em] text-[color:var(--muted)]">
+                          <div className="mt-0.5 text-[10px] font-semibold tracking-[0.2em] text-[color:var(--muted)] truncate">
                             {normalizePrice(it.priceText) || ""}
                           </div>
                         </div>
-                        <div className="flex h-10 w-10 items-center justify-center border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-black/10 bg-black/[0.03] transition-colors duration-300 group-hover:bg-black/[0.06] dark:border-white/10 dark:bg-white/[0.06] dark:group-hover:bg-white/[0.10]">
                           <span
                             aria-hidden="true"
-                            className="text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
+                            className="text-[10px] text-[color:var(--muted)] transition-transform duration-300 group-hover:translate-x-0.5"
                           >
                             →
                           </span>
                         </div>
                       </div>
+                      {it.url && (
+                        <a
+                          href={it.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="mt-2 block w-full text-center border border-black/10 bg-[color:var(--accent)]/10 px-2 py-1.5 text-[10px] font-semibold tracking-wider text-[color:var(--accent)] transition hover:bg-[color:var(--accent)]/20 hover:text-[color:var(--accent)] dark:border-white/10 dark:bg-white/[0.06] dark:hover:bg-white/[0.12]"
+                        >
+                          Перейти на ковер →
+                        </a>
+                      )}
                     </div>
                   </div>
                 </button>
